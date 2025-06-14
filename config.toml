@@ -1,0 +1,10 @@
+baseURL = "https://hulexin.github.io/"
+languageCode = "zh-CN"
+title = "我的生活博客"
+theme = "typo"
+defaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
+
+[params]
+  description = "分享我的生活、兴趣与学习笔记"
+  favicon = "favicon.ico"
