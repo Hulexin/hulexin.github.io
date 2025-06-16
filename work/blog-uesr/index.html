@@ -188,9 +188,6 @@
         <li><a href="#mac-terminal-终端常用命令">Mac Terminal 终端常用命令</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
     <li><a href="#前提条件">前提条件</a></li>
     <li><a href="#第一步安装-hugo-和-git">第一步：安装 Hugo 和 Git</a></li>
     <li><a href="#第二步创建-hugo-博客并添加-typo-主题">第二步：创建 Hugo 博客并添加 typo 主题</a>
@@ -210,7 +207,18 @@
     </li>
     <li><a href="#第六步配置-github-pages-发布">第六步：配置 GitHub Pages 发布</a></li>
     <li><a href="#第七步配置自定义域名-lifeaswork">第七步：配置自定义域名 <code>lifeas.work</code></a></li>
-    <li><a href="#后续更新流程---配置自动部署脚本">后续更新流程 - 配置自动部署脚本</a></li>
+    <li><a href="#后续更新流程---配置自动部署脚本">后续更新流程 - 配置自动部署脚本</a>
+      <ul>
+        <li><a href="#步骤-1确保你已经安装了-nodejs">步骤 1：确保你已经安装了 Node.js</a></li>
+        <li><a href="#-步骤-2在项目根目录下初始化-packagejson">📁 步骤 2：在项目根目录下初始化 <code>package.json</code></a></li>
+        <li><a href="#-步骤-3安装-gh-pages-工具">📦 步骤 3：安装 <code>gh-pages</code> 工具</a></li>
+        <li><a href="#-步骤-4修改-packagejson-添加部署脚本">✏️ 步骤 4：修改 <code>package.json</code> 添加部署脚本</a></li>
+        <li><a href="#-步骤-5确认你的-hugo-博客配置了正确的-baseurl-和语言">🌐 步骤 5：确认你的 Hugo 博客配置了正确的 baseURL 和语言</a></li>
+        <li><a href="#-步骤-6运行自动部署命令">🚀 步骤 6：运行自动部署命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#github-设置-github-pages-来源">GitHub 设置 GitHub Pages 来源</a></li>
+    <li><a href="#-以后每次更新博客只需三步">🔁 以后每次更新博客，只需三步：</a></li>
   </ul>
 </nav>
       </aside>
@@ -263,10 +271,6 @@
 <p>unrar 解压 rar unzip 解压 zip</p>
 <p>mv a.txt b.txt 把名为a的txt文件重命名为b</p>
 <p>cp test.txt test2.txt 拷贝拷贝一个test.txt文件并重新命名为test2.txt</p>
-<h1 class="heading" id="mac-terminal-终端常用命令-1">
-  Mac Terminal 终端常用命令
-  <a class="anchor" href="#mac-terminal-%e7%bb%88%e7%ab%af%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4-1">#</a>
-</h1>
 <h2 class="heading" id="前提条件">
   前提条件
   <a class="anchor" href="#%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6">#</a>
@@ -463,6 +467,122 @@
   后续更新流程 - 配置自动部署脚本
   <a class="anchor" href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0%e6%b5%81%e7%a8%8b---%e9%85%8d%e7%bd%ae%e8%87%aa%e5%8a%a8%e9%83%a8%e7%bd%b2%e8%84%9a%e6%9c%ac">#</a>
 </h2>
+<p>使用 <code>gh-pages</code> 工具，将 Hugo 构建后的 <code>public/</code> 自动部署到 GitHub Pages 的 <code>gh-pages</code> 分支。</p>
+<h3 class="heading" id="步骤-1确保你已经安装了-nodejs">
+  步骤 1：确保你已经安装了 Node.js
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-1%e7%a1%ae%e4%bf%9d%e4%bd%a0%e5%b7%b2%e7%bb%8f%e5%ae%89%e8%a3%85%e4%ba%86-nodejs">#</a>
+</h3>
+<p>打开终端运行：</p>
+<pre tabindex="0"><code>bash
+
+
+复制编辑
+node -v
+npm -v
+</code></pre><p>如果没有安装，可以在 macOS 上用 Homebrew 安装：</p>
+<pre tabindex="0"><code>bash
+
+
+复制编辑
+brew install node
+</code></pre><hr>
+<h3 class="heading" id="-步骤-2在项目根目录下初始化-packagejson">
+  📁 步骤 2：在项目根目录下初始化 <code>package.json</code>
+  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-2%e5%9c%a8%e9%a1%b9%e7%9b%ae%e6%a0%b9%e7%9b%ae%e5%bd%95%e4%b8%8b%e5%88%9d%e5%a7%8b%e5%8c%96-packagejson">#</a>
+</h3>
+<p>在项目根目录（<code>hulexin.github.io/</code>）下运行：</p>
+<pre tabindex="0"><code>bash
+
+
+复制编辑
+npm init -y
+</code></pre><p>这会生成一个 <code>package.json</code> 文件。</p>
+<hr>
+<h3 class="heading" id="-步骤-3安装-gh-pages-工具">
+  📦 步骤 3：安装 <code>gh-pages</code> 工具
+  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-3%e5%ae%89%e8%a3%85-gh-pages-%e5%b7%a5%e5%85%b7">#</a>
+</h3>
+<pre tabindex="0"><code>bash
+
+
+复制编辑
+npm install gh-pages --save-dev
+</code></pre><hr>
+<h3 class="heading" id="-步骤-4修改-packagejson-添加部署脚本">
+  ✏️ 步骤 4：修改 <code>package.json</code> 添加部署脚本
+  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-4%e4%bf%ae%e6%94%b9-packagejson-%e6%b7%bb%e5%8a%a0%e9%83%a8%e7%bd%b2%e8%84%9a%e6%9c%ac">#</a>
+</h3>
+<p>打开项目根目录的 <code>package.json</code> 文件，找到 <code>&quot;scripts&quot;</code> 字段，修改成这样：</p>
+<pre tabindex="0"><code>json
+
+
+复制编辑
+&#34;scripts&#34;: {
+  &#34;build&#34;: &#34;hugo&#34;,
+  &#34;deploy&#34;: &#34;hugo &amp;&amp; gh-pages -d public&#34;
+}
+</code></pre><hr>
+<h3 class="heading" id="-步骤-5确认你的-hugo-博客配置了正确的-baseurl-和语言">
+  🌐 步骤 5：确认你的 Hugo 博客配置了正确的 baseURL 和语言
+  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-5%e7%a1%ae%e8%ae%a4%e4%bd%a0%e7%9a%84-hugo-%e5%8d%9a%e5%ae%a2%e9%85%8d%e7%bd%ae%e4%ba%86%e6%ad%a3%e7%a1%ae%e7%9a%84-baseurl-%e5%92%8c%e8%af%ad%e8%a8%80">#</a>
+</h3>
+<p>打开 <code>config.toml</code>，检查这两项（改成你自己的域名）：</p>
+<pre tabindex="0"><code>toml
+
+
+复制编辑
+baseURL = &#34;https://lifeas.work/&#34;
+languageCode = &#34;zh-cn&#34;
+</code></pre><p>如果你用的是 <code>config.yaml</code> 或 <code>config.json</code>，一样的意思，注意语法对应格式。</p>
+<hr>
+<h3 class="heading" id="-步骤-6运行自动部署命令">
+  🚀 步骤 6：运行自动部署命令
+  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-6%e8%bf%90%e8%a1%8c%e8%87%aa%e5%8a%a8%e9%83%a8%e7%bd%b2%e5%91%bd%e4%bb%a4">#</a>
+</h3>
+<p>在项目根目录下，执行一条命令：</p>
+<pre tabindex="0"><code>bash
+
+
+复制编辑
+npm run deploy
+</code></pre><p>这个命令会做以下事情：</p>
+<ol>
+<li>执行 <code>hugo</code> → 生成 <code>public/</code></li>
+<li>把 <code>public/</code> 里的内容上传到 GitHub 的 <code>gh-pages</code> 分支</li>
+</ol>
+<h2 class="heading" id="github-设置-github-pages-来源">
+  GitHub 设置 GitHub Pages 来源
+  <a class="anchor" href="#github-%e8%ae%be%e7%bd%ae-github-pages-%e6%9d%a5%e6%ba%90">#</a>
+</h2>
+<p>进入你的 GitHub 仓库（https://github.com/Hulexin/hulexin.github.io）：</p>
+<ul>
+<li>点击右上角 <code>Settings</code></li>
+<li>左侧菜单中找到 <code>Pages</code></li>
+<li>设置如下：
+<ul>
+<li><strong>Source</strong>: <code>gh-pages</code></li>
+<li><strong>Branch</strong>: <code>/ (root)</code></li>
+<li>✅ 如果有 CNAME 文件也会自动生效（用于 <code>lifeas.work</code>）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 class="heading" id="-以后每次更新博客只需三步">
+  🔁 以后每次更新博客，只需三步：
+  <a class="anchor" href="#-%e4%bb%a5%e5%90%8e%e6%af%8f%e6%ac%a1%e6%9b%b4%e6%96%b0%e5%8d%9a%e5%ae%a2%e5%8f%aa%e9%9c%80%e4%b8%89%e6%ad%a5">#</a>
+</h2>
+<ol>
+<li>修改内容（如 <code>content/xxx.md</code>）</li>
+<li>在终端运行：</li>
+</ol>
+<pre tabindex="0"><code>bash
+
+
+复制编辑
+npm run deploy
+</code></pre><ol>
+<li>等几十秒后，访问 <a href="https://lifeas.work">https://lifeas.work</a> 查看更新效果 🎉</li>
+</ol>
     </div>
   </article>
 
