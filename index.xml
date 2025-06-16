@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on 生活·工作</title>
+    <link>https://hulexin.github.io/</link>
+    <description>Recent content in Home on 生活·工作</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 15 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://hulexin.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于</title>
+      <link>https://hulexin.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hulexin.github.io/about/</guid>
+      <description>&lt;p&gt;这里是关于页面的内容&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>博客使用文档</title>
+      <link>https://hulexin.github.io/life/my-first-post/</link>
+      <pubDate>Sun, 15 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://hulexin.github.io/life/my-first-post/</guid>
+      <description>&lt;h2 class=&#34;heading&#34; id=&#34;本站-github-pages--hugo-搭建&#34;&gt;&#xA;  本站 GitHub Pages + Hugo 搭建&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%e6%9c%ac%e7%ab%99-github-pages--hugo-%e6%90%ad%e5%bb%ba&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;这套blog操作起来看着麻烦实际很方便，整体流程比较简单。&lt;/p&gt;&#xA;&lt;p&gt;但是网上教程都比较老了，新版 Hugo 使用 hugo.toml 而非 config.toml。&lt;/p&gt;&#xA;&lt;h3 class=&#34;heading&#34; id=&#34;博客使用模板&#34;&gt;&#xA;  博客使用模板&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%e5%8d%9a%e5%ae%a2%e4%bd%bf%e7%94%a8%e6%a8%a1%e6%9d%bf&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://tomfran.github.io/typo-wiki/&#34;&gt;https://tomfran.github.io/typo-wiki/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 class=&#34;heading&#34; id=&#34;博客自定义路线&#34;&gt;&#xA;  博客自定义路线&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%e5%8d%9a%e5%ae%a2%e8%87%aa%e5%ae%9a%e4%b9%89%e8%b7%af%e7%ba%bf&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;站点设置：根目录 - hugo.toml&lt;/p&gt;&#xA;&lt;p&gt;文章内容：根目录 - content&lt;/p&gt;&#xA;&lt;p&gt;页面模板调用：theme - layouts - _default&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>博客使用文档</title>
+      <link>https://hulexin.github.io/work/blog-uesr/</link>
+      <pubDate>Sun, 15 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://hulexin.github.io/work/blog-uesr/</guid>
+      <description>&lt;h2 class=&#34;heading&#34; id=&#34;本站点使用github-pages--hugo-搭建&#34;&gt;&#xA;  本站点使用GitHub Pages + Hugo 搭建&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%e6%9c%ac%e7%ab%99%e7%82%b9%e4%bd%bf%e7%94%a8github-pages--hugo-%e6%90%ad%e5%bb%ba&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;这套blog操作起来看着麻烦实际很方便，整体流程比较简单，但是网上教程都比较老了，新版 Hugo 使用 hugo.toml 而非 config.toml。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
