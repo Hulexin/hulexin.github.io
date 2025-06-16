@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-cn"
+  dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<link rel="icon" type="image/ico" href="https://lifeas.work/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://lifeas.work/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://lifeas.work/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://lifeas.work/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://lifeas.work/apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    博客使用文档 | 生活·工作
+    
+</title>
+
+<link rel="canonical" href="https://lifeas.work/work/blog-uesr/"/>
+
+<meta property="og:url" content="https://lifeas.work/work/blog-uesr/">
+  <meta property="og:site_name" content="生活·工作">
+  <meta property="og:title" content="博客使用文档">
+  <meta property="og:description" content="本站点使用GitHub Pages &#43; Hugo 搭建 # 这套blog操作起来看着麻烦实际很方便，整体流程比较简单，但是网上教程都比较老了，新版 Hugo 使用 hugo.toml 而非 config.toml。我这里使用的Hugo模板是typo。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="work">
+    <meta property="article:published_time" content="2025-06-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-06-15T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.a4fc6691a6c8d034d4225a2d0ce42a6c26ac257c9aa28c72cbd3983158121ede.css" media="all">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="https://lifeas.work/">生活·工作</a>
+    </h1>
+
+    <div class="header-menu">
+        
+
+        
+        
+
+        <p
+            class="small ">
+            <a href="/" >
+                /首页
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/life" >
+                /生活
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/work" >
+                /工作
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/about" >
+                /关于
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span><a href="/work/">Works</a><span class="breadcrumbs-separator">/</span>
+        <a href="/work/blog-uesr/">博客使用文档</a></div>
+
+
+<div >
+  <article>
+    <header class="single-intro-container">
+        
+        <h1 class="single-title">博客使用文档</h1>
+        
+        <div class="single-subsummary">
+          
+          <div>
+            
+            <p class="author">K </p>
+            
+            <p class="single-date">
+              <time datetime="2025-06-15">2025年06月15日</time>
+              &nbsp; · &nbsp;3 分钟
+            </p>
+          </div>
+        </div>
+        
+    </header>
+      <aside class="toc">
+        <p><strong>Table of contents</strong></p>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#本站点使用github-pages--hugo-搭建">本站点使用GitHub Pages + Hugo 搭建</a>
+      <ul>
+        <li><a href="#教程概述">教程概述</a></li>
+        <li><a href="#mac-terminal-终端常用命令">Mac Terminal 终端常用命令</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#前提条件">前提条件</a></li>
+    <li><a href="#第一步安装-hugo-和-git">第一步：安装 Hugo 和 Git</a></li>
+    <li><a href="#第二步创建-hugo-博客并添加-typo-主题">第二步：创建 Hugo 博客并添加 typo 主题</a>
+      <ul>
+        <li><a href="#1-创建一个-hugo-项目">1. 创建一个 Hugo 项目</a></li>
+        <li><a href="#2-下载-typo-主题">2. 下载 typo 主题</a></li>
+        <li><a href="#3-启用-typo-主题">3. 启用 typo 主题</a></li>
+      </ul>
+    </li>
+    <li><a href="#第三步创建第一篇文章">第三步：创建第一篇文章</a></li>
+    <li><a href="#第四步本地预览博客">第四步：本地预览博客</a></li>
+    <li><a href="#第五步推送到-github-仓库">第五步：推送到 GitHub 仓库</a>
+      <ul>
+        <li><a href="#1-生成静态文件">1. 生成静态文件</a></li>
+        <li><a href="#2-初始化-git-并推送">2. 初始化 Git 并推送</a></li>
+      </ul>
+    </li>
+    <li><a href="#第六步配置-github-pages-发布">第六步：配置 GitHub Pages 发布</a></li>
+    <li><a href="#第七步配置自定义域名-lifeaswork">第七步：配置自定义域名 <code>lifeas.work</code></a></li>
+    <li><a href="#后续更新流程---配置自动部署脚本">后续更新流程 - 配置自动部署脚本</a></li>
+  </ul>
+</nav>
+      </aside>
+    
+    <div class="single-content">
+      <h2 class="heading" id="本站点使用github-pages--hugo-搭建">
+  本站点使用GitHub Pages + Hugo 搭建
+  <a class="anchor" href="#%e6%9c%ac%e7%ab%99%e7%82%b9%e4%bd%bf%e7%94%a8github-pages--hugo-%e6%90%ad%e5%bb%ba">#</a>
+</h2>
+<p>这套blog操作起来看着麻烦实际很方便，整体流程比较简单，但是网上教程都比较老了，新版 Hugo 使用 hugo.toml 而非 config.toml。我这里使用的Hugo模板是typo。</p>
+<h3 class="heading" id="教程概述">
+  教程概述
+  <a class="anchor" href="#%e6%95%99%e7%a8%8b%e6%a6%82%e8%bf%b0">#</a>
+</h3>
+<ol>
+<li>安装 Hugo 和 Git</li>
+<li>创建 Hugo 博客并添加 typo 主题</li>
+<li>写第一篇文章</li>
+<li>本地预览博客</li>
+<li>推送到 GitHub 仓库</li>
+<li>配置 GitHub Pages 发布</li>
+<li>添加自定义域名 <code>lifeas.work</code></li>
+<li>启用中文语言支持</li>
+</ol>
+<h3 class="heading" id="mac-terminal-终端常用命令">
+  Mac Terminal 终端常用命令
+  <a class="anchor" href="#mac-terminal-%e7%bb%88%e7%ab%af%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4">#</a>
+</h3>
+<p><strong>文件定位</strong></p>
+<p>cd 进入到某个文件路径下</p>
+<p>cd ~/Desktop 进入桌面位置</p>
+<p>cd /User/用户名/Desktop 桌面的位置</p>
+<p>pwd 当前文件路径</p>
+<p>cd&hellip; 返回上一级目录</p>
+<p>*find.txt 查找当前目录下所有的txt文件</p>
+<p>cd- 返回上一个访问的目录</p>
+<p>cd~ 返旦root用户位置</p>
+<p><strong>文件操作</strong></p>
+<p>mvdir dir1 dir2 移动或重命名一个目录</p>
+<p>ctrl+c 终止</p>
+<p>Is-I查看当前目录下的文件夹/文件参数：-1详细信息，-a 包括隐藏文件</p>
+<p>mkdir 新建文件夹</p>
+<p>touch 新建文件</p>
+<p>cp ~/Desktop/folder/test.txt ~/Desktop 把 test.txt 拷贝到桌面</p>
+<p><em><strong>rm</strong></em>删除文件 <em><strong>rmdir</strong></em>删除文件夹</p>
+<p>clear 清除屏幕或窗口内容</p>
+<p>file 显示文件类型</p>
+<p>rmdir ***删除目录（空目录）此删除不会出现在废纸篓里</p>
+<p>**rm -rf ***** 删除目录（非空或者空目录都可以删除）推荐使用此删除不会出现在废纸篓里</p>
+<p>unrar 解压 rar unzip 解压 zip</p>
+<p>mv a.txt b.txt 把名为a的txt文件重命名为b</p>
+<p>cp test.txt test2.txt 拷贝拷贝一个test.txt文件并重新命名为test2.txt</p>
+<h1 class="heading" id="mac-terminal-终端常用命令-1">
+  Mac Terminal 终端常用命令
+  <a class="anchor" href="#mac-terminal-%e7%bb%88%e7%ab%af%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4-1">#</a>
+</h1>
+<h2 class="heading" id="前提条件">
+  前提条件
+  <a class="anchor" href="#%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6">#</a>
+</h2>
+<ul>
+<li>GitHub 账号，并创建了仓库：
+<code>https://github.com/Hulexin/hulexin.github.io</code></li>
+<li>Mac 已安装 <strong>Homebrew</strong></li>
+</ul>
+<h2 class="heading" id="第一步安装-hugo-和-git">
+  第一步：安装 Hugo 和 Git
+  <a class="anchor" href="#%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%ae%89%e8%a3%85-hugo-%e5%92%8c-git">#</a>
+</h2>
+<p>打开终端，输入以下命令安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install hugo git
+</span></span></code></pre></div><p>验证安装成功：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo version
+</span></span><span style="display:flex;"><span>git --version
+</span></span></code></pre></div><h2 class="heading" id="第二步创建-hugo-博客并添加-typo-主题">
+  第二步：创建 Hugo 博客并添加 typo 主题
+  <a class="anchor" href="#%e7%ac%ac%e4%ba%8c%e6%ad%a5%e5%88%9b%e5%bb%ba-hugo-%e5%8d%9a%e5%ae%a2%e5%b9%b6%e6%b7%bb%e5%8a%a0-typo-%e4%b8%bb%e9%a2%98">#</a>
+</h2>
+<h3 class="heading" id="1-创建一个-hugo-项目">
+  1. 创建一个 Hugo 项目
+  <a class="anchor" href="#1-%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa-hugo-%e9%a1%b9%e7%9b%ae">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~
+</span></span><span style="display:flex;"><span>hugo new site myblog
+</span></span><span style="display:flex;"><span>cd myblog
+</span></span></code></pre></div><h3 class="heading" id="2-下载-typo-主题">
+  2. 下载 typo 主题
+  <a class="anchor" href="#2-%e4%b8%8b%e8%bd%bd-typo-%e4%b8%bb%e9%a2%98">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git submodule add https://github.com/tomfran/typo themes/typo
+</span></span></code></pre></div><h3 class="heading" id="3-启用-typo-主题">
+  3. 启用 typo 主题
+  <a class="anchor" href="#3-%e5%90%af%e7%94%a8-typo-%e4%b8%bb%e9%a2%98">#</a>
+</h3>
+<p>编辑 <code>hugo.toml</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#39;https://lifeas.work/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;zh-cn&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#39;生活·工作&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;记录生活与工作即成长&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">author</span> = <span style="color:#e6db74">&#34;K&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;typo&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">module</span>]
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">hugoVersion</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">extended</span> = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">min</span> = <span style="color:#e6db74">&#34;0.116.0&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Default config</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">breadcrumbs</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">enabled</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">showCurrentPage</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">home</span> = <span style="color:#e6db74">&#34;Home&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Meta description</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;记录生活与工作即成长&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Appearance settings</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;auto&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">colorPalette</span> = <span style="color:#e6db74">&#39;default&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hideHeader</span> = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Intro on main page, content is markdown</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeIntroTitle</span> = <span style="color:#e6db74">&#39;啊哈哈!&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeIntroContent</span> = <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">这里记录着一个平凡的老男人，工作生活的 * * · ·
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">无论到什么年龄，每天都要学习一点新东西；
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">只要有想法，去尝试，哪怕失败；
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">勿燥，勿痴，勿忘，勿贪；
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt; 我不是在熬夜，我是在延长我的清醒时间！
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Collection to display on home</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeCollectionTitle</span> = <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeCollection</span> = <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lists parameters</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">paginationSize</span> = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">listSummaries</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">listDateFormat</span> = <span style="color:#e6db74">&#39;2006 1 2&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;css/custom.css&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Main menu pages</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;首页&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;生活&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/life&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;工作&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/work&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about&#34;</span>
+</span></span></code></pre></div><h2 class="heading" id="第三步创建第一篇文章">
+  第三步：创建第一篇文章
+  <a class="anchor" href="#%e7%ac%ac%e4%b8%89%e6%ad%a5%e5%88%9b%e5%bb%ba%e7%ac%ac%e4%b8%80%e7%af%87%e6%96%87%e7%ab%a0">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo new posts/hello-world.md
+</span></span></code></pre></div><p>编辑文件 <code>content/posts/hello-world.md</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: &#34;你好，世界&#34;
+</span></span><span style="display:flex;"><span>date: 2025-06-16T12:00:00+08:00
+</span></span><span style="display:flex;"><span>draft: false
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>欢迎来到我的博客！这是我的第一篇文章。
+</span></span></code></pre></div><h2 class="heading" id="第四步本地预览博客">
+  第四步：本地预览博客
+  <a class="anchor" href="#%e7%ac%ac%e5%9b%9b%e6%ad%a5%e6%9c%ac%e5%9c%b0%e9%a2%84%e8%a7%88%e5%8d%9a%e5%ae%a2">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server
+</span></span></code></pre></div><p>打开浏览器访问： <code>http://localhost:1313</code></p>
+<h2 class="heading" id="第五步推送到-github-仓库">
+  第五步：推送到 GitHub 仓库
+  <a class="anchor" href="#%e7%ac%ac%e4%ba%94%e6%ad%a5%e6%8e%a8%e9%80%81%e5%88%b0-github-%e4%bb%93%e5%ba%93">#</a>
+</h2>
+<p>我们使用 Hugo 生成静态文件并推送到你的仓库。</p>
+<h3 class="heading" id="1-生成静态文件">
+  1. 生成静态文件
+  <a class="anchor" href="#1-%e7%94%9f%e6%88%90%e9%9d%99%e6%80%81%e6%96%87%e4%bb%b6">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo -D
+</span></span></code></pre></div><p>生成的 HTML 会出现在 <code>public/</code> 目录下。</p>
+<h3 class="heading" id="2-初始化-git-并推送">
+  2. 初始化 Git 并推送
+  <a class="anchor" href="#2-%e5%88%9d%e5%a7%8b%e5%8c%96-git-%e5%b9%b6%e6%8e%a8%e9%80%81">#</a>
+</h3>
+<p>将 <code>public/</code> 目录作为 <code>hulexin.github.io</code> 的源码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd public
+</span></span><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git remote add origin https://github.com/Hulexin/hulexin.github.io.git
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;Initial site&#34;</span>
+</span></span><span style="display:flex;"><span>git push -u origin master
+</span></span></code></pre></div><h2 class="heading" id="第六步配置-github-pages-发布">
+  第六步：配置 GitHub Pages 发布
+  <a class="anchor" href="#%e7%ac%ac%e5%85%ad%e6%ad%a5%e9%85%8d%e7%bd%ae-github-pages-%e5%8f%91%e5%b8%83">#</a>
+</h2>
+<ol>
+<li>打开你的仓库</li>
+<li>点击右上角 <code>Settings</code></li>
+<li>在左侧点击 <strong>Pages</strong></li>
+<li>设置 Source 为 <code>Deploy from a branch</code> → <code>branch: master</code> → <code>/ (root)</code></li>
+<li>点击 <code>Save</code></li>
+</ol>
+<p>几分钟后就可以访问<code>https://hulexin.github.io/</code>，看到blog内容了。</p>
+<h2 class="heading" id="第七步配置自定义域名-lifeaswork">
+  第七步：配置自定义域名 <code>lifeas.work</code>
+  <a class="anchor" href="#%e7%ac%ac%e4%b8%83%e6%ad%a5%e9%85%8d%e7%bd%ae%e8%87%aa%e5%ae%9a%e4%b9%89%e5%9f%9f%e5%90%8d-lifeaswork">#</a>
+</h2>
+<ol>
+<li>在 <code>public/</code> 文件夹中创建一个名为 <code>CNAME</code> 的文件，内容如下：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>lifeas.work
+</span></span></code></pre></div><p>这个文件在本地创建，放在<code>public/</code> 文件夹。</p>
+<p><strong>注意：文件名是 <code>CNAME</code>，无 <code>.txt</code> 后缀，不是 <code>CNAME.txt</code></strong></p>
+<p>使用命令行也可以快速创建：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;lifeas.work&#34;</span> &gt; public/CNAME
+</span></span></code></pre></div><ol start="2">
+<li>然后重新提交并推送到 GitHub：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd public
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;lifeas.work&#34;</span> &gt; CNAME
+</span></span><span style="display:flex;"><span>git add CNAME
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;Add custom domain&#34;</span>
+</span></span><span style="display:flex;"><span>git push
+</span></span></code></pre></div><ol start="3">
+<li>设置 <code>lifeas.work</code> 的 <strong>A记录</strong> 指向：</li>
+</ol>
+<pre tabindex="0"><code>185.199.108.153  
+185.199.109.153  
+185.199.110.153  
+185.199.111.153
+</code></pre><p>（可添加4条 A记录）</p>
+<ol start="4">
+<li>等待生效</li>
+</ol>
+<h2 class="heading" id="后续更新流程---配置自动部署脚本">
+  后续更新流程 - 配置自动部署脚本
+  <a class="anchor" href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0%e6%b5%81%e7%a8%8b---%e9%85%8d%e7%bd%ae%e8%87%aa%e5%8a%a8%e9%83%a8%e7%bd%b2%e8%84%9a%e6%9c%ac">#</a>
+</h2>
+    </div>
+  </article>
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      返回头部
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  
+  
+
+
+
+
+
+    
+
+
+
+
+  <footer>
+    
+
+    
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    <p>博客使用GitHub Pages + Hugo + 老男人的偷闲时间 搭建
+    </p>
+    
+    
+    
+
+
+  </footer>
+
+  
+</body>
+
+<script src="/js/theme-switch.js"></script>
+<script defer src="/js/copy-code.js"></script>
+</html>
