@@ -210,15 +210,14 @@
     <li><a href="#后续更新流程---配置自动部署脚本">后续更新流程 - 配置自动部署脚本</a>
       <ul>
         <li><a href="#步骤-1确保你已经安装了-nodejs">步骤 1：确保你已经安装了 Node.js</a></li>
-        <li><a href="#-步骤-2在项目根目录下初始化-packagejson">📁 步骤 2：在项目根目录下初始化 <code>package.json</code></a></li>
-        <li><a href="#-步骤-3安装-gh-pages-工具">📦 步骤 3：安装 <code>gh-pages</code> 工具</a></li>
-        <li><a href="#-步骤-4修改-packagejson-添加部署脚本">✏️ 步骤 4：修改 <code>package.json</code> 添加部署脚本</a></li>
-        <li><a href="#-步骤-5确认你的-hugo-博客配置了正确的-baseurl-和语言">🌐 步骤 5：确认你的 Hugo 博客配置了正确的 baseURL 和语言</a></li>
-        <li><a href="#-步骤-6运行自动部署命令">🚀 步骤 6：运行自动部署命令</a></li>
+        <li><a href="#步骤-2在项目根目录下初始化-packagejson">步骤 2：在项目根目录下初始化 <code>package.json</code></a></li>
+        <li><a href="#步骤-3安装-gh-pages-工具">步骤 3：安装 <code>gh-pages</code> 工具</a></li>
+        <li><a href="#步骤-4修改-packagejson-添加部署脚本">步骤 4：修改 <code>package.json</code> 添加部署脚本</a></li>
+        <li><a href="#步骤-5确认你的-hugo-博客配置了正确的-baseurl-和语言">步骤 5：确认你的 Hugo 博客配置了正确的 baseURL 和语言</a></li>
+        <li><a href="#步骤-6运行自动部署命令">步骤 6：运行自动部署命令</a></li>
       </ul>
     </li>
-    <li><a href="#github-设置-github-pages-来源">GitHub 设置 GitHub Pages 来源</a></li>
-    <li><a href="#-以后每次更新博客只需三步">🔁 以后每次更新博客，只需三步：</a></li>
+    <li><a href="#以后每次更新博客只需三步">以后每次更新博客，只需三步：</a></li>
   </ul>
 </nav>
       </aside>
@@ -285,9 +284,9 @@
   <a class="anchor" href="#%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%ae%89%e8%a3%85-hugo-%e5%92%8c-git">#</a>
 </h2>
 <p>打开终端，输入以下命令安装：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install hugo git
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install hugo git
 </span></span></code></pre></div><p>验证安装成功：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo version
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo version
 </span></span><span style="display:flex;"><span>git --version
 </span></span></code></pre></div><h2 class="heading" id="第二步创建-hugo-博客并添加-typo-主题">
   第二步：创建 Hugo 博客并添加 typo 主题
@@ -297,95 +296,95 @@
   1. 创建一个 Hugo 项目
   <a class="anchor" href="#1-%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa-hugo-%e9%a1%b9%e7%9b%ae">#</a>
 </h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0aa">cd</span> ~
 </span></span><span style="display:flex;"><span>hugo new site myblog
-</span></span><span style="display:flex;"><span>cd myblog
+</span></span><span style="display:flex;"><span><span style="color:#0aa">cd</span> myblog
 </span></span></code></pre></div><h3 class="heading" id="2-下载-typo-主题">
   2. 下载 typo 主题
   <a class="anchor" href="#2-%e4%b8%8b%e8%bd%bd-typo-%e4%b8%bb%e9%a2%98">#</a>
 </h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git submodule add https://github.com/tomfran/typo themes/typo
 </span></span></code></pre></div><h3 class="heading" id="3-启用-typo-主题">
   3. 启用 typo 主题
   <a class="anchor" href="#3-%e5%90%af%e7%94%a8-typo-%e4%b8%bb%e9%a2%98">#</a>
 </h3>
 <p>编辑 <code>hugo.toml</code>：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#39;https://lifeas.work/&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;zh-cn&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#39;生活·工作&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;记录生活与工作即成长&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">author</span> = <span style="color:#e6db74">&#34;K&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;typo&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>baseURL = <span style="color:#a50">&#39;https://lifeas.work/&#39;</span>
+</span></span><span style="display:flex;"><span>languageCode = <span style="color:#a50">&#39;zh-cn&#39;</span>
+</span></span><span style="display:flex;"><span>title = <span style="color:#a50">&#39;生活·工作&#39;</span>
+</span></span><span style="display:flex;"><span>subtitle = <span style="color:#a50">&#34;记录生活与工作即成长&#34;</span>
+</span></span><span style="display:flex;"><span>author = <span style="color:#a50">&#34;K&#34;</span>
+</span></span><span style="display:flex;"><span>theme = <span style="color:#a50">&#39;typo&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">module</span>]
-</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">hugoVersion</span>]
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">extended</span> = <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">min</span> = <span style="color:#e6db74">&#34;0.116.0&#34;</span>
+</span></span><span style="display:flex;"><span>[module]
+</span></span><span style="display:flex;"><span>[module.hugoVersion]
+</span></span><span style="display:flex;"><span>extended = <span style="color:#00a">false</span>
+</span></span><span style="display:flex;"><span>min = <span style="color:#a50">&#34;0.116.0&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Default config</span>
-</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">breadcrumbs</span>]
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">enabled</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">showCurrentPage</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">home</span> = <span style="color:#e6db74">&#34;Home&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Default config</span>
+</span></span><span style="display:flex;"><span>[params.breadcrumbs]
+</span></span><span style="display:flex;"><span>enabled = <span style="color:#00a">true</span>
+</span></span><span style="display:flex;"><span>showCurrentPage = <span style="color:#00a">true</span>
+</span></span><span style="display:flex;"><span>home = <span style="color:#a50">&#34;Home&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>]
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Meta description</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;记录生活与工作即成长&#34;</span>
+</span></span><span style="display:flex;"><span>[params]
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Meta description</span>
+</span></span><span style="display:flex;"><span>description = <span style="color:#a50">&#34;记录生活与工作即成长&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Appearance settings</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;auto&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">colorPalette</span> = <span style="color:#e6db74">&#39;default&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hideHeader</span> = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Appearance settings</span>
+</span></span><span style="display:flex;"><span>theme = <span style="color:#a50">&#39;auto&#39;</span>
+</span></span><span style="display:flex;"><span>colorPalette = <span style="color:#a50">&#39;default&#39;</span>
+</span></span><span style="display:flex;"><span>hideHeader = <span style="color:#00a">false</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Intro on main page, content is markdown</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeIntroTitle</span> = <span style="color:#e6db74">&#39;啊哈哈!&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeIntroContent</span> = <span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">这里记录着一个平凡的老男人，工作生活的 * * · ·
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">无论到什么年龄，每天都要学习一点新东西；
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">只要有想法，去尝试，哪怕失败；
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">勿燥，勿痴，勿忘，勿贪；
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt; 我不是在熬夜，我是在延长我的清醒时间！
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Intro on main page, content is markdown</span>
+</span></span><span style="display:flex;"><span>homeIntroTitle = <span style="color:#a50">&#39;啊哈哈!&#39;</span>
+</span></span><span style="display:flex;"><span>homeIntroContent = <span style="color:#a50">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">这里记录着一个平凡的老男人，工作生活的 * * · ·
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">无论到什么年龄，每天都要学习一点新东西；
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">只要有想法，去尝试，哪怕失败；
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">勿燥，勿痴，勿忘，勿贪；
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">&gt; 我不是在熬夜，我是在延长我的清醒时间！
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">&#34;&#34;&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Collection to display on home</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeCollectionTitle</span> = <span style="color:#e6db74">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">homeCollection</span> = <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Collection to display on home</span>
+</span></span><span style="display:flex;"><span>homeCollectionTitle = <span style="color:#a50">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>homeCollection = <span style="color:#a50">&#39;&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lists parameters</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">paginationSize</span> = <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">listSummaries</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">listDateFormat</span> = <span style="color:#e6db74">&#39;2006 1 2&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;css/custom.css&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Lists parameters</span>
+</span></span><span style="display:flex;"><span>paginationSize = <span style="color:#099">20</span>
+</span></span><span style="display:flex;"><span>listSummaries = <span style="color:#00a">true</span>
+</span></span><span style="display:flex;"><span>listDateFormat = <span style="color:#a50">&#39;2006 1 2&#39;</span>
+</span></span><span style="display:flex;"><span>customCSS = [<span style="color:#a50">&#34;css/custom.css&#34;</span>]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Main menu pages</span>
-</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;首页&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Main menu pages</span>
+</span></span><span style="display:flex;"><span>[[params.menu]]
+</span></span><span style="display:flex;"><span>name = <span style="color:#a50">&#34;首页&#34;</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a50">&#34;/&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;生活&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/life&#34;</span>
+</span></span><span style="display:flex;"><span>[[params.menu]]
+</span></span><span style="display:flex;"><span>name = <span style="color:#a50">&#34;生活&#34;</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a50">&#34;/life&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;工作&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/work&#34;</span>
+</span></span><span style="display:flex;"><span>[[params.menu]]
+</span></span><span style="display:flex;"><span>name = <span style="color:#a50">&#34;工作&#34;</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a50">&#34;/work&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">menu</span>]]
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about&#34;</span>
+</span></span><span style="display:flex;"><span>[[params.menu]]
+</span></span><span style="display:flex;"><span>name = <span style="color:#a50">&#34;关于&#34;</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a50">&#34;/about&#34;</span>
 </span></span></code></pre></div><h2 class="heading" id="第三步创建第一篇文章">
   第三步：创建第一篇文章
   <a class="anchor" href="#%e7%ac%ac%e4%b8%89%e6%ad%a5%e5%88%9b%e5%bb%ba%e7%ac%ac%e4%b8%80%e7%af%87%e6%96%87%e7%ab%a0">#</a>
 </h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo new posts/hello-world.md
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo new posts/hello-world.md
 </span></span></code></pre></div><p>编辑文件 <code>content/posts/hello-world.md</code>：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
 </span></span><span style="display:flex;"><span>title: &#34;你好，世界&#34;
 </span></span><span style="display:flex;"><span>date: 2025-06-16T12:00:00+08:00
 </span></span><span style="display:flex;"><span>draft: false
@@ -396,7 +395,7 @@
   第四步：本地预览博客
   <a class="anchor" href="#%e7%ac%ac%e5%9b%9b%e6%ad%a5%e6%9c%ac%e5%9c%b0%e9%a2%84%e8%a7%88%e5%8d%9a%e5%ae%a2">#</a>
 </h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server
 </span></span></code></pre></div><p>打开浏览器访问： <code>http://localhost:1313</code></p>
 <h2 class="heading" id="第五步推送到-github-仓库">
   第五步：推送到 GitHub 仓库
@@ -407,29 +406,40 @@
   1. 生成静态文件
   <a class="anchor" href="#1-%e7%94%9f%e6%88%90%e9%9d%99%e6%80%81%e6%96%87%e4%bb%b6">#</a>
 </h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo -D
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo -D
 </span></span></code></pre></div><p>生成的 HTML 会出现在 <code>public/</code> 目录下。</p>
 <h3 class="heading" id="2-初始化-git-并推送">
   2. 初始化 Git 并推送
   <a class="anchor" href="#2-%e5%88%9d%e5%a7%8b%e5%8c%96-git-%e5%b9%b6%e6%8e%a8%e9%80%81">#</a>
 </h3>
 <p>将 <code>public/</code> 目录作为 <code>hulexin.github.io</code> 的源码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd public
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0aa">cd</span> public
 </span></span><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git remote add origin https://github.com/Hulexin/hulexin.github.io.git
 </span></span><span style="display:flex;"><span>git add .
-</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;Initial site&#34;</span>
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#a50">&#34;Initial site&#34;</span>
 </span></span><span style="display:flex;"><span>git push -u origin master
 </span></span></code></pre></div><h2 class="heading" id="第六步配置-github-pages-发布">
   第六步：配置 GitHub Pages 发布
   <a class="anchor" href="#%e7%ac%ac%e5%85%ad%e6%ad%a5%e9%85%8d%e7%bd%ae-github-pages-%e5%8f%91%e5%b8%83">#</a>
 </h2>
 <ol>
-<li>打开你的仓库</li>
-<li>点击右上角 <code>Settings</code></li>
-<li>在左侧点击 <strong>Pages</strong></li>
-<li>设置 Source 为 <code>Deploy from a branch</code> → <code>branch: master</code> → <code>/ (root)</code></li>
-<li>点击 <code>Save</code></li>
+<li>
+<p>打开你的仓库</p>
+</li>
+<li>
+<p>点击右上角 <code>Settings</code></p>
+</li>
+<li>
+<p>在左侧点击 <strong>Pages</strong></p>
+</li>
+<li>
+<p>设置 Source 为 <code>Deploy from a branch</code> → <code>branch: master</code> → <code>/ (root)</code></p>
+</li>
+<li>
+<p>点击 <code>Save</code></p>
+<p>注意后期<a href="#%E5%90%8E%E7%BB%AD%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B---%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC">部署自动发布脚本</a>会有改动。</p>
+</li>
 </ol>
 <p>几分钟后就可以访问<code>https://hulexin.github.io/</code>，看到blog内容了。</p>
 <h2 class="heading" id="第七步配置自定义域名-lifeaswork">
@@ -439,18 +449,18 @@
 <ol>
 <li>在 <code>public/</code> 文件夹中创建一个名为 <code>CNAME</code> 的文件，内容如下：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>lifeas.work
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>lifeas.work
 </span></span></code></pre></div><p>这个文件在本地创建，放在<code>public/</code> 文件夹。</p>
 <p><strong>注意：文件名是 <code>CNAME</code>，无 <code>.txt</code> 后缀，不是 <code>CNAME.txt</code></strong></p>
 <p>使用命令行也可以快速创建：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;lifeas.work&#34;</span> &gt; public/CNAME
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0aa">echo</span> <span style="color:#a50">&#34;lifeas.work&#34;</span> &gt; public/CNAME
 </span></span></code></pre></div><ol start="2">
 <li>然后重新提交并推送到 GitHub：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd public
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;lifeas.work&#34;</span> &gt; CNAME
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0aa">cd</span> public
+</span></span><span style="display:flex;"><span><span style="color:#0aa">echo</span> <span style="color:#a50">&#34;lifeas.work&#34;</span> &gt; CNAME
 </span></span><span style="display:flex;"><span>git add CNAME
-</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;Add custom domain&#34;</span>
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#a50">&#34;Add custom domain&#34;</span>
 </span></span><span style="display:flex;"><span>git push
 </span></span></code></pre></div><ol start="3">
 <li>设置 <code>lifeas.work</code> 的 <strong>A记录</strong> 指向：</li>
@@ -468,93 +478,7 @@
   <a class="anchor" href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0%e6%b5%81%e7%a8%8b---%e9%85%8d%e7%bd%ae%e8%87%aa%e5%8a%a8%e9%83%a8%e7%bd%b2%e8%84%9a%e6%9c%ac">#</a>
 </h2>
 <p>使用 <code>gh-pages</code> 工具，将 Hugo 构建后的 <code>public/</code> 自动部署到 GitHub Pages 的 <code>gh-pages</code> 分支。</p>
-<h3 class="heading" id="步骤-1确保你已经安装了-nodejs">
-  步骤 1：确保你已经安装了 Node.js
-  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-1%e7%a1%ae%e4%bf%9d%e4%bd%a0%e5%b7%b2%e7%bb%8f%e5%ae%89%e8%a3%85%e4%ba%86-nodejs">#</a>
-</h3>
-<p>打开终端运行：</p>
-<pre tabindex="0"><code>bash
-
-
-复制编辑
-node -v
-npm -v
-</code></pre><p>如果没有安装，可以在 macOS 上用 Homebrew 安装：</p>
-<pre tabindex="0"><code>bash
-
-
-复制编辑
-brew install node
-</code></pre><hr>
-<h3 class="heading" id="-步骤-2在项目根目录下初始化-packagejson">
-  📁 步骤 2：在项目根目录下初始化 <code>package.json</code>
-  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-2%e5%9c%a8%e9%a1%b9%e7%9b%ae%e6%a0%b9%e7%9b%ae%e5%bd%95%e4%b8%8b%e5%88%9d%e5%a7%8b%e5%8c%96-packagejson">#</a>
-</h3>
-<p>在项目根目录（<code>hulexin.github.io/</code>）下运行：</p>
-<pre tabindex="0"><code>bash
-
-
-复制编辑
-npm init -y
-</code></pre><p>这会生成一个 <code>package.json</code> 文件。</p>
-<hr>
-<h3 class="heading" id="-步骤-3安装-gh-pages-工具">
-  📦 步骤 3：安装 <code>gh-pages</code> 工具
-  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-3%e5%ae%89%e8%a3%85-gh-pages-%e5%b7%a5%e5%85%b7">#</a>
-</h3>
-<pre tabindex="0"><code>bash
-
-
-复制编辑
-npm install gh-pages --save-dev
-</code></pre><hr>
-<h3 class="heading" id="-步骤-4修改-packagejson-添加部署脚本">
-  ✏️ 步骤 4：修改 <code>package.json</code> 添加部署脚本
-  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-4%e4%bf%ae%e6%94%b9-packagejson-%e6%b7%bb%e5%8a%a0%e9%83%a8%e7%bd%b2%e8%84%9a%e6%9c%ac">#</a>
-</h3>
-<p>打开项目根目录的 <code>package.json</code> 文件，找到 <code>&quot;scripts&quot;</code> 字段，修改成这样：</p>
-<pre tabindex="0"><code>json
-
-
-复制编辑
-&#34;scripts&#34;: {
-  &#34;build&#34;: &#34;hugo&#34;,
-  &#34;deploy&#34;: &#34;hugo &amp;&amp; gh-pages -d public&#34;
-}
-</code></pre><hr>
-<h3 class="heading" id="-步骤-5确认你的-hugo-博客配置了正确的-baseurl-和语言">
-  🌐 步骤 5：确认你的 Hugo 博客配置了正确的 baseURL 和语言
-  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-5%e7%a1%ae%e8%ae%a4%e4%bd%a0%e7%9a%84-hugo-%e5%8d%9a%e5%ae%a2%e9%85%8d%e7%bd%ae%e4%ba%86%e6%ad%a3%e7%a1%ae%e7%9a%84-baseurl-%e5%92%8c%e8%af%ad%e8%a8%80">#</a>
-</h3>
-<p>打开 <code>config.toml</code>，检查这两项（改成你自己的域名）：</p>
-<pre tabindex="0"><code>toml
-
-
-复制编辑
-baseURL = &#34;https://lifeas.work/&#34;
-languageCode = &#34;zh-cn&#34;
-</code></pre><p>如果你用的是 <code>config.yaml</code> 或 <code>config.json</code>，一样的意思，注意语法对应格式。</p>
-<hr>
-<h3 class="heading" id="-步骤-6运行自动部署命令">
-  🚀 步骤 6：运行自动部署命令
-  <a class="anchor" href="#-%e6%ad%a5%e9%aa%a4-6%e8%bf%90%e8%a1%8c%e8%87%aa%e5%8a%a8%e9%83%a8%e7%bd%b2%e5%91%bd%e4%bb%a4">#</a>
-</h3>
-<p>在项目根目录下，执行一条命令：</p>
-<pre tabindex="0"><code>bash
-
-
-复制编辑
-npm run deploy
-</code></pre><p>这个命令会做以下事情：</p>
-<ol>
-<li>执行 <code>hugo</code> → 生成 <code>public/</code></li>
-<li>把 <code>public/</code> 里的内容上传到 GitHub 的 <code>gh-pages</code> 分支</li>
-</ol>
-<h2 class="heading" id="github-设置-github-pages-来源">
-  GitHub 设置 GitHub Pages 来源
-  <a class="anchor" href="#github-%e8%ae%be%e7%bd%ae-github-pages-%e6%9d%a5%e6%ba%90">#</a>
-</h2>
-<p>进入你的 GitHub 仓库（https://github.com/Hulexin/hulexin.github.io）：</p>
+<p>Github打开仓库，右上角main点击搜索gh-pages ，点击Create branch <code>gh-pages</code> form master。</p>
 <ul>
 <li>点击右上角 <code>Settings</code></li>
 <li>左侧菜单中找到 <code>Pages</code></li>
@@ -562,26 +486,75 @@ npm run deploy
 <ul>
 <li><strong>Source</strong>: <code>gh-pages</code></li>
 <li><strong>Branch</strong>: <code>/ (root)</code></li>
-<li>✅ 如果有 CNAME 文件也会自动生效（用于 <code>lifeas.work</code>）</li>
 </ul>
 </li>
 </ul>
+<h3 class="heading" id="步骤-1确保你已经安装了-nodejs">
+  步骤 1：确保你已经安装了 Node.js
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-1%e7%a1%ae%e4%bf%9d%e4%bd%a0%e5%b7%b2%e7%bb%8f%e5%ae%89%e8%a3%85%e4%ba%86-nodejs">#</a>
+</h3>
+<p>打开终端运行：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>node -v
+</span></span><span style="display:flex;"><span>npm -v
+</span></span></code></pre></div><p>如果没有安装，可以在 macOS 上用 Homebrew 安装：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install node
+</span></span></code></pre></div><hr>
+<h3 class="heading" id="步骤-2在项目根目录下初始化-packagejson">
+  步骤 2：在项目根目录下初始化 <code>package.json</code>
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-2%e5%9c%a8%e9%a1%b9%e7%9b%ae%e6%a0%b9%e7%9b%ae%e5%bd%95%e4%b8%8b%e5%88%9d%e5%a7%8b%e5%8c%96-packagejson">#</a>
+</h3>
+<p>在项目根目录（<code>hulexin.github.io/</code>）下运行：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm init -y
+</span></span></code></pre></div><p>这会生成一个 <code>package.json</code> 文件。</p>
 <hr>
-<h2 class="heading" id="-以后每次更新博客只需三步">
-  🔁 以后每次更新博客，只需三步：
-  <a class="anchor" href="#-%e4%bb%a5%e5%90%8e%e6%af%8f%e6%ac%a1%e6%9b%b4%e6%96%b0%e5%8d%9a%e5%ae%a2%e5%8f%aa%e9%9c%80%e4%b8%89%e6%ad%a5">#</a>
+<h3 class="heading" id="步骤-3安装-gh-pages-工具">
+  步骤 3：安装 <code>gh-pages</code> 工具
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-3%e5%ae%89%e8%a3%85-gh-pages-%e5%b7%a5%e5%85%b7">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm install gh-pages --save-dev
+</span></span></code></pre></div><hr>
+<h3 class="heading" id="步骤-4修改-packagejson-添加部署脚本">
+  步骤 4：修改 <code>package.json</code> 添加部署脚本
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-4%e4%bf%ae%e6%94%b9-packagejson-%e6%b7%bb%e5%8a%a0%e9%83%a8%e7%bd%b2%e8%84%9a%e6%9c%ac">#</a>
+</h3>
+<p>打开项目根目录的 <code>package.json</code> 文件，找到 <code>&quot;scripts&quot;</code> 字段，修改成这样：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#a50">&#34;scripts&#34;</span><span style="color:#f00;background-color:#faa">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#1e90ff;font-weight:bold">&#34;build&#34;</span>: <span style="color:#a50">&#34;hugo&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#1e90ff;font-weight:bold">&#34;deploy&#34;</span>: <span style="color:#a50">&#34;hugo &amp;&amp; gh-pages -d public&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 class="heading" id="步骤-5确认你的-hugo-博客配置了正确的-baseurl-和语言">
+  步骤 5：确认你的 Hugo 博客配置了正确的 baseURL 和语言
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-5%e7%a1%ae%e8%ae%a4%e4%bd%a0%e7%9a%84-hugo-%e5%8d%9a%e5%ae%a2%e9%85%8d%e7%bd%ae%e4%ba%86%e6%ad%a3%e7%a1%ae%e7%9a%84-baseurl-%e5%92%8c%e8%af%ad%e8%a8%80">#</a>
+</h3>
+<p>打开 hugo.toml`，检查这两项（改成你自己的域名）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>baseURL = <span style="color:#a50">&#34;https://lifeas.work/&#34;</span>
+</span></span><span style="display:flex;"><span>languageCode = <span style="color:#a50">&#34;zh-cn&#34;</span>
+</span></span></code></pre></div><p>如果你用的是 <code>config.yaml</code> 或 <code>config.json</code>，一样的意思，注意语法对应格式。</p>
+<hr>
+<h3 class="heading" id="步骤-6运行自动部署命令">
+  步骤 6：运行自动部署命令
+  <a class="anchor" href="#%e6%ad%a5%e9%aa%a4-6%e8%bf%90%e8%a1%8c%e8%87%aa%e5%8a%a8%e9%83%a8%e7%bd%b2%e5%91%bd%e4%bb%a4">#</a>
+</h3>
+<p>在项目根目录下，执行一条命令：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm run deploy
+</span></span></code></pre></div><p>这个命令会做以下事情：</p>
+<ol>
+<li>执行 <code>hugo</code> → 生成 <code>public/</code></li>
+<li>把 <code>public/</code> 里的内容上传到 GitHub 的 <code>gh-pages</code> 分支</li>
+</ol>
+<hr>
+<h2 class="heading" id="以后每次更新博客只需三步">
+  以后每次更新博客，只需三步：
+  <a class="anchor" href="#%e4%bb%a5%e5%90%8e%e6%af%8f%e6%ac%a1%e6%9b%b4%e6%96%b0%e5%8d%9a%e5%ae%a2%e5%8f%aa%e9%9c%80%e4%b8%89%e6%ad%a5">#</a>
 </h2>
 <ol>
 <li>修改内容（如 <code>content/xxx.md</code>）</li>
 <li>在终端运行：</li>
 </ol>
-<pre tabindex="0"><code>bash
-
-
-复制编辑
-npm run deploy
+<pre tabindex="0"><code>npm run deploy
 </code></pre><ol>
-<li>等几十秒后，访问 <a href="https://lifeas.work">https://lifeas.work</a> 查看更新效果 🎉</li>
+<li>等几十秒后，访问查看更新效果。</li>
 </ol>
     </div>
   </article>
