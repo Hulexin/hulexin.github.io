@@ -9,18 +9,18 @@
     <lastBuildDate>Tue, 17 Jun 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://lifeas.work/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>佑崽生活随记</title>
+      <link>https://lifeas.work/life/20256017/</link>
+      <pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://lifeas.work/life/20256017/</guid>
+      <description>记录姑娘的点点滴滴</description>
+    </item>
+    <item>
       <title>关于非遗出海</title>
       <link>https://lifeas.work/work/20250617-work/</link>
       <pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate>
       <guid>https://lifeas.work/work/20250617-work/</guid>
       <description>思来想去还是想做非遗出海，没有高大上的文化交流，只是搞钱加上喜欢，非遗有内容好做内容，产品赋值高，文化的差异容易带给客户高情绪价值。</description>
-    </item>
-    <item>
-      <title>在我姑娘身边睡了一个好觉</title>
-      <link>https://lifeas.work/life/20256017/</link>
-      <pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate>
-      <guid>https://lifeas.work/life/20256017/</guid>
-      <description>有姑娘在，睡的真香</description>
     </item>
     <item>
       <title>人生目标</title>
@@ -42,13 +42,6 @@
       <pubDate>Sun, 15 Jun 2025 00:00:00 +0000</pubDate>
       <guid>https://lifeas.work/work/blog-uesr/</guid>
       <description>这套blog操作起来看着麻烦实际很方便，整体流程比较简单，但是网上教程都比较老了，新版 Hugo 使用 hugo.toml 而非 config.toml。我这里使用的Hugo模板是typo。</description>
-    </item>
-    <item>
-      <title>尤里改 三不限系统使用文档</title>
-      <link>https://lifeas.work/work/yuri-docs/</link>
-      <pubDate>Sun, 15 Jun 2025 00:00:00 +0000</pubDate>
-      <guid>https://lifeas.work/work/yuri-docs/</guid>
-      <description>尤里改三不限系统的使用文档及常见问题</description>
     </item>
   </channel>
 </rss>
