@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lifeas.work/</loc>
+    <loc>https://lifeas.work/work/</loc>
     <lastmod>2025-06-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://lifeas.work/work/</loc>
+    <loc>https://lifeas.work/</loc>
     <lastmod>2025-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://lifeas.work/work/20250607-work/</loc>
@@ -20,14 +20,21 @@
     <loc>https://lifeas.work/life/my-first-post/</loc>
     <lastmod>2025-06-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://lifeas.work/about/</loc>
-    <lastmod>2025-06-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://lifeas.work/work/blog-uesr/</loc>
     <lastmod>2025-06-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://lifeas.work/about-theme/</loc>
+    <lastmod>2023-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://lifeas.work/about/</loc>
+    <lastmod>2020-07-28T19:27:08+08:00</lastmod>
   </url><url>
     <loc>https://lifeas.work/categories/</loc>
   </url><url>
     <loc>https://lifeas.work/tags/</loc>
+  </url><url>
+    <loc>https://lifeas.work/sub1/</loc>
+  </url><url>
+    <loc>https://lifeas.work/sub2/</loc>
   </url>
 </urlset>
