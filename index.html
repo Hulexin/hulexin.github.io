@@ -5,8 +5,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>跨境个人导航站 | HTML单页式导航模板</title>
-    <style>
+    <title>生活/工作 | HTML单页式导航模板</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- 移动端菜单按钮 -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>
+                    <i class="fas fa-compass"></i>
+                    生活/工作
+                </h1>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <!-- 导航项将通过JavaScript动态生成 -->
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content" id="mainContent">
+            <!-- 搜索栏 -->
+            <header class="search-header">
+                <div class="search-container">
+                    <div class="search-engine-selector">
+                        <button class="engine-btn active" data-engine="google">Google</button>
+                        <button class="engine-btn" data-engine="yandex">Yandex</button>
+                        <button class="engine-btn" data-engine="yahoo">Yahoo</button>
+                        <button class="engine-btn" data-engine="baidu">百度</button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="搜索..." id="searchInput">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <!-- 内容将通过JavaScript动态生成 -->
+        </main>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // 网站数据
+        let sitesData = {
+            recommend: {
+                title: '个人常用',
+                desc: '方便作者日常使用的站点',
+                icon: 'fa-star',
+                sites: [
+                    { name: 'Shopify', url: 'https://www.shopify.com/uk/partners', desc: 'Shopify partner' },
+                    { name: 'Google', url: 'https://www.google.com', desc: '全球最大的搜索引擎' },
+                    { name: 'GitHub', url: 'https://github.com', desc: '全球最大的代码托管平台' },
+                    { name: 'Stack Overflow', url: 'https://stackoverflow.com', desc: '程序员问答社区' },
+                    { name: 'instagram', url: 'https://www.instagram.com', desc: 'Instagram' }
+                ]
+            },
+            community: {
+                title: '社区资讯',
+                desc: '获取最新技术动态和行业资讯',
+                icon: 'fa-users',
+                sites: [
+                    { name: '知乎', url: 'https://www.zhihu.com', desc: '高质量的问答社区' },
+                    { name: 'V2EX', url: 'https://www.v2ex.com', desc: '创意工作者们的社区' },
+                    { name: '掘金', url: 'https://juejin.cn', desc: '面向开发者的技术社区' },
+                    { name: 'Medium', url: 'https://medium.com', desc: '高质量的写作平台' }
+                ]
+            },
+            tools: {
+                title: '开发工具',
+                desc: '提高开发效率的必备工具',
+                icon: 'fa-tools',
+                sites: [
+                    { name: 'MenubarX', url: 'https://menubarx.app/', desc: '菜单栏浏览器' },
+                    { name: 'Figma', url: 'https://www.figma.com', desc: '在线协作设计工具' },
+                    { name: 'Postman', url: 'https://www.postman.com', desc: 'API开发协作平台' },
+                    { name: 'Docker', url: 'https://www.docker.com', desc: '容器化平台' }
+                ]
+            },
+            mac: {
+                title: 'Mac应用',
+                desc: 'mac好用的软件工具',
+                icon: 'fa-tools',
+                sites: [
+                    { name: 'VS Code', url: 'https://code.visualstudio.com', desc: '微软开发的代码编辑器' },
+                    { name: 'Figma', url: 'https://www.figma.com', desc: '在线协作设计工具' },
+                    { name: 'Postman', url: 'https://www.postman.com', desc: 'API开发协作平台' },
+                    { name: 'Docker', url: 'https://www.docker.com', desc: '容器化平台' }
+                ]
+            },
+            design: {
+                title: '设计资源',
+                desc: '灵感和素材的宝库',
+                icon: 'fa-palette',
+                subcategories: {
+                    '素材资源': [
+                        { name: 'Freepik', url: 'https://www.freepik.com/', desc: '各种类型素材资源' },
+                        { name: 'Pexels', url: 'https://www.pexels.com/', desc: '照片、视频素材' },
+                        { name: 'Unsplash', url: 'https://unsplash.com', desc: '照片、插画素材' },
+                        { name: 'Storyset', url: 'https://storyset.com/', desc: '免费可定制的插图' },
+                        { name: 'pixabay', url: 'https://pixabay.com/', desc: '免版权图片、视频、音乐等' }
+                    ],
+                    '图标资源': [
+                        { name: '阿里图标', url: 'https://www.iconfont.cn/', desc: '阿里妈妈矢量图标管理、交流平台' },
+                        { name: 'Lordicon', url: 'https://lordicon.com/', desc: '39600+ 动画图标' },
+                        { name: 'favicon', url: 'https://favicon.im/zh/', desc: '即时获取和下载任何网站的图标' }
+                    ],
+                    '设计灵感': [
+                        { name: 'Dribbble', url: 'https://dribbble.com', desc: '设计师作品分享平台' },
+                        { name: 'Behance', url: 'https://www.behance.net', desc: 'Adobe旗下设计师社区' },
+                        { name: 'Pinterest', url: 'https://www.pinterest.com', desc: '图片分享和发现平台' },
+                        { name: 'CollectUI', url: 'https://collectui.com/', desc: '巨多各类app、web等UI设计' }
+                    ]
+                }
+            },
+            study: {
+                title: '学习平台',
+                desc: '持续学习，不断进步',
+                icon: 'fa-book',
+                sites: [
+                    { name: 'MDN', url: 'https://developer.mozilla.org', desc: 'Web技术文档' },
+                    { name: 'Coursera', url: 'https://www.coursera.org', desc: '在线课程平台' },
+                    { name: 'LeetCode', url: 'https://leetcode.com', desc: '算法刷题平台' },
+                    { name: 'Khan Academy', url: 'https://www.khanacademy.org', desc: '免费在线教育' }
+                ]
+            },
+            shopping: {
+                title: '电商平台',
+                desc: '热门购物网站，满足日常需求',
+                icon: 'fa-shopping-cart',
+                sites: [
+                    { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
+                    { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
+                    { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' },
+                    { name: '京东', url: 'https://www.jd.com', desc: '正品电商，快速配送' }
+                ]
+            }
+        };
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            renderNavigation();
+            renderContent();
+        });
+
+        // 渲染导航
+        function renderNavigation() {
+            const navMenu = document.getElementById('navMenu');
+            let navHTML = '';
+
+            for (const [key, category] of Object.entries(sitesData)) {
+                // 检查是否有子分类
+                if (category.subcategories) {
+                    // 有子分类的导航项
+                    navHTML += `
+                        <div>
+                            <div class="nav-item has-subcategories" onclick="toggleSubmenu('${key}')">
+                                <div class="nav-item-content">
+                                    <i class="fas ${category.icon}"></i>
+                                    ${category.title}
+                                </div>
+                                <i class="fas fa-chevron-down nav-item-arrow" id="arrow-${key}"></i>
+                            </div>
+                            <div class="submenu" id="submenu-${key}">
+                    `;
+
+                    // 渲染子分类项
+                    let subIndex = 0;
+                    for (const subKey of Object.keys(category.subcategories)) {
+                        navHTML += `
+                            <a href="#${key}-${subIndex}" class="submenu-item" data-parent="${key}">
+                                ${subKey}
+                            </a>
+                        `;
+                        subIndex++;
+                    }
+
+                    navHTML += `
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // 普通导航项
+                    navHTML += `
+                        <a href="#${key}" class="nav-item">
+                            <i class="fas ${category.icon}"></i>
+                            ${category.title}
+                        </a>
+                    `;
+                }
+            }
+
+            navMenu.innerHTML = navHTML;
+        }
+
+        // 切换子菜单
+        function toggleSubmenu(key) {
+            const submenu = document.getElementById(`submenu-${key}`);
+            const arrow = document.getElementById(`arrow-${key}`);
+            const navItem = submenu.previousElementSibling;
+
+            submenu.classList.toggle('expanded');
+            navItem.classList.toggle('expanded');
+        }
+
+        // 渲染内容
+        function renderContent() {
+            const mainContent = document.getElementById('mainContent');
+            let contentHTML = '';
+
+            for (const [key, category] of Object.entries(sitesData)) {
+                contentHTML += `
+                    <section class="section" id="${key}">
+                        <div class="content-header">
+                            <h2>
+                                <i class="fas ${category.icon}"></i>
+                                ${category.title}
+                            </h2>
+                            <p>${category.desc}</p>
+                        </div>
+                `;
+
+                // 如果有子分类
+                if (category.subcategories) {
+                    let subIndex = 0;
+                    for (const [subKey, subCategory] of Object.entries(category.subcategories)) {
+                        contentHTML += `
+                            <div class="subsection" id="${key}-${subIndex}">
+                                <div class="subsection-header">
+                                    <h3>${subKey}</h3>
+                                </div>
+                                <div class="sites-grid">
+                                    ${renderSiteCards(subCategory)}
+                                </div>
+                            </div>
+                        `;
+                        subIndex++;
+                    }
+                }
+                // 如果没有子分类，直接渲染网站
+                else if (category.sites) {
+                    contentHTML += `
+                        <div class="sites-grid">
+                            ${renderSiteCards(category.sites)}
+                        </div>
+                    `;
+                }
+
+                contentHTML += `</section>`;
+            }
+
+            // 将内容插入到搜索栏之后
+            mainContent.insertAdjacentHTML('beforeend', contentHTML);
+        }
+
+        // 渲染网站卡片
+        function renderSiteCards(sites) {
+            return sites.map(site => {
+                const domain = new URL(site.url).hostname;
+                const faviconUrl = `https://favicon.im/${domain}`;
+
+                return `
+                    <a href="${site.url}" class="site-card" target="_blank">
+                        <div class="site-card-header">
+                            <img src="${faviconUrl}" alt="${site.name}" class="site-icon" 
+                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
+                            <div class="site-info">
+                                <h3>${site.name}</h3>
+                                <div class="url">${domain}</div>
+                            </div>
+                        </div>
+                        <div class="site-description">${site.desc}</div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        // 搜索引擎选择
+        let currentEngine = 'google';
+
+        document.querySelectorAll('.engine-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentEngine = this.dataset.engine;
+            });
+        });
+
+        // 执行搜索
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
+
+            let searchUrl;
+            switch (currentEngine) {
+                case 'baidu':
+                    searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+                    break;
+                case 'google':
+                    searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                    break;
+                case 'yandex':
+                    searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
+                    break;
+                case 'yahoo':
+                    searchUrl = `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`;
+                    break;
+                default:
+                    searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+            }
+
+            window.open(searchUrl, '_blank');
+        }
+
+        // 回车搜索
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // 切换侧边栏（移动端）
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // 处理导航链接点击，实现平滑滚动
+        document.addEventListener('click', function (e) {
+            const target = e.target;
+
+            // 检查是否点击了导航链接或子菜单链接
+            const navLink = target.closest('.nav-item, .submenu-item');
+            if (navLink && navLink.getAttribute('href')) {
+                const href = navLink.getAttribute('href');
+
+                // 如果是锚点链接
+                if (href.startsWith('#')) {
+                    e.preventDefault(); // 阻止默认跳转行为
+
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // 平滑滚动到目标位置
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+
+                        // 移动端关闭侧边栏
+                        if (window.innerWidth <= 768) {
+                            document.getElementById('sidebar').classList.remove('active');
+                        }
+                    }
+                }
+            }
+        });
+
+        // 点击导航链接后关闭移动端侧边栏（保留原有的逻辑作为后备）
+        document.addEventListener('click', function (e) {
+            const target = e.target;
+            // 如果点击的是有子分类的父项（这个会由上面的处理函数处理）
+            if (target.classList.contains('nav-item') && target.classList.contains('has-subcategories')) {
+                // 不做处理，让 toggleSubmenu 函数处理
+            }
+        });
+
+        // 返回顶部
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 显示/隐藏返回顶部按钮
+        window.addEventListener('scroll', function () {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // 高亮当前导航项
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.section, .subsection');
+            const navItems = document.querySelectorAll('.nav-item, .submenu-item');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+
+                    // 如果是子菜单项，展开其父菜单
+                    if (item.classList.contains('submenu-item')) {
+                        const parentKey = item.getAttribute('data-parent');
+                        const parentSubmenu = document.getElementById(`submenu-${parentKey}`);
+                        const parentNav = parentSubmenu.previousElementSibling;
+                        if (!parentSubmenu.classList.contains('expanded')) {
+                            parentSubmenu.classList.add('expanded');
+                            parentNav.classList.add('expanded');
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+        <style>
         * {
             margin: 0;
             padding: 0;
@@ -427,426 +856,7 @@
             }
         }
     </style>
-</head>
-
-<body>
-    <div class="container">
-        <!-- 移动端菜单按钮 -->
-        <button class="mobile-menu-btn" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- 左侧导航栏 -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1>
-                    <i class="fas fa-compass"></i>
-                    跨境导航
-                </h1>
-            </div>
-            <nav class="nav-menu" id="navMenu">
-                <!-- 导航项将通过JavaScript动态生成 -->
-            </nav>
-        </aside>
-
-        <!-- 主内容区 -->
-        <main class="main-content" id="mainContent">
-            <!-- 搜索栏 -->
-            <header class="search-header">
-                <div class="search-container">
-                    <div class="search-engine-selector">
-                        <button class="engine-btn active" data-engine="google">Google</button>
-                        <button class="engine-btn" data-engine="yandex">Yandex</button>
-                        <button class="engine-btn" data-engine="yahoo">Yahoo</button>
-                        <button class="engine-btn" data-engine="baidu">百度</button>
-                    </div>
-                    <div class="search-box">
-                        <input type="text" class="search-input" placeholder="搜索..." id="searchInput">
-                        <button class="search-btn" onclick="performSearch()">
-                            <i class="fas fa-search"></i> 搜索
-                        </button>
-                    </div>
-                </div>
-            </header>
-            <!-- 内容将通过JavaScript动态生成 -->
-        </main>
-    </div>
-
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        // 网站数据
-        let sitesData = {
-            recommend: {
-                title: '个人常用',
-                desc: '方便作者日常使用的站点',
-                icon: 'fa-star',
-                sites: [
-                    { name: 'Shopify', url: 'https://www.shopify.com/uk/partners', desc: 'Shopify partner' },
-                    { name: 'Google', url: 'https://www.google.com', desc: '全球最大的搜索引擎' },
-                    { name: 'GitHub', url: 'https://github.com', desc: '全球最大的代码托管平台' },
-                    { name: 'Stack Overflow', url: 'https://stackoverflow.com', desc: '程序员问答社区' },
-                    { name: 'instagram', url: 'https://www.instagram.com', desc: 'Instagram' }
-                ]
-            },
-            community: {
-                title: '社区资讯',
-                desc: '获取最新技术动态和行业资讯',
-                icon: 'fa-users',
-                sites: [
-                    { name: '知乎', url: 'https://www.zhihu.com', desc: '高质量的问答社区' },
-                    { name: 'V2EX', url: 'https://www.v2ex.com', desc: '创意工作者们的社区' },
-                    { name: '掘金', url: 'https://juejin.cn', desc: '面向开发者的技术社区' },
-                    { name: 'Medium', url: 'https://medium.com', desc: '高质量的写作平台' }
-                ]
-            },
-            tools: {
-                title: '开发工具',
-                desc: '提高开发效率的必备工具',
-                icon: 'fa-tools',
-                sites: [
-                    { name: 'MenubarX', url: 'https://menubarx.app/', desc: '菜单栏浏览器' },
-                    { name: 'Figma', url: 'https://www.figma.com', desc: '在线协作设计工具' },
-                    { name: 'Postman', url: 'https://www.postman.com', desc: 'API开发协作平台' },
-                    { name: 'Docker', url: 'https://www.docker.com', desc: '容器化平台' }
-                ]
-            },
-            mac: {
-                title: 'Mac应用',
-                desc: 'mac好用的软件工具',
-                icon: 'fa-tools',
-                sites: [
-                    { name: 'VS Code', url: 'https://code.visualstudio.com', desc: '微软开发的代码编辑器' },
-                    { name: 'Figma', url: 'https://www.figma.com', desc: '在线协作设计工具' },
-                    { name: 'Postman', url: 'https://www.postman.com', desc: 'API开发协作平台' },
-                    { name: 'Docker', url: 'https://www.docker.com', desc: '容器化平台' }
-                ]
-            },
-            design: {
-                title: '设计资源',
-                desc: '灵感和素材的宝库',
-                icon: 'fa-palette',
-                subcategories: {
-                    'AI设计': [
-                        { name: 'Midjourney', url: 'https://www.midjourney.com', desc: 'AI图像生成工具' },
-                        { name: 'Stable Diffusion', url: 'https://stability.ai', desc: '开源AI图像生成模型' },
-                        { name: 'Canva', url: 'https://www.canva.com', desc: 'AI辅助设计平台' }
-                    ],
-                    '免费素材': [
-                        { name: 'Dribbble', url: 'https://dribbble.com', desc: '设计师作品分享平台' },
-                        { name: 'Behance', url: 'https://www.behance.net', desc: 'Adobe旗下设计师社区' },
-                        { name: 'Pinterest', url: 'https://www.pinterest.com', desc: '图片分享和发现平台' },
-                        { name: 'Unsplash', url: 'https://unsplash.com', desc: '免费高质量图片库' }
-                    ]
-                }
-            },
-            study: {
-                title: '学习平台',
-                desc: '持续学习，不断进步',
-                icon: 'fa-book',
-                sites: [
-                    { name: 'MDN', url: 'https://developer.mozilla.org', desc: 'Web技术文档' },
-                    { name: 'Coursera', url: 'https://www.coursera.org', desc: '在线课程平台' },
-                    { name: 'LeetCode', url: 'https://leetcode.com', desc: '算法刷题平台' },
-                    { name: 'Khan Academy', url: 'https://www.khanacademy.org', desc: '免费在线教育' }
-                ]
-            },
-            shopping: {
-                title: '电商平台',
-                desc: '热门购物网站，满足日常需求',
-                icon: 'fa-shopping-cart',
-                sites: [
-                    { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
-                    { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
-                    { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' },
-                    { name: '京东', url: 'https://www.jd.com', desc: '正品电商，快速配送' }
-                ]
-            }
-        };
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function () {
-            renderNavigation();
-            renderContent();
-        });
-
-        // 渲染导航
-        function renderNavigation() {
-            const navMenu = document.getElementById('navMenu');
-            let navHTML = '';
-
-            for (const [key, category] of Object.entries(sitesData)) {
-                // 检查是否有子分类
-                if (category.subcategories) {
-                    // 有子分类的导航项
-                    navHTML += `
-                        <div>
-                            <div class="nav-item has-subcategories" onclick="toggleSubmenu('${key}')">
-                                <div class="nav-item-content">
-                                    <i class="fas ${category.icon}"></i>
-                                    ${category.title}
-                                </div>
-                                <i class="fas fa-chevron-down nav-item-arrow" id="arrow-${key}"></i>
-                            </div>
-                            <div class="submenu" id="submenu-${key}">
-                    `;
-
-                    // 渲染子分类项
-                    let subIndex = 0;
-                    for (const subKey of Object.keys(category.subcategories)) {
-                        navHTML += `
-                            <a href="#${key}-${subIndex}" class="submenu-item" data-parent="${key}">
-                                ${subKey}
-                            </a>
-                        `;
-                        subIndex++;
-                    }
-
-                    navHTML += `
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // 普通导航项
-                    navHTML += `
-                        <a href="#${key}" class="nav-item">
-                            <i class="fas ${category.icon}"></i>
-                            ${category.title}
-                        </a>
-                    `;
-                }
-            }
-
-            navMenu.innerHTML = navHTML;
-        }
-
-        // 切换子菜单
-        function toggleSubmenu(key) {
-            const submenu = document.getElementById(`submenu-${key}`);
-            const arrow = document.getElementById(`arrow-${key}`);
-            const navItem = submenu.previousElementSibling;
-
-            submenu.classList.toggle('expanded');
-            navItem.classList.toggle('expanded');
-        }
-
-        // 渲染内容
-        function renderContent() {
-            const mainContent = document.getElementById('mainContent');
-            let contentHTML = '';
-
-            for (const [key, category] of Object.entries(sitesData)) {
-                contentHTML += `
-                    <section class="section" id="${key}">
-                        <div class="content-header">
-                            <h2>
-                                <i class="fas ${category.icon}"></i>
-                                ${category.title}
-                            </h2>
-                            <p>${category.desc}</p>
-                        </div>
-                `;
-
-                // 如果有子分类
-                if (category.subcategories) {
-                    let subIndex = 0;
-                    for (const [subKey, subCategory] of Object.entries(category.subcategories)) {
-                        contentHTML += `
-                            <div class="subsection" id="${key}-${subIndex}">
-                                <div class="subsection-header">
-                                    <h3>${subKey}</h3>
-                                </div>
-                                <div class="sites-grid">
-                                    ${renderSiteCards(subCategory)}
-                                </div>
-                            </div>
-                        `;
-                        subIndex++;
-                    }
-                }
-                // 如果没有子分类，直接渲染网站
-                else if (category.sites) {
-                    contentHTML += `
-                        <div class="sites-grid">
-                            ${renderSiteCards(category.sites)}
-                        </div>
-                    `;
-                }
-
-                contentHTML += `</section>`;
-            }
-
-            // 将内容插入到搜索栏之后
-            mainContent.insertAdjacentHTML('beforeend', contentHTML);
-        }
-
-        // 渲染网站卡片
-        function renderSiteCards(sites) {
-            return sites.map(site => {
-                const domain = new URL(site.url).hostname;
-                const faviconUrl = `https://favicon.im/${domain}`;
-
-                return `
-                    <a href="${site.url}" class="site-card" target="_blank">
-                        <div class="site-card-header">
-                            <img src="${faviconUrl}" alt="${site.name}" class="site-icon" 
-                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
-                            <div class="site-info">
-                                <h3>${site.name}</h3>
-                                <div class="url">${domain}</div>
-                            </div>
-                        </div>
-                        <div class="site-description">${site.desc}</div>
-                    </a>
-                `;
-            }).join('');
-        }
-
-        // 搜索引擎选择
-        let currentEngine = 'google';
-
-        document.querySelectorAll('.engine-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentEngine = this.dataset.engine;
-            });
-        });
-
-        // 执行搜索
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.trim();
-            if (!query) return;
-
-            let searchUrl;
-            switch (currentEngine) {
-                case 'baidu':
-                    searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
-                    break;
-                case 'google':
-                    searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                    break;
-                case 'yandex':
-                    searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
-                    break;
-                case 'yahoo':
-                    searchUrl = `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`;
-                    break;
-                default:
-                    searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
-            }
-
-            window.open(searchUrl, '_blank');
-        }
-
-        // 回车搜索
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-
-        // 切换侧边栏（移动端）
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        // 处理导航链接点击，实现平滑滚动
-        document.addEventListener('click', function (e) {
-            const target = e.target;
-
-            // 检查是否点击了导航链接或子菜单链接
-            const navLink = target.closest('.nav-item, .submenu-item');
-            if (navLink && navLink.getAttribute('href')) {
-                const href = navLink.getAttribute('href');
-
-                // 如果是锚点链接
-                if (href.startsWith('#')) {
-                    e.preventDefault(); // 阻止默认跳转行为
-
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-
-                    if (targetElement) {
-                        // 平滑滚动到目标位置
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-
-                        // 移动端关闭侧边栏
-                        if (window.innerWidth <= 768) {
-                            document.getElementById('sidebar').classList.remove('active');
-                        }
-                    }
-                }
-            }
-        });
-
-        // 点击导航链接后关闭移动端侧边栏（保留原有的逻辑作为后备）
-        document.addEventListener('click', function (e) {
-            const target = e.target;
-            // 如果点击的是有子分类的父项（这个会由上面的处理函数处理）
-            if (target.classList.contains('nav-item') && target.classList.contains('has-subcategories')) {
-                // 不做处理，让 toggleSubmenu 函数处理
-            }
-        });
-
-        // 返回顶部
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // 显示/隐藏返回顶部按钮
-        window.addEventListener('scroll', function () {
-            const backToTop = document.getElementById('backToTop');
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-
-        // 高亮当前导航项
-        window.addEventListener('scroll', function () {
-            const sections = document.querySelectorAll('.section, .subsection');
-            const navItems = document.querySelectorAll('.nav-item, .submenu-item');
-
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === `#${current}`) {
-                    item.classList.add('active');
-
-                    // 如果是子菜单项，展开其父菜单
-                    if (item.classList.contains('submenu-item')) {
-                        const parentKey = item.getAttribute('data-parent');
-                        const parentSubmenu = document.getElementById(`submenu-${parentKey}`);
-                        const parentNav = parentSubmenu.previousElementSibling;
-                        if (!parentSubmenu.classList.contains('expanded')) {
-                            parentSubmenu.classList.add('expanded');
-                            parentNav.classList.add('expanded');
-                        }
-                    }
-                }
-            });
-        });
-    </script>
+    
 </body>
 
 </html>
