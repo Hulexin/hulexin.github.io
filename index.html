@@ -73,7 +73,6 @@
                 { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
                 { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
                 { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' },
-                { name: 'Stack Overflow', url: 'https://stackoverflow.com', desc: '程序员问答社区' },
                 { name: 'instagram', url: 'https://www.instagram.com', desc: 'Instagram' }
             ]
         },
@@ -84,7 +83,9 @@
             subcategories: {
                 '素材类': [
                     { name: 'Pagepop', url: 'https://www.pagepop.ai/', desc: '每日免费次数足够使用，比nano banana 不差多少' },
-                    { name: 'wavespeedAI', url: 'https://wavespeed.ai/', desc: '模型数量多，API，带客户端' }
+                    { name: 'lovart', url: 'https://www.lovart.ai/', desc: '画布式使用方便，效果还可以' },
+                    { name: 'wavespeedAI', url: 'https://wavespeed.ai/', desc: '模型数量多，API，带客户端' },
+                    
                 ],
                 '代码类': [
                     { name: '阿里图标', url: 'https://www.iconfont.cn/', desc: '阿里妈妈矢量图标管理、交流平台' },
@@ -99,24 +100,81 @@
                 ]
             }
         },
-        tools: {
-            title: '开发工具',
-            desc: '提高开发效率的必备工具',
-            icon: 'fa-tools',
-            sites: [
-                { name: 'VS Code', url: 'https://code.visualstudio.com', desc: '微软开发的代码编辑器' },
-                { name: 'Figma', url: 'https://www.figma.com', desc: '在线协作设计工具' },
-                { name: 'Postman', url: 'https://www.postman.com', desc: 'API开发协作平台' },
-                { name: 'Docker', url: 'https://www.docker.com', desc: '容器化平台' }
+        marketing: {
+        title: '独立站营销',
+        desc: '广告投放、SEO、转化率优化工具',
+        icon: 'fa-bullhorn',
+        subcategories: {
+            '广告投放': [
+                { name: 'Facebook Ads', url: 'https://www.facebook.com/business/ads', desc: 'Meta广告投放平台' },
+                { name: 'Google Ads', url: 'https://ads.google.com', desc: '搜索与展示广告' },
+                { name: 'TikTok Ads', url: 'https://ads.tiktok.com', desc: 'TikTok官方广告平台' }
+            ],
+            'SEO工具': [
+                { name: 'Ahrefs', url: 'https://ahrefs.com', desc: 'SEO与外链分析工具' },
+                { name: 'SEMrush', url: 'https://www.semrush.com', desc: '关键词与竞品分析' },
+                { name: 'Google Search Console', url: 'https://search.google.com/search-console', desc: '网站搜索表现监控' }
+            ],
+            '转化与分析': [
+                { name: 'Google Analytics', url: 'https://analytics.google.com', desc: '网站数据分析工具' },
+                { name: 'Hotjar', url: 'https://www.hotjar.com', desc: '用户行为热力图' },
+                { name: 'Lucky Orange', url: 'https://www.luckyorange.com', desc: '访问回放与转化分析' }
             ]
-        },
+        }
+    },
+        frontend: {
+        title: '前端开发工具',
+        desc: '提升前端开发效率的必备工具',
+        icon: 'fa-code',
+        subcategories: {
+            '代码编辑器': [
+                { name: 'VS Code', url: 'https://code.visualstudio.com', desc: '微软开发的轻量且强大的编辑器' },
+                { name: 'Sublime Text', url: 'https://www.sublimetext.com', desc: '响应快速、插件丰富的文本编辑器' },
+                { name: 'WebStorm', url: 'https://www.jetbrains.com/webstorm/', desc: 'JetBrains 的专业前端IDE' }
+            ],
+            '版本控制 & 协作': [
+                { name: 'GitHub', url: 'https://github.com', desc: '代码托管与团队协作平台' },
+                { name: 'GitLab', url: 'https://gitlab.com', desc: '集成 CI/CD 的代码托管平台' },
+                { name: 'Bitbucket', url: 'https://bitbucket.org', desc: '支持 Git 与 Mercurial 的代码托管' }
+            ],
+            '调试与浏览器工具': [
+                { name: 'Chrome DevTools', url: 'https://developer.chrome.com/docs/devtools/', desc: 'Chrome 内置开发者工具' },
+                { name: 'Firefox Developer Tools', url: 'https://firefox-dev.tools/', desc: 'Firefox 强大的开发者工具集合' },
+                { name: 'Lighthouse', url: 'https://developers.google.com/web/tools/lighthouse', desc: '性能与最佳实践分析工具' }
+            ],
+            '构建与打包工具': [
+                { name: 'Webpack', url: 'https://webpack.js.org', desc: '模块打包工具' },
+                { name: 'Vite', url: 'https://vitejs.dev', desc: '更快的前端构建工具' },
+                { name: 'Parcel', url: 'https://parceljs.org', desc: '零配置打包工具' }
+            ],
+            'CSS 工具': [
+                { name: 'Tailwind CSS', url: 'https://tailwindcss.com', desc: '实用类优先的 CSS 框架' },
+                { name: 'Bootstrap', url: 'https://getbootstrap.com', desc: '快速构建响应式 UI' },
+                { name: 'Sass', url: 'https://sass-lang.com', desc: 'CSS 预处理器' }
+            ],
+            '代码质量 & 格式化': [
+                { name: 'ESLint', url: 'https://eslint.org', desc: 'JavaScript 代码检查工具' },
+                { name: 'Prettier', url: 'https://prettier.io', desc: '代码格式化工具' },
+                { name: 'Stylelint', url: 'https://stylelint.io', desc: 'CSS/SCSS/Less 代码质量工具' }
+            ],
+            '前端框架': [
+                { name: 'React', url: 'https://reactjs.org', desc: 'UI 库（由 Facebook 维护）' },
+                { name: 'Vue.js', url: 'https://vuejs.org', desc: '渐进式前端框架' },
+                { name: 'Angular', url: 'https://angular.io', desc: '企业级框架' }
+            ],
+            'API & 网络工具': [
+                { name: 'Postman', url: 'https://www.postman.com', desc: 'API 开发与调试利器' },
+                { name: 'Insomnia', url: 'https://insomnia.rest', desc: '简洁的 API 测试工具' }
+            ]
+        }
+    },
         mac: {
             title: 'Mac应用',
             desc: 'mac好用的软件工具',
             icon: 'fa-tools',
             sites: [
                 { name: 'MenubarX', url: 'https://menubarx.app/', desc: '菜单栏浏览器' },
-                { name: 'Figma', url: 'https://www.figma.com', desc: '在线协作设计工具' },
+                { name: 'Bob', url: 'https://bobtranslate.com/', desc: '很好用的AI翻译软件（付费）' },
                 { name: 'Postman', url: 'https://www.postman.com', desc: 'API开发协作平台' },
                 { name: 'Docker', url: 'https://www.docker.com', desc: '容器化平台' }
             ]
