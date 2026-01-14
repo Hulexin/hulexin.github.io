@@ -87,7 +87,8 @@
                 { name: 'WavespeedAI', url: 'https://wavespeed.ai/', desc: '模型数量多，API，带客户端' }
             ],
             '代码类': [
-                { name: 'Z code', url: 'https://zcode-ai.com/cn', desc: '智谱推出的轻量级AI编程IDE' },
+                { name: 'TRAE', url: 'https://www.trae.ai/', desc: '字节跳动推出的AI编程IDE' },
+                { name: 'Z code', url: 'https://zcode-ai.com/cn', desc: '智谱推出的轻量级AI编程IDE' }
             ]
         }
         },
@@ -129,7 +130,7 @@
                 { name: 'CAMPFIRE', url: 'https://camp-fire.jp/', desc: '日本众筹网站，不分类型和规模' },
                 { name: 'Kibidango', url: 'https://kibidango.com/', desc: '日本众筹网站之一' },
                 { name: 'Wadiz', url: 'https://www.wadiz.kr/', desc: '韩国本土著名众筹平台' },
-                { name: '啧啧', url: 'https://www.zeczec.com/', desc: '台湾第一个且最大的众筹平台' }
+                { name: '啧啧', url: 'https://www.zeczec.com/', desc: '台湾第一个且最大的众筹平台' },
                 { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
                 { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
                 { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' }
@@ -562,6 +563,16 @@
     window.addEventListener('scroll', function () {
         const sections = document.querySelectorAll('.section, .subsection');
         const navItems = document.querySelectorAll('.nav-item, .submenu-item');
+
+        // 先收起所有展开的子菜单
+        const allSubmenus = document.querySelectorAll('.submenu.expanded');
+        allSubmenus.forEach(submenu => {
+            submenu.classList.remove('expanded');
+            const navItem = submenu.previousElementSibling;
+            if (navItem && navItem.classList.contains('nav-item')) {
+                navItem.classList.remove('expanded');
+            }
+        });
 
         let current = '';
         sections.forEach(section => {
