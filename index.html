@@ -8,581 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
     <title>生活/工作 | HTML单页式导航模板</title>
-    </head>
-
-<body>
-    <div class="container">
-        <!-- 移动端菜单按钮 -->
-        <button class="mobile-menu-btn" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-        </button>
-
-```
-<!-- 左侧导航栏 -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h1>
-                K 个人导航
-            </h1>
-        </div>
-        <nav class="nav-menu" id="navMenu">
-            <!-- 导航项将通过JavaScript动态生成 -->
-        </nav>
-    </aside>
-
-    <!-- 主内容区 -->
-    <main class="main-content" id="mainContent">
-        <!-- 搜索栏 -->
-        <header class="search-header">
-            <div class="search-container">
-                <div class="search-engine-selector">
-                    <button class="engine-btn active" data-engine="google">Google</button>
-                    <button class="engine-btn" data-engine="yandex">Yandex</button>
-                    <button class="engine-btn" data-engine="yahoo">Yahoo</button>
-                    <button class="engine-btn" data-engine="baidu">百度</button>
-                </div>
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="搜索..." id="searchInput">
-                    <button class="search-btn" onclick="performSearch()">
-                        <i class="fas fa-search"></i> 搜索
-                    </button>
-                </div>
-            </div>
-        </header>
-        <!-- 内容将通过JavaScript动态生成 -->
-    </main>
-</div>
-
-<!-- 返回顶部按钮 -->
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
-</button>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script>
-    // 网站数据
-    let sitesData = {
-        recommend: {
-            title: '个人常用',
-            desc: '方便作者日常使用的站点',
-            icon: 'fa-star',
-            sites: [
-                { name: 'Shopify', url: 'https://www.shopify.com/uk/partners', desc: 'Shopify partner' },
-                { name: 'Google', url: 'https://www.google.com', desc: '全球最大的搜索引擎' },
-                { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
-                { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
-                { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' },
-                { name: 'instagram', url: 'https://www.instagram.com', desc: 'Instagram' },
-                { name: 'GitHub', url: 'https://github.dev/Hulexin/hulexin.github.io/blob/main/index.html', desc: '在线更新网站标签' }
-            ]
-        },
-        aitools: {
-            title: 'AI工具',
-            desc: '各类用过的AI工具整合',
-            icon: 'fa-robot',
-            subcategories: {
-            '模型类': [
-                { name: '智谱AI', url: 'https://open.bigmodel.cn/', desc: '' },
-                { name: 'ChatGPT', url: 'https://chatgpt.com/', desc: '' },
-                { name: 'Google AI', url: 'https://aistudio.google.com/', desc: '' }
-            ],
-            '素材类': [
-                { name: 'Pagepop', url: 'https://www.pagepop.ai/', desc: '每日免费次数足够使用，比nano banana 不差多少' },
-                { name: 'Lovart', url: 'https://www.lovart.ai/', desc: '画布式使用方便，效果还可以' },
-                { name: 'WavespeedAI', url: 'https://wavespeed.ai/', desc: '模型数量多，API，带客户端' }
-            ],
-            '代码类': [
-                { name: 'TRAE', url: 'https://www.trae.ai/', desc: '字节跳动推出的AI编程IDE' },
-                { name: 'Z code', url: 'https://zcode-ai.com/cn', desc: '智谱推出的轻量级AI编程IDE' }
-            ],
-            '提示词': [
-                { name: 'Prompts.chat', url: 'https://prompts.chat/', desc: '搜索提示词，创建提示词' },
-                { name: 'Google 提示词', url: 'https://docs.cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery?utm_source=lifeas.work', desc: '搜索提示词，创建提示词' },
-                { name: 'Promptpilot', url: 'https://promptpilot.volcengine.com/', desc: '火山方舟的AI提示词解决方案' },
-                { name: 'EaseMate AI', url: 'https://www.easemate.ai/tw/ai-chat/ai-prompt-optimizer', desc: '各种AI工具' },
-                { name: 'Prompt Optimizer', url: 'https://github.com/linshenkx/prompt-optimizer', desc: '提示词编写优化器' }
-            ],
-            '其他工具': [
-                { name: 'Cherry Studio', url: 'https://www.cherry-ai.com/?utm_source=lifeas.work', desc: 'AI超级客户端，免费！' }
-            ]
-        }
-        },
-        design: {
-            title: '设计资源',
-            desc: '灵感和素材的宝库',
-            icon: 'fa-palette',
-            subcategories: {
-                '素材资源': [
-                    { name: 'Freepik', url: 'https://www.freepik.com/', desc: '各种类型素材资源' },
-                    { name: 'Pexels', url: 'https://www.pexels.com/', desc: '照片、视频素材' },
-                    { name: 'Unsplash', url: 'https://unsplash.com', desc: '照片、插画素材' },
-                    { name: 'Storyset', url: 'https://storyset.com/', desc: '免费可定制的插图' },
-                    { name: 'pixabay', url: 'https://pixabay.com/', desc: '免版权图片、视频、音乐等' }
-                ],
-                '图标资源': [
-                    { name: '阿里图标', url: 'https://www.iconfont.cn/', desc: '阿里妈妈矢量图标管理、交流平台' },
-                    { name: 'Lordicon', url: 'https://lordicon.com/', desc: '39600+ 动画图标' },
-                    { name: 'Favicon', url: 'https://favicon.im/zh/', desc: '即时获取和下载任何网站的图标' },
-                    { name: 'Fontawesome', url: 'https://fontawesome.com/', desc: 'fa常用的图标' }
-                ],
-                '设计灵感': [
-                    { name: 'Dribbble', url: 'https://dribbble.com', desc: '设计师作品分享平台' },
-                    { name: 'Behance', url: 'https://www.behance.net', desc: 'Adobe旗下设计师社区' },
-                    { name: 'Pinterest', url: 'https://www.pinterest.com', desc: '图片分享和发现平台' },
-                    { name: 'CollectUI', url: 'https://collectui.com/', desc: '巨多各类app、web等UI设计' }
-                ]
-            }
-        },
-        shopping: {
-            title: '选品开发',
-            desc: '选品挖掘，产品开发,产品灵感',
-            icon: 'fa-shopping-cart',
-            sites: [
-                { name: 'KickStarter', url: 'https://www.kickstarter.com/', desc: '排名第一的众筹平台' },
-                { name: 'Indiegogo', url: 'https://www.indiegogo.com/', desc: '排名第二的众筹平台，挖掘新品好去处' },
-                { name: 'Makuake', url: 'https://www.makuake.com/', desc: '日本最大的众筹平台' },
-                { name: 'Green Funding', url: 'https://greenfunding.jp/', desc: '日本众筹网站' },
-                { name: 'CAMPFIRE', url: 'https://camp-fire.jp/', desc: '日本众筹网站，不分类型和规模' },
-                { name: 'Kibidango', url: 'https://kibidango.com/', desc: '日本众筹网站之一' },
-                { name: 'Wadiz', url: 'https://www.wadiz.kr/', desc: '韩国本土著名众筹平台' },
-                { name: '啧啧', url: 'https://www.zeczec.com/', desc: '台湾第一个且最大的众筹平台' },
-                { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
-                { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
-                { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' }
-            ]
-        },
-        marketing: {
-        title: '营销运营',
-        desc: '广告投放、SEO、转化率优化工具',
-        icon: 'fa-bullhorn',
-        subcategories: {
-            '广告平台': [
-                { name: 'Facebook Ads', url: 'https://www.facebook.com/business/ads', desc: '全球最大的社交平台' },
-                { name: 'Google Ads', url: 'https://ads.google.com/home', desc: '全球质量最好的流量' },
-                { name: 'TikTok商务中心', url: 'https://business.tiktok.com/', desc: 'TikTok for Business广主的一站式业务中心' },
-                { name: 'Kwai for Business', url: 'https://www.kwai.com/business', desc: 'Kwai for Business 为快手出海营销品牌' },
-                { name: 'Snapchat Ads', url: 'https://forbusiness.snapchat.com/', desc: '通过Snapchat广告触及你的潜在的客户 获取订单' },
-                { name: 'Twitter Ads', url: 'https://ads.twitter.com/login?lang=zh-cn', desc: '通过推文推广获取推特上的流量和客户资源' },
-                { name: 'Bing Ads', url: 'https://ads.microsoft.com/', desc: '微软旗下Bing的广告平台' },
-                { name: 'Linkedin Ads', url: 'https://business.linkedin.com/marketing-solutions/ads', desc: 'LinkedIn广告可帮助任何规模的商家实现目标并进入目标市场' },
-                { name: 'Pinterest Ads', url: 'https://ads.pinterest.com/', desc: '通过广告从全球最大图片社交分享网站获取流量和订单' },
-                { name: 'Youtube Ads', url: 'https://www.youtube.com/ads/', desc: '全球最大视频网站广告投放 跳转至谷歌广告中心' },
-                { name: 'Instagram Ads', url: 'https://business.instagram.com/advertising/', desc: 'Instagram 广告投放，跳转至FB商务管理平台' },
-                { name: 'BIGO Ads', url: 'https://www.adsbigo.com/', desc: '全球移动营销解决方案的广告平台' },
-                { name: 'Reddit Ads', url: 'https://www.redditinc.com/advertising', desc: '在Reddit社区投放广告获取流量和客户资源' },
-                { name: 'Quora Ads', url: 'http://quora.com/', desc: '用广告从海外版知乎Quora获取流量和订单' },
-                { name: 'VK Ads', url: 'https://ads.vk.com/', desc: 'VK是一个俄罗斯社交平台,类似于Facebook、INS' },
-                { name: 'Tumblr Ads', url: 'https://www.tumblr.com/business', desc: '目前全球最大的轻博客网站' },
-                { name: 'Petal Ads', url: 'https://ads.huawei.com/', desc: '华为终端生态的商业化平台' },
-                { name: 'Apple Search Ads', url: 'https://searchads.apple.com/cn', desc: '苹果官方推出的苹果应用商店付费广告' },
-                { name: 'Pangle', url: 'https://www.pangleglobal.com/zh', desc: 'TikTok Ads旗下领先的视频化广告平台' },
-                { name: 'SHAREit', url: 'https://ushareit.com/cn/', desc: '一站式优质数字娱乐内容与跨平台高速资源分享平台' },
-                { name: 'IronSource', url: 'https://www.is.com/zh-hant/', desc: '应用增长一站式商业化平台' },
-                { name: 'Taboola', url: 'https://www.taboola.com/', desc: '通过投放原生广告获取顶尖媒体的优质流量' },
-                { name: 'Outbrain', url: 'https://www.outbrain.com/', desc: '已经和Taboola合并,投放原生广告获取优质流量' },
-                { name: 'Mgid', url: 'https://www.mgid.com/', desc: '可以投放原生广告获取流量和客户的平台' },
-                { name: 'Adroll', url: 'https://www.adroll.com/', desc: '数字营销和增长营销平台' },
-                { name: 'Criteo', url: 'https://www.criteo.com/cn/', desc: '在线效果类展示广告厂商' },
-                { name: 'Yandex Ads', url: 'https://ads.yandex.com/', desc: 'Google应用程序和 API 的集合' },
-                { name: 'Revcontent', url: 'https://www.revcontent.com/', desc: '领先的内容营销和原生广告平台' },
-                { name: 'MIQ', url: 'https://www.wearemiq.com/', desc: '一家领先的程序化购买平台' },
-                { name: 'Mintegral', url: 'https://www.mintegral.cn/', desc: '程序化互动式移动广告平台' },
-                { name: 'The Trade Desk', url: 'https://www.thetradedesk.com/cn', desc: '一家为买方提供全渠道程序化广告购买服务的广告技术公司' },
-                { name: 'AppLovin', url: 'https://www.applovin.com/cn/', desc: '集成多种功能强大的解决方案的全球技术平台' }
-            ],
-            'SEO工具': [
-                { name: 'Spyfu', url: 'https://www.spyfu.com/', desc: '竞争对手的SEO关键词和广告分析' },
-                { name: 'Keywords Everywhere', url: 'https://keywordseverywhere.com/', desc: '提供关键词SEO SEM各种指标 谷歌插件' },
-                { name: 'SEOquake', url: 'https://www.seoquake.com/', desc: '谷歌插件，提供关键的SEO指标 功能很多' },
-                { name: 'SuferSEO', url: 'https://surferseo.com/keyword-surfer-extension/', desc: '搜索关键词分析 内容分析 结果页分析 谷歌插件' },
-                { name: 'Buzzstream', url: 'https://www.buzzstream.com/link-building', desc: '外链管理和分析工具' },
-                { name: 'Monitor Backlinks', url: 'https://monitorbacklinks.com/', desc: '网站外链分析工具' },
-                { name: 'Buzzsumo', url: 'https://buzzsumo.com/', desc: '内容分析 反链分析 问题分析 影响者获取' },
-                { name: 'Majestic', url: 'https://zh.majestic.com/', desc: '强大的外链分析工具' },
-                { name: 'Mixpanel', url: 'https://mixpanel.com/', desc: '专业的产品数据分析工具' },
-                { name: 'ScremingFrog', url: 'https://www.screamingfrog.co.uk/seo-spider/', desc: '模拟搜索引擎爬虫 分析并审核你网站SEO的情况' },
-                { name: 'KeywordTooldomoninator', url: 'https://www.keywordtooldominator.com/k/google-shopping-keyword-tool', desc: '谷歌及多个第三方平台的关键词分析工具' },
-                { name: 'KWFinder', url: 'https://kwfinder.com/', desc: '关键字研究和SERP分析，竞争对手关键词研究工具' },
-                { name: 'OpenLinkProfiler', url: 'https://openlinkprofiler.org/', desc: '免费的外链查询工具' },
-                { name: 'SEO REVIEW TOOLS', url: 'https://www.seoreviewtools.com/', desc: '多个免费的SEO工具' },
-                { name: 'Yoast', url: 'https://yoast.com/', desc: 'Wordpress宇宙中最受欢迎的SEO插件 没有之一' },
-                { name: 'UberSuggest', url: 'https://neilpatel.com/cn/ubersuggest/', desc: '免费一站式关键字建议内容建议及竞争分析工具' },
-                { name: 'Copyscape', url: 'http://www.copyscape.com/', desc: '一个在线反抄袭伪原创检测原创内容保护神器' },
-                { name: 'LongtailPro', url: 'https://longtailpro.com/', desc: '功能强大的长尾关键字SEO研究工具' },
-                { name: 'DataStudio', url: 'https://datastudio.google.com/', desc: '谷歌官方出品数据洞察工具' },
-                { name: '关键词规划师', url: 'https://ads.google.com/home/tools/keyword-planner/', desc: 'Google官方出品的SEO关键词调研和分析工具' },
-                { name: '结构化数据测试', url: 'https://search.google.com/structured-data/testing-tool?hl=zh-CN', desc: '谷歌官方出品的独立站结构化数据测试工具' },
-                { name: '谷歌站长', url: 'https://www.google.com/webmasters/', desc: '关键词工具, 外链工具，竞争对手网站分析' },
-                { name: '谷歌分析', url: 'https://analytics.google.com/', desc: '独立站必备数据收集分析工具 网站优化的基础' },
-                { name: 'Moz', url: 'https://moz.com/free-seo-tools', desc: '关键词工具, 外链工具，竞争对手网站分析' },
-                { name: 'Smallseotools', url: 'https://smallseotools.com/', desc: '上百种免费好用的SEO工具' },
-                { name: 'SEO PowerSuite', url: 'https://www.link-assistant.com/', desc: 'SEO工具套装，需要下载到电脑上使用' },
-                { name: 'SERPs', url: 'https://serps.com/tools/', desc: '神器，精准检测网站的本地排名' },
-                { name: '百度指数', url: 'https://index.baidu.com/v2/index.html#', desc: '以百度海量网民行为数据为基础的数据分析平台' },
-                { name: 'Social Crawlytics', url: 'https://socialcrawlytics.com/', desc: '抓取任意网站上被分享最多的页面，调查竞争对手' },
-                { name: 'Keywordtool', url: 'https://keywordtool.io/', desc: '免费好用的跨平台多语言关键词搜索工具' },
-                { name: 'WordStream', url: 'https://www.wordstream.com/keywords', desc: '利用最新的谷歌搜索数据，提供准确、有针对性的广告分析' },
-                { name: 'AnswerThePublic', url: 'https://answerthepublic.com/', desc: '最具个性且免费的关键词研究工具' },
-                { name: '必应站长', url: 'https://www.bing.com/toolbox/webmaster', desc: '独立站网站监控工具提高网站必应搜索流量和排名' },
-                { name: '百度统计', url: 'https://tongji.baidu.com/', desc: '最大的中文网站分析工具' },
-                { name: '51.LA', url: 'https://www.51.la/', desc: '是免费流量统计技术服务提供商' },
-                { name: '5118', url: 'https://www.5118.com/', desc: 'seo工具箱，站长和SEO从业人员的综合工具' },
-                { name: '站长工具', url: 'https://tool.chinaz.com/', desc: '国内的网站，好用免费的工具很多' },
-                { name: '爱站网', url: 'https://www.aizhan.com/', desc: '爱站网，站长工具网站，域名、SEO、权重等信息查询' },
-                { name: 'Mangools', url: 'https://mangools.com/', desc: '一款集成多种搜索引擎优化（SEO）工具的在线平台' },
-                { name: 'SEOptimer', url: 'https://www.seoptimer.com/', desc: '一款为网站优化而设计的在线工具' },
-                { name: 'SEObility', url: 'https://www.seobility.net/en/', desc: '一种专业的SEO工具' }
-            ],
-           '联盟营销': [
-                { name: 'impact.com', url: 'http://www.impact.com.cn/?recode=amz123', desc: '合作伙伴营销管理平台，专业Affiliate Marketing平台和网红营销全流程管理平台' },
-                { name: 'PartnerBoost', url: 'https://www.partnerboost.com/', desc: '全⽅位⼀体化的联盟营销&⽹红营销管理平台，⽬前与全球超过4000多个品牌合作' },
-                { name: 'FOSHO', url: 'https://www.foshobrands.com/', desc: 'FOSHO 品牌出海分销神器，一键打开海外联盟营销渠道' },
-                { name: 'ShareASale', url: 'https://www.shareasale.com/', desc: '一个基于绩效的联盟营销门户网站' },
-                { name: 'Goaffpro', url: 'https://goaffpro.com/', desc: 'Goaffpro是一款专门做电商类的联盟营销追踪工具' },
-                { name: 'CJ Affiliate', url: 'https://www.cj.com/', desc: '广告联盟营销公司，为商家提供一系列的联盟营销工具和服务' },
-                { name: 'UpPromote', url: 'https://uppromote.com/', desc: '专门针对于Shopify的网站做联盟营销追踪工具' },
-                { name: 'Tapfiliate', url: 'https://tapfiliate.com/', desc: '专门做联盟营销， 网红营销，社交裂变追踪工具' },
-                { name: 'Refersion', url: 'https://www.refersion.com/', desc: '专门帮助线上电商做Affiliate和Referral追踪的工具' },
-                { name: '免佣带货红人库', url: 'https://www.turingmarket.cn/', desc: '图灵Turing Market是全球首个按效果付费的网红营销平台' },
-                { name: 'Affiliatly', url: 'https://www.affiliatly.com/', desc: 'Affiliatly 成立于2014年，专门做电商联盟插件追踪工具' },
-                { name: 'Admitad', url: 'https://www.admitad.com/', desc: '发展迅速的欧洲CPA联盟平台' },
-                { name: 'ClickBank', url: 'https://www.clickbank.com/', desc: 'ClickBank是全球最大的虚拟商品零售平台之一' },
-                { name: 'Post Affiliate Pro', url: 'https://www.postaffiliatepro.com/', desc: '一家专业的联盟营销公司' },
-                { name: 'Partnerize', url: 'https://partnerize.com/', desc: '一家全球领先的合作伙伴营销平台' },
-                { name: 'Affise', url: 'https://affise.com/', desc: '面向广告代理,与广告联盟的绩效营销软件' }
-            ],
-
-            '转化与分析': [
-                { name: 'Google Analytics', url: 'https://analytics.google.com', desc: '网站数据分析工具' },
-                { name: 'Hotjar', url: 'https://www.hotjar.com', desc: '用户行为热力图' },
-                { name: 'Lucky Orange', url: 'https://www.luckyorange.com', desc: '访问回放与转化分析' }
-            ]
-        }
-    },
-        mac: {
-            title: 'Mac小应用',
-            desc: 'mac好用的小软件工具',
-            icon: 'fa-tools',
-            sites: [
-                { name: 'MenubarX', url: 'https://menubarx.app/', desc: '菜单栏浏览器' },
-                { name: 'Bob', url: 'https://bobtranslate.com/', desc: '很好用的AI翻译软件（付费）' },
-                { name: 'NoteGen', url: 'https://notegen.top/cn', desc: '跨平台 AI Agent 笔记' }
-            ]
-        },
-        study: {
-            title: '学习平台',
-            desc: '持续学习，不断进步',
-            icon: 'fa-book',
-            sites: [
-                { name: 'MDN', url: 'https://developer.mozilla.org', desc: 'Web技术文档' },
-                { name: 'Coursera', url: 'https://www.coursera.org', desc: '在线课程平台' },
-                { name: 'LeetCode', url: 'https://leetcode.com', desc: '算法刷题平台' },
-                { name: 'Khan Academy', url: 'https://www.khanacademy.org', desc: '免费在线教育' }
-            ]
-        },
-        books: {
-            title: '书籍小说',
-            desc: '自己找书，老婆找小说',
-            icon: 'fa-book-atlas',
-            sites: [
-                { name: '安娜的档案', url: 'https://annas-archive.li/', desc: '无解' },
-                { name: '破億書屋', url: 'https://big5.poyisw.com/', desc: '给老婆找小说' },
-                { name: 'Z-Library', url: 'https://zh.openzlib.link/', desc: '无解' }
-            ]
-        },
-    };
-
-    // 初始化
-    document.addEventListener('DOMContentLoaded', function () {
-        renderNavigation();
-        renderContent();
-    });
-
-    // 渲染导航
-    function renderNavigation() {
-        const navMenu = document.getElementById('navMenu');
-        let navHTML = '';
-
-        for (const [key, category] of Object.entries(sitesData)) {
-            // 检查是否有子分类
-            if (category.subcategories) {
-                // 有子分类的导航项
-                navHTML += `
-                    <div>
-                        <div class="nav-item has-subcategories" onclick="toggleSubmenu('${key}')">
-                            <div class="nav-item-content">
-                                <i class="fas ${category.icon}"></i>
-                                ${category.title}
-                            </div>
-                            <i class="fas fa-chevron-down nav-item-arrow" id="arrow-${key}"></i>
-                        </div>
-                        <div class="submenu" id="submenu-${key}">
-                `;
-
-                // 渲染子分类项
-                let subIndex = 0;
-                for (const subKey of Object.keys(category.subcategories)) {
-                    navHTML += `
-                        <a href="#${key}-${subIndex}" class="submenu-item" data-parent="${key}">
-                            ${subKey}
-                        </a>
-                    `;
-                    subIndex++;
-                }
-
-                navHTML += `
-                        </div>
-                    </div>
-                `;
-            } else {
-                // 普通导航项
-                navHTML += `
-                    <a href="#${key}" class="nav-item">
-                        <i class="fas ${category.icon}"></i>
-                        ${category.title}
-                    </a>
-                `;
-            }
-        }
-
-        navMenu.innerHTML = navHTML;
-    }
-
-    // 切换子菜单
-    function toggleSubmenu(key) {
-        const submenu = document.getElementById(`submenu-${key}`);
-        const arrow = document.getElementById(`arrow-${key}`);
-        const navItem = submenu.previousElementSibling;
-
-        submenu.classList.toggle('expanded');
-        navItem.classList.toggle('expanded');
-    }
-
-    // 渲染内容
-    function renderContent() {
-        const mainContent = document.getElementById('mainContent');
-        let contentHTML = '';
-
-        for (const [key, category] of Object.entries(sitesData)) {
-            contentHTML += `
-                <section class="section" id="${key}">
-                    <div class="content-header">
-                        <h2>
-                            <i class="fas ${category.icon}"></i>
-                            ${category.title}
-                        </h2>
-                        <p>${category.desc}</p>
-                    </div>
-            `;
-
-            // 如果有子分类
-            if (category.subcategories) {
-                let subIndex = 0;
-                for (const [subKey, subCategory] of Object.entries(category.subcategories)) {
-                    contentHTML += `
-                        <div class="subsection" id="${key}-${subIndex}">
-                            <div class="subsection-header">
-                                <h3>${subKey}</h3>
-                            </div>
-                            <div class="sites-grid">
-                                ${renderSiteCards(subCategory)}
-                            </div>
-                        </div>
-                    `;
-                    subIndex++;
-                }
-            }
-            // 如果没有子分类，直接渲染网站
-            else if (category.sites) {
-                contentHTML += `
-                    <div class="sites-grid">
-                        ${renderSiteCards(category.sites)}
-                    </div>
-                `;
-            }
-
-            contentHTML += `</section>`;
-        }
-
-        // 将内容插入到搜索栏之后
-        mainContent.insertAdjacentHTML('beforeend', contentHTML);
-    }
-
-    // 渲染网站卡片
-    function renderSiteCards(sites) {
-        return sites.map(site => {
-            const domain = new URL(site.url).hostname;
-            const faviconUrl = `https://favicon.im/${domain}`;
-
-            return `
-                <a href="${site.url}" class="site-card" target="_blank">
-                    <div class="site-card-header">
-                        <img src="${faviconUrl}" alt="${site.name}" class="site-icon" 
-                             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
-                        <div class="site-info">
-                            <h3>${site.name}</h3>
-                            <div class="url">${domain}</div>
-                        </div>
-                    </div>
-                    <div class="site-description">${site.desc}</div>
-                </a>
-            `;
-        }).join('');
-    }
-
-    // 搜索引擎选择
-    let currentEngine = 'google';
-
-    document.querySelectorAll('.engine-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentEngine = this.dataset.engine;
-        });
-    });
-
-    // 执行搜索
-    function performSearch() {
-        const query = document.getElementById('searchInput').value.trim();
-        if (!query) return;
-
-        let searchUrl;
-        switch (currentEngine) {
-            case 'baidu':
-                searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
-                break;
-            case 'google':
-                searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                break;
-            case 'yandex':
-                searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
-                break;
-            case 'yahoo':
-                searchUrl = `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`;
-                break;
-            default:
-                searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
-        }
-
-        window.open(searchUrl, '_blank');
-    }
-
-    // 回车搜索
-    document.getElementById('searchInput').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-
-    // 切换侧边栏（移动端）
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('active');
-    }
-
-    // 处理导航链接点击，实现平滑滚动
-    document.addEventListener('click', function (e) {
-        const target = e.target;
-
-        // 检查是否点击了导航链接或子菜单链接
-        const navLink = target.closest('.nav-item, .submenu-item');
-        if (navLink && navLink.getAttribute('href')) {
-            const href = navLink.getAttribute('href');
-
-            // 如果是锚点链接
-            if (href.startsWith('#')) {
-                e.preventDefault(); // 阻止默认跳转行为
-
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    // 平滑滚动到目标位置
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    // 移动端关闭侧边栏
-                    if (window.innerWidth <= 768) {
-                        document.getElementById('sidebar').classList.remove('active');
-                    }
-                }
-            }
-        }
-    });
-
-    // 点击导航链接后关闭移动端侧边栏（保留原有的逻辑作为后备）
-    document.addEventListener('click', function (e) {
-        const target = e.target;
-        // 如果点击的是有子分类的父项（这个会由上面的处理函数处理）
-        if (target.classList.contains('nav-item') && target.classList.contains('has-subcategories')) {
-            // 不做处理，让 toggleSubmenu 函数处理
-        }
-    });
-
-    // 返回顶部
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    // 显示/隐藏返回顶部按钮
-    window.addEventListener('scroll', function () {
-        const backToTop = document.getElementById('backToTop');
-        if (window.pageYOffset > 300) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    });
-
-    // 高亮当前导航项
-    window.addEventListener('scroll', function () {
-        const sections = document.querySelectorAll('.section, .subsection');
-        const navItems = document.querySelectorAll('.nav-item, .submenu-item');
-
-        // 先收起所有展开的子菜单
-        const allSubmenus = document.querySelectorAll('.submenu.expanded');
-        allSubmenus.forEach(submenu => {
-            submenu.classList.remove('expanded');
-            const navItem = submenu.previousElementSibling;
-            if (navItem && navItem.classList.contains('nav-item')) {
-                navItem.classList.remove('expanded');
-            }
-        });
-
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - 100) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${current}`) {
-                item.classList.add('active');
-
-                // 如果是子菜单项，展开其父菜单
-                if (item.classList.contains('submenu-item')) {
-                    const parentKey = item.getAttribute('data-parent');
-                    const parentSubmenu = document.getElementById(`submenu-${parentKey}`);
-                    const parentNav = parentSubmenu.previousElementSibling;
-                    if (!parentSubmenu.classList.contains('expanded')) {
-                        parentSubmenu.classList.add('expanded');
-                        parentNav.classList.add('expanded');
-                    }
-                }
-            }
-        });
-    });
-</script>
-
-    <style>
+     <style>
     :root {
         --bg-primary: #fff;
         --bg-secondary: #f5f5f5;
@@ -1089,6 +515,581 @@
         }
     }
 </style>
+    </head>
+
+<body>
+    <div class="container">
+        <!-- 移动端菜单按钮 -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+```
+<!-- 左侧导航栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>
+                K 个人导航
+            </h1>
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <!-- 导航项将通过JavaScript动态生成 -->
+        </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content" id="mainContent">
+        <!-- 搜索栏 -->
+        <header class="search-header">
+            <div class="search-container">
+                <div class="search-engine-selector">
+                    <button class="engine-btn active" data-engine="google">Google</button>
+                    <button class="engine-btn" data-engine="yandex">Yandex</button>
+                    <button class="engine-btn" data-engine="yahoo">Yahoo</button>
+                    <button class="engine-btn" data-engine="baidu">百度</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="搜索..." id="searchInput">
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i> 搜索
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- 内容将通过JavaScript动态生成 -->
+    </main>
+</div>
+
+<!-- 返回顶部按钮 -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+    // 网站数据
+    let sitesData = {
+        recommend: {
+            title: '个人常用',
+            desc: '方便作者日常使用的站点',
+            icon: 'fa-star',
+            sites: [
+                { name: 'Shopify', url: 'https://www.shopify.com/uk/partners', desc: 'Shopify partner' },
+                { name: 'Pagepop', url: 'https://www.pagepop.ai/', desc: '每日免费次数足够使用，和nano banana 不差多少' },
+                { name: 'Lovart', url: 'https://www.lovart.ai/', desc: '画布式使用方便，效果还可以' },
+                { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
+                { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
+                { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' },
+                { name: 'instagram', url: 'https://www.instagram.com', desc: 'Instagram' },
+                { name: 'GitHub', url: 'https://github.dev/Hulexin/hulexin.github.io/blob/main/index.html', desc: '在线更新网站标签' }
+            ]
+        },
+        aitools: {
+            title: 'AI工具',
+            desc: '各类用过的AI工具整合',
+            icon: 'fa-robot',
+            subcategories: {
+            '模型类': [
+                { name: '智谱AI', url: 'https://open.bigmodel.cn/', desc: '' },
+                { name: 'ChatGPT', url: 'https://chatgpt.com/', desc: '' },
+                { name: 'Google AI', url: 'https://aistudio.google.com/', desc: '' }
+            ],
+            '素材类': [
+                { name: 'Pagepop', url: 'https://www.pagepop.ai/', desc: '每日免费次数足够使用，比nano banana 不差多少' },
+                { name: 'Lovart', url: 'https://www.lovart.ai/', desc: '画布式使用方便，效果还可以' },
+                { name: 'WavespeedAI', url: 'https://wavespeed.ai/', desc: '模型数量多，API，带客户端' }
+            ],
+            '代码类': [
+                { name: 'TRAE', url: 'https://www.trae.ai/', desc: '字节跳动推出的AI编程IDE' },
+                { name: 'Z code', url: 'https://zcode-ai.com/cn', desc: '智谱推出的轻量级AI编程IDE' },
+                { name: 'UI PRO MAX', url: 'https://ui-ux-pro-max-skill.nextlevelbuilder.io/', desc: '提升AI的UI设计' }
+            ],
+            '提示词': [
+                { name: 'Prompts.chat', url: 'https://prompts.chat/', desc: '搜索提示词，创建提示词' },
+                { name: 'Google 提示词', url: 'https://docs.cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery?utm_source=lifeas.work', desc: '搜索提示词，创建提示词' },
+                { name: 'Promptpilot', url: 'https://promptpilot.volcengine.com/', desc: '火山方舟的AI提示词解决方案' },
+                { name: 'EaseMate AI', url: 'https://www.easemate.ai/tw/ai-chat/ai-prompt-optimizer', desc: '各种AI工具' },
+                { name: 'Prompt Optimizer', url: 'https://github.com/linshenkx/prompt-optimizer', desc: '提示词编写优化器' }
+            ],
+            '其他工具': [
+                { name: 'Cherry Studio', url: 'https://www.cherry-ai.com/?utm_source=lifeas.work', desc: 'AI超级客户端，免费！' }
+            ]
+        }
+        },
+        design: {
+            title: '设计资源',
+            desc: '灵感和素材的宝库',
+            icon: 'fa-palette',
+            subcategories: {
+                '素材资源': [
+                    { name: 'Freepik', url: 'https://www.freepik.com/', desc: '各种类型素材资源' },
+                    { name: 'Pexels', url: 'https://www.pexels.com/', desc: '照片、视频素材' },
+                    { name: 'Unsplash', url: 'https://unsplash.com', desc: '照片、插画素材' },
+                    { name: 'Storyset', url: 'https://storyset.com/', desc: '免费可定制的插图' },
+                    { name: 'pixabay', url: 'https://pixabay.com/', desc: '免版权图片、视频、音乐等' }
+                ],
+                '图标资源': [
+                    { name: '阿里图标', url: 'https://www.iconfont.cn/', desc: '阿里妈妈矢量图标管理、交流平台' },
+                    { name: 'Lordicon', url: 'https://lordicon.com/', desc: '39600+ 动画图标' },
+                    { name: 'Favicon', url: 'https://favicon.im/zh/', desc: '即时获取和下载任何网站的图标' },
+                    { name: 'Fontawesome', url: 'https://fontawesome.com/', desc: 'fa常用的图标' }
+                ],
+                '设计灵感': [
+                    { name: 'Dribbble', url: 'https://dribbble.com', desc: '设计师作品分享平台' },
+                    { name: 'Behance', url: 'https://www.behance.net', desc: 'Adobe旗下设计师社区' },
+                    { name: 'Pinterest', url: 'https://www.pinterest.com', desc: '图片分享和发现平台' },
+                    { name: 'CollectUI', url: 'https://collectui.com/', desc: '巨多各类app、web等UI设计' }
+                ]
+            }
+        },
+        shopping: {
+            title: '选品开发',
+            desc: '选品挖掘，产品开发,产品灵感',
+            icon: 'fa-shopping-cart',
+            sites: [
+                { name: 'KickStarter', url: 'https://www.kickstarter.com/', desc: '排名第一的众筹平台' },
+                { name: 'Indiegogo', url: 'https://www.indiegogo.com/', desc: '排名第二的众筹平台，挖掘新品好去处' },
+                { name: 'Makuake', url: 'https://www.makuake.com/', desc: '日本最大的众筹平台' },
+                { name: 'Green Funding', url: 'https://greenfunding.jp/', desc: '日本众筹网站' },
+                { name: 'CAMPFIRE', url: 'https://camp-fire.jp/', desc: '日本众筹网站，不分类型和规模' },
+                { name: 'Kibidango', url: 'https://kibidango.com/', desc: '日本众筹网站之一' },
+                { name: 'Wadiz', url: 'https://www.wadiz.kr/', desc: '韩国本土著名众筹平台' },
+                { name: '啧啧', url: 'https://www.zeczec.com/', desc: '台湾第一个且最大的众筹平台' },
+                { name: '淘宝', url: 'https://www.taobao.com', desc: '中国最大的综合电商平台' },
+                { name: '1688', url: 'https://www.1688.com', desc: '阿里巴巴批发平台' },
+                { name: '速卖通', url: 'https://www.aliexpress.com', desc: '面向全球的跨境购物平台' }
+            ]
+        },
+        marketing: {
+        title: '营销运营',
+        desc: '广告投放、SEO、转化率优化工具',
+        icon: 'fa-bullhorn',
+        subcategories: {
+            '广告平台': [
+                { name: 'Facebook Ads', url: 'https://www.facebook.com/business/ads', desc: '全球最大的社交平台' },
+                { name: 'Google Ads', url: 'https://ads.google.com/home', desc: '全球质量最好的流量' },
+                { name: 'TikTok商务中心', url: 'https://business.tiktok.com/', desc: 'TikTok for Business广主的一站式业务中心' },
+                { name: 'Kwai for Business', url: 'https://www.kwai.com/business', desc: 'Kwai for Business 为快手出海营销品牌' },
+                { name: 'Snapchat Ads', url: 'https://forbusiness.snapchat.com/', desc: '通过Snapchat广告触及你的潜在的客户 获取订单' },
+                { name: 'Twitter Ads', url: 'https://ads.twitter.com/login?lang=zh-cn', desc: '通过推文推广获取推特上的流量和客户资源' },
+                { name: 'Bing Ads', url: 'https://ads.microsoft.com/', desc: '微软旗下Bing的广告平台' },
+                { name: 'Linkedin Ads', url: 'https://business.linkedin.com/marketing-solutions/ads', desc: 'LinkedIn广告可帮助任何规模的商家实现目标并进入目标市场' },
+                { name: 'Pinterest Ads', url: 'https://ads.pinterest.com/', desc: '通过广告从全球最大图片社交分享网站获取流量和订单' },
+                { name: 'Youtube Ads', url: 'https://www.youtube.com/ads/', desc: '全球最大视频网站广告投放 跳转至谷歌广告中心' },
+                { name: 'Instagram Ads', url: 'https://business.instagram.com/advertising/', desc: 'Instagram 广告投放，跳转至FB商务管理平台' },
+                { name: 'BIGO Ads', url: 'https://www.adsbigo.com/', desc: '全球移动营销解决方案的广告平台' },
+                { name: 'Reddit Ads', url: 'https://www.redditinc.com/advertising', desc: '在Reddit社区投放广告获取流量和客户资源' },
+                { name: 'Quora Ads', url: 'http://quora.com/', desc: '用广告从海外版知乎Quora获取流量和订单' },
+                { name: 'VK Ads', url: 'https://ads.vk.com/', desc: 'VK是一个俄罗斯社交平台,类似于Facebook、INS' },
+                { name: 'Tumblr Ads', url: 'https://www.tumblr.com/business', desc: '目前全球最大的轻博客网站' },
+                { name: 'Petal Ads', url: 'https://ads.huawei.com/', desc: '华为终端生态的商业化平台' },
+                { name: 'Apple Search Ads', url: 'https://searchads.apple.com/cn', desc: '苹果官方推出的苹果应用商店付费广告' },
+                { name: 'Pangle', url: 'https://www.pangleglobal.com/zh', desc: 'TikTok Ads旗下领先的视频化广告平台' },
+                { name: 'SHAREit', url: 'https://ushareit.com/cn/', desc: '一站式优质数字娱乐内容与跨平台高速资源分享平台' },
+                { name: 'IronSource', url: 'https://www.is.com/zh-hant/', desc: '应用增长一站式商业化平台' },
+                { name: 'Taboola', url: 'https://www.taboola.com/', desc: '通过投放原生广告获取顶尖媒体的优质流量' },
+                { name: 'Outbrain', url: 'https://www.outbrain.com/', desc: '已经和Taboola合并,投放原生广告获取优质流量' },
+                { name: 'Mgid', url: 'https://www.mgid.com/', desc: '可以投放原生广告获取流量和客户的平台' },
+                { name: 'Adroll', url: 'https://www.adroll.com/', desc: '数字营销和增长营销平台' },
+                { name: 'Criteo', url: 'https://www.criteo.com/cn/', desc: '在线效果类展示广告厂商' },
+                { name: 'Yandex Ads', url: 'https://ads.yandex.com/', desc: 'Google应用程序和 API 的集合' },
+                { name: 'Revcontent', url: 'https://www.revcontent.com/', desc: '领先的内容营销和原生广告平台' },
+                { name: 'MIQ', url: 'https://www.wearemiq.com/', desc: '一家领先的程序化购买平台' },
+                { name: 'Mintegral', url: 'https://www.mintegral.cn/', desc: '程序化互动式移动广告平台' },
+                { name: 'The Trade Desk', url: 'https://www.thetradedesk.com/cn', desc: '一家为买方提供全渠道程序化广告购买服务的广告技术公司' },
+                { name: 'AppLovin', url: 'https://www.applovin.com/cn/', desc: '集成多种功能强大的解决方案的全球技术平台' }
+            ],
+            'SEO工具': [
+                { name: 'Spyfu', url: 'https://www.spyfu.com/', desc: '竞争对手的SEO关键词和广告分析' },
+                { name: 'Keywords Everywhere', url: 'https://keywordseverywhere.com/', desc: '提供关键词SEO SEM各种指标 谷歌插件' },
+                { name: 'SEOquake', url: 'https://www.seoquake.com/', desc: '谷歌插件，提供关键的SEO指标 功能很多' },
+                { name: 'SuferSEO', url: 'https://surferseo.com/keyword-surfer-extension/', desc: '搜索关键词分析 内容分析 结果页分析 谷歌插件' },
+                { name: 'Buzzstream', url: 'https://www.buzzstream.com/link-building', desc: '外链管理和分析工具' },
+                { name: 'Monitor Backlinks', url: 'https://monitorbacklinks.com/', desc: '网站外链分析工具' },
+                { name: 'Buzzsumo', url: 'https://buzzsumo.com/', desc: '内容分析 反链分析 问题分析 影响者获取' },
+                { name: 'Majestic', url: 'https://zh.majestic.com/', desc: '强大的外链分析工具' },
+                { name: 'Mixpanel', url: 'https://mixpanel.com/', desc: '专业的产品数据分析工具' },
+                { name: 'ScremingFrog', url: 'https://www.screamingfrog.co.uk/seo-spider/', desc: '模拟搜索引擎爬虫 分析并审核你网站SEO的情况' },
+                { name: 'KeywordTooldomoninator', url: 'https://www.keywordtooldominator.com/k/google-shopping-keyword-tool', desc: '谷歌及多个第三方平台的关键词分析工具' },
+                { name: 'KWFinder', url: 'https://kwfinder.com/', desc: '关键字研究和SERP分析，竞争对手关键词研究工具' },
+                { name: 'OpenLinkProfiler', url: 'https://openlinkprofiler.org/', desc: '免费的外链查询工具' },
+                { name: 'SEO REVIEW TOOLS', url: 'https://www.seoreviewtools.com/', desc: '多个免费的SEO工具' },
+                { name: 'Yoast', url: 'https://yoast.com/', desc: 'Wordpress宇宙中最受欢迎的SEO插件 没有之一' },
+                { name: 'UberSuggest', url: 'https://neilpatel.com/cn/ubersuggest/', desc: '免费一站式关键字建议内容建议及竞争分析工具' },
+                { name: 'Copyscape', url: 'http://www.copyscape.com/', desc: '一个在线反抄袭伪原创检测原创内容保护神器' },
+                { name: 'LongtailPro', url: 'https://longtailpro.com/', desc: '功能强大的长尾关键字SEO研究工具' },
+                { name: 'DataStudio', url: 'https://datastudio.google.com/', desc: '谷歌官方出品数据洞察工具' },
+                { name: '关键词规划师', url: 'https://ads.google.com/home/tools/keyword-planner/', desc: 'Google官方出品的SEO关键词调研和分析工具' },
+                { name: '结构化数据测试', url: 'https://search.google.com/structured-data/testing-tool?hl=zh-CN', desc: '谷歌官方出品的独立站结构化数据测试工具' },
+                { name: '谷歌站长', url: 'https://www.google.com/webmasters/', desc: '关键词工具, 外链工具，竞争对手网站分析' },
+                { name: '谷歌分析', url: 'https://analytics.google.com/', desc: '独立站必备数据收集分析工具 网站优化的基础' },
+                { name: 'Moz', url: 'https://moz.com/free-seo-tools', desc: '关键词工具, 外链工具，竞争对手网站分析' },
+                { name: 'Smallseotools', url: 'https://smallseotools.com/', desc: '上百种免费好用的SEO工具' },
+                { name: 'SEO PowerSuite', url: 'https://www.link-assistant.com/', desc: 'SEO工具套装，需要下载到电脑上使用' },
+                { name: 'SERPs', url: 'https://serps.com/tools/', desc: '神器，精准检测网站的本地排名' },
+                { name: '百度指数', url: 'https://index.baidu.com/v2/index.html#', desc: '以百度海量网民行为数据为基础的数据分析平台' },
+                { name: 'Social Crawlytics', url: 'https://socialcrawlytics.com/', desc: '抓取任意网站上被分享最多的页面，调查竞争对手' },
+                { name: 'Keywordtool', url: 'https://keywordtool.io/', desc: '免费好用的跨平台多语言关键词搜索工具' },
+                { name: 'WordStream', url: 'https://www.wordstream.com/keywords', desc: '利用最新的谷歌搜索数据，提供准确、有针对性的广告分析' },
+                { name: 'AnswerThePublic', url: 'https://answerthepublic.com/', desc: '最具个性且免费的关键词研究工具' },
+                { name: '必应站长', url: 'https://www.bing.com/toolbox/webmaster', desc: '独立站网站监控工具提高网站必应搜索流量和排名' },
+                { name: '百度统计', url: 'https://tongji.baidu.com/', desc: '最大的中文网站分析工具' },
+                { name: '51.LA', url: 'https://www.51.la/', desc: '是免费流量统计技术服务提供商' },
+                { name: '5118', url: 'https://www.5118.com/', desc: 'seo工具箱，站长和SEO从业人员的综合工具' },
+                { name: '站长工具', url: 'https://tool.chinaz.com/', desc: '国内的网站，好用免费的工具很多' },
+                { name: '爱站网', url: 'https://www.aizhan.com/', desc: '爱站网，站长工具网站，域名、SEO、权重等信息查询' },
+                { name: 'Mangools', url: 'https://mangools.com/', desc: '一款集成多种搜索引擎优化（SEO）工具的在线平台' },
+                { name: 'SEOptimer', url: 'https://www.seoptimer.com/', desc: '一款为网站优化而设计的在线工具' },
+                { name: 'SEObility', url: 'https://www.seobility.net/en/', desc: '一种专业的SEO工具' }
+            ],
+           '联盟营销': [
+                { name: 'impact.com', url: 'http://www.impact.com.cn/?recode=amz123', desc: '合作伙伴营销管理平台，专业Affiliate Marketing平台和网红营销全流程管理平台' },
+                { name: 'PartnerBoost', url: 'https://www.partnerboost.com/', desc: '全⽅位⼀体化的联盟营销&⽹红营销管理平台，⽬前与全球超过4000多个品牌合作' },
+                { name: 'FOSHO', url: 'https://www.foshobrands.com/', desc: 'FOSHO 品牌出海分销神器，一键打开海外联盟营销渠道' },
+                { name: 'ShareASale', url: 'https://www.shareasale.com/', desc: '一个基于绩效的联盟营销门户网站' },
+                { name: 'Goaffpro', url: 'https://goaffpro.com/', desc: 'Goaffpro是一款专门做电商类的联盟营销追踪工具' },
+                { name: 'CJ Affiliate', url: 'https://www.cj.com/', desc: '广告联盟营销公司，为商家提供一系列的联盟营销工具和服务' },
+                { name: 'UpPromote', url: 'https://uppromote.com/', desc: '专门针对于Shopify的网站做联盟营销追踪工具' },
+                { name: 'Tapfiliate', url: 'https://tapfiliate.com/', desc: '专门做联盟营销， 网红营销，社交裂变追踪工具' },
+                { name: 'Refersion', url: 'https://www.refersion.com/', desc: '专门帮助线上电商做Affiliate和Referral追踪的工具' },
+                { name: '免佣带货红人库', url: 'https://www.turingmarket.cn/', desc: '图灵Turing Market是全球首个按效果付费的网红营销平台' },
+                { name: 'Affiliatly', url: 'https://www.affiliatly.com/', desc: 'Affiliatly 成立于2014年，专门做电商联盟插件追踪工具' },
+                { name: 'Admitad', url: 'https://www.admitad.com/', desc: '发展迅速的欧洲CPA联盟平台' },
+                { name: 'ClickBank', url: 'https://www.clickbank.com/', desc: 'ClickBank是全球最大的虚拟商品零售平台之一' },
+                { name: 'Post Affiliate Pro', url: 'https://www.postaffiliatepro.com/', desc: '一家专业的联盟营销公司' },
+                { name: 'Partnerize', url: 'https://partnerize.com/', desc: '一家全球领先的合作伙伴营销平台' },
+                { name: 'Affise', url: 'https://affise.com/', desc: '面向广告代理,与广告联盟的绩效营销软件' }
+            ],
+
+            '转化与分析': [
+                { name: 'Google Analytics', url: 'https://analytics.google.com', desc: '网站数据分析工具' },
+                { name: 'Hotjar', url: 'https://www.hotjar.com', desc: '用户行为热力图' },
+                { name: 'Lucky Orange', url: 'https://www.luckyorange.com', desc: '访问回放与转化分析' }
+            ]
+        }
+    },
+        mac: {
+            title: 'Mac小应用',
+            desc: 'mac好用的小软件工具',
+            icon: 'fa-tools',
+            sites: [
+                { name: 'MenubarX', url: 'https://menubarx.app/', desc: '菜单栏浏览器' },
+                { name: 'Bob', url: 'https://bobtranslate.com/', desc: '很好用的AI翻译软件（付费）' },
+                { name: 'NoteGen', url: 'https://notegen.top/cn', desc: '跨平台 AI Agent 笔记' }
+            ]
+        },
+        study: {
+            title: '学习平台',
+            desc: '持续学习，不断进步',
+            icon: 'fa-book',
+            sites: [
+                { name: 'MDN', url: 'https://developer.mozilla.org', desc: 'Web技术文档' },
+                { name: 'Coursera', url: 'https://www.coursera.org', desc: '在线课程平台' },
+                { name: 'LeetCode', url: 'https://leetcode.com', desc: '算法刷题平台' },
+                { name: 'Khan Academy', url: 'https://www.khanacademy.org', desc: '免费在线教育' }
+            ]
+        },
+        books: {
+            title: '书籍小说',
+            desc: '自己找书，老婆找小说',
+            icon: 'fa-book-atlas',
+            sites: [
+                { name: '安娜的档案', url: 'https://annas-archive.li/', desc: '无解' },
+                { name: '破億書屋', url: 'https://big5.poyisw.com/', desc: '给老婆找小说' },
+                { name: 'Z-Library', url: 'https://zh.openzlib.link/', desc: '无解' }
+            ]
+        },
+    };
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function () {
+        renderNavigation();
+        renderContent();
+    });
+
+    // 渲染导航
+    function renderNavigation() {
+        const navMenu = document.getElementById('navMenu');
+        let navHTML = '';
+
+        for (const [key, category] of Object.entries(sitesData)) {
+            // 检查是否有子分类
+            if (category.subcategories) {
+                // 有子分类的导航项
+                navHTML += `
+                    <div>
+                        <div class="nav-item has-subcategories" onclick="toggleSubmenu('${key}')">
+                            <div class="nav-item-content">
+                                <i class="fas ${category.icon}"></i>
+                                ${category.title}
+                            </div>
+                            <i class="fas fa-chevron-down nav-item-arrow" id="arrow-${key}"></i>
+                        </div>
+                        <div class="submenu" id="submenu-${key}">
+                `;
+
+                // 渲染子分类项
+                let subIndex = 0;
+                for (const subKey of Object.keys(category.subcategories)) {
+                    navHTML += `
+                        <a href="#${key}-${subIndex}" class="submenu-item" data-parent="${key}">
+                            ${subKey}
+                        </a>
+                    `;
+                    subIndex++;
+                }
+
+                navHTML += `
+                        </div>
+                    </div>
+                `;
+            } else {
+                // 普通导航项
+                navHTML += `
+                    <a href="#${key}" class="nav-item">
+                        <i class="fas ${category.icon}"></i>
+                        ${category.title}
+                    </a>
+                `;
+            }
+        }
+
+        navMenu.innerHTML = navHTML;
+    }
+
+    // 切换子菜单
+    function toggleSubmenu(key) {
+        const submenu = document.getElementById(`submenu-${key}`);
+        const arrow = document.getElementById(`arrow-${key}`);
+        const navItem = submenu.previousElementSibling;
+
+        submenu.classList.toggle('expanded');
+        navItem.classList.toggle('expanded');
+    }
+
+    // 渲染内容
+    function renderContent() {
+        const mainContent = document.getElementById('mainContent');
+        let contentHTML = '';
+
+        for (const [key, category] of Object.entries(sitesData)) {
+            contentHTML += `
+                <section class="section" id="${key}">
+                    <div class="content-header">
+                        <h2>
+                            <i class="fas ${category.icon}"></i>
+                            ${category.title}
+                        </h2>
+                        <p>${category.desc}</p>
+                    </div>
+            `;
+
+            // 如果有子分类
+            if (category.subcategories) {
+                let subIndex = 0;
+                for (const [subKey, subCategory] of Object.entries(category.subcategories)) {
+                    contentHTML += `
+                        <div class="subsection" id="${key}-${subIndex}">
+                            <div class="subsection-header">
+                                <h3>${subKey}</h3>
+                            </div>
+                            <div class="sites-grid">
+                                ${renderSiteCards(subCategory)}
+                            </div>
+                        </div>
+                    `;
+                    subIndex++;
+                }
+            }
+            // 如果没有子分类，直接渲染网站
+            else if (category.sites) {
+                contentHTML += `
+                    <div class="sites-grid">
+                        ${renderSiteCards(category.sites)}
+                    </div>
+                `;
+            }
+
+            contentHTML += `</section>`;
+        }
+
+        // 将内容插入到搜索栏之后
+        mainContent.insertAdjacentHTML('beforeend', contentHTML);
+    }
+
+    // 渲染网站卡片
+    function renderSiteCards(sites) {
+        return sites.map(site => {
+            const domain = new URL(site.url).hostname;
+            const faviconUrl = `https://favicon.im/${domain}`;
+
+            return `
+                <a href="${site.url}" class="site-card" target="_blank">
+                    <div class="site-card-header">
+                        <img src="${faviconUrl}" alt="${site.name}" class="site-icon" 
+                             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
+                        <div class="site-info">
+                            <h3>${site.name}</h3>
+                            <div class="url">${domain}</div>
+                        </div>
+                    </div>
+                    <div class="site-description">${site.desc}</div>
+                </a>
+            `;
+        }).join('');
+    }
+
+    // 搜索引擎选择
+    let currentEngine = 'google';
+
+    document.querySelectorAll('.engine-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentEngine = this.dataset.engine;
+        });
+    });
+
+    // 执行搜索
+    function performSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        if (!query) return;
+
+        let searchUrl;
+        switch (currentEngine) {
+            case 'baidu':
+                searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+                break;
+            case 'google':
+                searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                break;
+            case 'yandex':
+                searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
+                break;
+            case 'yahoo':
+                searchUrl = `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`;
+                break;
+            default:
+                searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+        }
+
+        window.open(searchUrl, '_blank');
+    }
+
+    // 回车搜索
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    // 切换侧边栏（移动端）
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    // 处理导航链接点击，实现平滑滚动
+    document.addEventListener('click', function (e) {
+        const target = e.target;
+
+        // 检查是否点击了导航链接或子菜单链接
+        const navLink = target.closest('.nav-item, .submenu-item');
+        if (navLink && navLink.getAttribute('href')) {
+            const href = navLink.getAttribute('href');
+
+            // 如果是锚点链接
+            if (href.startsWith('#')) {
+                e.preventDefault(); // 阻止默认跳转行为
+
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    // 平滑滚动到目标位置
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // 移动端关闭侧边栏
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebar').classList.remove('active');
+                    }
+                }
+            }
+        }
+    });
+
+    // 点击导航链接后关闭移动端侧边栏（保留原有的逻辑作为后备）
+    document.addEventListener('click', function (e) {
+        const target = e.target;
+        // 如果点击的是有子分类的父项（这个会由上面的处理函数处理）
+        if (target.classList.contains('nav-item') && target.classList.contains('has-subcategories')) {
+            // 不做处理，让 toggleSubmenu 函数处理
+        }
+    });
+
+    // 返回顶部
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // 显示/隐藏返回顶部按钮
+    window.addEventListener('scroll', function () {
+        const backToTop = document.getElementById('backToTop');
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    // 高亮当前导航项
+    window.addEventListener('scroll', function () {
+        const sections = document.querySelectorAll('.section, .subsection');
+        const navItems = document.querySelectorAll('.nav-item, .submenu-item');
+
+        // 先收起所有展开的子菜单
+        const allSubmenus = document.querySelectorAll('.submenu.expanded');
+        allSubmenus.forEach(submenu => {
+            submenu.classList.remove('expanded');
+            const navItem = submenu.previousElementSibling;
+            if (navItem && navItem.classList.contains('nav-item')) {
+                navItem.classList.remove('expanded');
+            }
+        });
+
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${current}`) {
+                item.classList.add('active');
+
+                // 如果是子菜单项，展开其父菜单
+                if (item.classList.contains('submenu-item')) {
+                    const parentKey = item.getAttribute('data-parent');
+                    const parentSubmenu = document.getElementById(`submenu-${parentKey}`);
+                    const parentNav = parentSubmenu.previousElementSibling;
+                    if (!parentSubmenu.classList.contains('expanded')) {
+                        parentSubmenu.classList.add('expanded');
+                        parentNav.classList.add('expanded');
+                    }
+                }
+            }
+        });
+    });
+</script>
 
 </body>
 
