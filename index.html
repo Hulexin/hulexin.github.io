@@ -400,12 +400,18 @@
         font-weight: 600;
         color: var(--text-primary);
         margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .site-info .url {
         font-size: 11px;
         color: var(--text-secondary);
         opacity: 0.7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .site-description {
@@ -417,6 +423,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        word-break: break-word;
     }
 
     /* 返回顶部按钮 */
@@ -640,7 +647,7 @@
                     <div class="search-box">
                         <input type="text" class="search-input" placeholder="搜索..." id="searchInput">
                         <button class="search-btn" onclick="performSearch()">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search"></i> 搜索
                         </button>
                     </div>
                 </div>
