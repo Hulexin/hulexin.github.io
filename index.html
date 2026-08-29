@@ -4,10 +4,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23000%22/><text x=%2250%22 y=%2270%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22%23fff%22>K</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23172b4d%22/><circle cx=%2278%22 cy=%2222%22 r=%2212%22 fill=%22%23f2663a%22/><text x=%2248%22 y=%2271%22 text-anchor=%22middle%22 font-family=%22Georgia%22 font-size=%2272%22 font-weight=%22700%22 fill=%22%23fff%22>K</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <title>生活/工作 | HTML单页式导航模板</title>
+    <meta name="theme-color" content="#f4f1e8">
+    <meta name="description" content="Hulexin 的个人工作台，收录跨境电商、AI、设计与日常高频工具。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="K Menu · 个人工作台">
+    <meta property="og:description" content="找到工具，开始创造。跨境电商、AI、设计与日常高频工具收藏。">
+    <meta property="og:url" content="https://lifeas.work/">
+    <meta property="og:image" content="https://lifeas.work/og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="K Menu · 个人工作台">
+    <meta name="twitter:description" content="找到工具，开始创造。跨境电商、AI、设计与日常高频工具收藏。">
+    <meta name="twitter:image" content="https://lifeas.work/og.jpg">
+    <title>K Menu · 个人工作台</title>
      <style>
     :root {
         --bg-primary: #fafafa;
@@ -614,12 +624,13 @@
         opacity: 1;
     }
 </style>
+    <link rel="stylesheet" href="styles.css">
     </head>
 
 <body>
     <div class="container">
         <!-- 移动端菜单按钮 -->
-        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="打开分类菜单">
             <i class="fas fa-bars"></i>
         </button>
 
@@ -629,9 +640,11 @@
         <!-- 左侧导航栏 -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>
-                    K MENU
-                </h1>
+                <a class="brand" href="#top" aria-label="返回首页">
+                    <span class="brand-mark">K</span>
+                    <span><strong>K Menu</strong><small>个人工作台</small></span>
+                </a>
+                <span class="sidebar-label">COLLECTIONS</span>
             </div>
             <nav class="nav-menu" id="navMenu">
                 <!-- 导航项将通过JavaScript动态生成 -->
@@ -641,19 +654,29 @@
         <!-- 主内容区 -->
         <main class="main-content" id="mainContent">
             <!-- 搜索栏 -->
-            <header class="search-header">
+            <header class="search-header" id="top">
+                <div class="hero-copy">
+                    <div class="eyebrow"><span></span> LIFE &amp; WORK</div>
+                    <h1>找到工具，<em>开始创造。</em></h1>
+                    <p>为跨境电商、设计与 AI 工作流整理的个人网址收藏。</p>
+                </div>
                 <div class="search-container">
-                    <div class="search-engine-selector">
-                        <button class="engine-btn active" data-engine="google">Google</button>
-                        <button class="engine-btn" data-engine="yandex">Yandex</button>
-                        <button class="engine-btn" data-engine="yahoo">Yahoo</button>
-                        <button class="engine-btn" data-engine="baidu">百度</button>
-                    </div>
                     <div class="search-box">
-                        <input type="text" class="search-input" placeholder="搜索..." id="searchInput">
+                        <i class="fas fa-magnifying-glass search-leading" aria-hidden="true"></i>
+                        <input type="search" class="search-input" placeholder="搜索收藏的网址…" id="searchInput" aria-label="搜索收藏的网址">
+                        <kbd>/</kbd>
                         <button class="search-btn" onclick="performSearch()">
-                            <i class="fas fa-search"></i>
+                            搜网页 <i class="fas fa-arrow-up-right-from-square"></i>
                         </button>
+                    </div>
+                    <div class="search-meta">
+                        <span id="resultCount">正在整理收藏…</span>
+                        <div class="search-engine-selector" aria-label="选择搜索引擎">
+                            <button class="engine-btn active" data-engine="google">Google</button>
+                            <button class="engine-btn" data-engine="yandex">Yandex</button>
+                            <button class="engine-btn" data-engine="yahoo">Yahoo</button>
+                            <button class="engine-btn" data-engine="baidu">百度</button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -662,7 +685,7 @@
     </div>
 
 <!-- 返回顶部按钮 -->
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="返回顶部">
     <i class="fas fa-arrow-up"></i>
 </button>
 
@@ -681,7 +704,7 @@
                 { name: '抖音创作者中心', url: 'https://creator.douyin.com/', desc: '' },
                 { name: 'ChatGPT', url: 'https://chatgpt.com/', desc: '' },
                 { name: 'Tinify', url: 'https://tinify.cn/', desc: '老牌图片压缩' },
-                { name: 'piliapp', url: 'hthttps://tw.piliapp.com/', desc: '特殊字符工具' },
+                { name: 'piliapp', url: 'https://tw.piliapp.com/', desc: '特殊字符工具' },
                 { name: 'GitHub', url: 'https://github.dev/Hulexin/hulexin.github.io/blob/main/index.html', desc: '在线更新网站标签' }
             ]
         },
@@ -916,6 +939,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         renderNavigation();
         renderContent();
+        updateResultCount();
     });
 
     // 渲染导航
@@ -1031,11 +1055,17 @@
     // 渲染网站卡片
     function renderSiteCards(sites) {
         return sites.map(site => {
-            const domain = new URL(site.url).hostname;
+            let domain = '';
+            try {
+                domain = new URL(site.url).hostname.replace(/^www\./, '');
+            } catch (error) {
+                domain = site.url;
+            }
             const faviconUrl = `https://favicon.im/${domain}`;
+            const searchable = `${site.name} ${domain} ${site.desc}`.toLowerCase();
 
             return `
-                <a href="${site.url}" class="site-card" target="_blank">
+                <a href="${site.url}" class="site-card" target="_blank" rel="noopener noreferrer" data-search="${searchable.replace(/"/g, '&quot;')}">
                     <div class="site-card-header">
                         <img src="${faviconUrl}" alt="${site.name}" class="site-icon" 
                              onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
@@ -1048,6 +1078,32 @@
                 </a>
             `;
         }).join('');
+    }
+
+    // 在当前收藏中即时筛选
+    function filterBookmarks(query) {
+        const keyword = query.trim().toLowerCase();
+
+        document.querySelectorAll('.site-card').forEach(card => {
+            card.hidden = keyword !== '' && !card.dataset.search.includes(keyword);
+        });
+
+        document.querySelectorAll('.subsection').forEach(subsection => {
+            subsection.hidden = !subsection.querySelector('.site-card:not([hidden])');
+        });
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.hidden = !section.querySelector('.site-card:not([hidden])');
+        });
+
+        updateResultCount(keyword);
+    }
+
+    function updateResultCount(keyword = '') {
+        const total = document.querySelectorAll('.site-card').length;
+        const visible = document.querySelectorAll('.site-card:not([hidden])').length;
+        const counter = document.getElementById('resultCount');
+        counter.textContent = keyword ? `找到 ${visible} 个相关收藏` : `共 ${total} 个收藏 · 输入即可筛选`;
     }
 
     // 搜索引擎选择
@@ -1088,9 +1144,26 @@
     }
 
     // 回车搜索
+    document.getElementById('searchInput').addEventListener('input', function () {
+        filterBookmarks(this.value);
+    });
+
     document.getElementById('searchInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             performSearch();
+        }
+    });
+
+    document.addEventListener('keydown', function (e) {
+        const input = document.getElementById('searchInput');
+        if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+        }
+        if (e.key === 'Escape' && document.activeElement === input) {
+            input.value = '';
+            filterBookmarks('');
+            input.blur();
         }
     });
 
