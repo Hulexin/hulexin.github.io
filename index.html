@@ -630,7 +630,7 @@
 <body>
     <div class="container">
         <!-- 移动端菜单按钮 -->
-        <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="打开分类菜单">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="打开分类菜单" aria-expanded="false">
             <i class="fas fa-bars"></i>
         </button>
 
@@ -689,6 +689,13 @@
             <section class="holiday-widget" id="holidayWidget" aria-label="中国节日倒计时">
                 <div class="holiday-main" id="holidayMain"></div>
                 <div class="holiday-upcoming" id="holidayUpcoming"></div>
+            </section>
+            <section class="timezone-section" aria-label="全球客户时间">
+                <div class="quick-heading timezone-heading">
+                    <div><span class="section-kicker">WORLD CLOCK</span><h2>全球客户时间</h2></div>
+                    <p>自动适配夏令时 · 绿色表示当地工作时间</p>
+                </div>
+                <div class="timezone-grid" id="timezoneGrid"></div>
             </section>
             <section class="quick-section" id="favoritesSection">
                 <div class="quick-heading"><div><span class="section-kicker">PINNED</span><h2>常用工具</h2></div><p>点击卡片右上角星标即可置顶</p></div>
@@ -1001,6 +1008,8 @@
         renderNavigation();
         renderContent();
         renderHolidayCountdown();
+        renderWorldClocks();
+        setInterval(renderWorldClocks, 30000);
         renderDashboard();
         initializeCommandPalette();
         updateResultCount();
@@ -1310,6 +1319,52 @@
             <div class="holiday-mini"><span>${item.market} · ${item.date.getMonth() + 1}月${item.date.getDate()}日</span><strong>${item.name}</strong><b>${item.days}<small>天</small></b></div>`).join('');
     }
 
+    const WORLD_CLOCKS = [
+        { country: '美国', city: '纽约', flag: '🇺🇸', zone: 'America/New_York' },
+        { country: '美国', city: '洛杉矶', flag: '🇺🇸', zone: 'America/Los_Angeles' },
+        { country: '英国', city: '伦敦', flag: '🇬🇧', zone: 'Europe/London' },
+        { country: '德国', city: '柏林', flag: '🇩🇪', zone: 'Europe/Berlin' },
+        { country: '澳大利亚', city: '悉尼', flag: '🇦🇺', zone: 'Australia/Sydney' }
+    ];
+
+    function getWorldClockData(clock) {
+        const parts = new Intl.DateTimeFormat('zh-CN', {
+            timeZone: clock.zone,
+            hour: '2-digit',
+            minute: '2-digit',
+            hourCycle: 'h23',
+            month: 'numeric',
+            day: 'numeric',
+            weekday: 'short',
+            timeZoneName: 'short'
+        }).formatToParts(new Date());
+        const value = type => parts.find(part => part.type === type)?.value || '';
+        const hour = Number(value('hour'));
+        const weekday = new Intl.DateTimeFormat('en-US', { timeZone: clock.zone, weekday: 'short' }).format(new Date());
+        return {
+            time: `${value('hour')}:${value('minute')}`,
+            date: `${value('month')}月${value('day')}日 · ${value('weekday')}`,
+            zoneName: value('timeZoneName'),
+            isBusiness: !['Sat', 'Sun'].includes(weekday) && hour >= 9 && hour < 18
+        };
+    }
+
+    function renderWorldClocks() {
+        const grid = document.getElementById('timezoneGrid');
+        if (!grid) return;
+        grid.innerHTML = WORLD_CLOCKS.map(clock => {
+            const local = getWorldClockData(clock);
+            return `<article class="timezone-card">
+                <div class="timezone-top">
+                    <div class="timezone-place"><strong>${clock.flag} ${clock.country}</strong><span class="timezone-city">${clock.city} · ${local.zoneName}</span></div>
+                    <span class="timezone-status ${local.isBusiness ? 'is-business' : ''}">${local.isBusiness ? '工作时间' : '休息时间'}</span>
+                </div>
+                <div class="timezone-time">${local.time}</div>
+                <div class="timezone-date">${local.date}</div>
+            </article>`;
+        }).join('');
+    }
+
     function setGreeting() {
         const hour = new Date().getHours();
         document.getElementById('greeting').textContent = hour < 6 ? '夜深了' : hour < 12 ? '早上好' : hour < 18 ? '下午好' : '晚上好';
@@ -1485,11 +1540,22 @@
     });
 
     // 切换侧边栏（移动端）
-    function toggleSidebar() {
+    function setMobileSidebar(open) {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
+        const button = document.querySelector('.mobile-menu-btn');
+        sidebar.classList.toggle('active', open);
+        overlay.classList.toggle('active', open);
+        button.classList.toggle('is-open', open);
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? '关闭分类菜单' : '打开分类菜单');
+        const icon = button.querySelector('i');
+        if (icon) icon.className = open ? 'fas fa-xmark' : 'fas fa-bars';
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        setMobileSidebar(!sidebar.classList.contains('active'));
     }
 
     // 处理导航链接点击，实现平滑滚动
@@ -1517,8 +1583,7 @@
 
                     // 移动端关闭侧边栏
                     if (window.innerWidth <= 768) {
-                        document.getElementById('sidebar').classList.remove('active');
-                        document.getElementById('overlay').classList.remove('active');
+                        setMobileSidebar(false);
                     }
                 }
             }
