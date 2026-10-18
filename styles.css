@@ -69,6 +69,18 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
 .holiday-mini strong { margin: 6px 0 2px; color: var(--ink); font-size: 12px; }
 .holiday-mini b { color: var(--orange); font: 700 18px/1 Georgia,serif; }
 .holiday-mini b small { margin-left: 2px; color: var(--muted); font: 9px/1 sans-serif; }
+.timezone-section { max-width: 1180px; margin: 0 auto 32px; }
+.timezone-heading { margin-bottom: 12px; }
+.timezone-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; }
+.timezone-card { min-width: 0; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.timezone-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+.timezone-place { min-width: 0; }
+.timezone-place strong { display: block; color: var(--ink); font-size: 11px; white-space: nowrap; }
+.timezone-city { display: block; margin-top: 1px; color: var(--muted); font-size: 8px; white-space: nowrap; }
+.timezone-time { margin: 12px 0 4px; color: var(--ink); font: 700 20px/1 Georgia,serif; letter-spacing: -.4px; }
+.timezone-date { color: var(--muted); font-size: 8px; white-space: nowrap; }
+.timezone-status { flex: 0 0 auto; padding: 3px 5px; border-radius: 99px; background: var(--surface-soft); color: var(--muted); font-size: 7px; white-space: nowrap; }
+.timezone-status.is-business { background: rgba(31,157,104,.10); color: #1f9d68; }
 .quick-section { max-width: 1180px; margin: 0 auto 32px; }
 .quick-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 12px; }
 .quick-heading h2 { margin: 2px 0 0; font: 700 20px/1.15 Georgia,"Noto Serif SC",serif; }
@@ -114,19 +126,21 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
 .command-footer { display: flex; gap: 14px; padding: 9px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; } .command-footer span { display: flex; align-items: center; gap: 4px; }
 .back-to-top { position: fixed; z-index: 90; width: 40px; height: 40px; right: 20px; bottom: 20px; border: 0; border-radius: 11px; background: var(--orange); color: #fff; font-size: 11px; opacity: 0; visibility: hidden; transition: opacity .2s,transform .2s; }
 .back-to-top.visible { opacity: 1; visibility: visible; }
-.mobile-menu-btn { display: none; position: fixed; z-index: 120; background: var(--navy); color: #fff; }
+.mobile-menu-btn { display: none; position: fixed; z-index: 120; background: var(--navy); color: #fff; transition: left .25s ease,background .2s,transform .2s; }
 .overlay { display: none; position: fixed; inset: 0; z-index: 95; background: rgba(8,14,24,.58); backdrop-filter: blur(5px); }
 .overlay.active { display: block; }
 ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: rgba(100,110,125,.30); border-radius: 10px; }
-@media (max-width:1060px) { .quick-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .sites-grid { grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); } }
+@media (max-width:1060px) { .timezone-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } .quick-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .sites-grid { grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); } }
 @media (max-width:768px) {
     .mobile-menu-btn { display: flex; align-items: center; justify-content: center; top: 17px; left: 17px; width: 40px; height: 40px; border: 0; border-radius: 10px; }
+    .mobile-menu-btn.is-open { left: 226px; background: rgba(255,255,255,.14); }
     .sidebar { width: 278px; transform: translateX(-100%); } .sidebar.active { transform: translateX(0); }
     .main-content { margin-left: 0; padding: 0 16px 50px; } .search-header { padding-top: 76px; margin-bottom: 28px; }
     .topbar { align-items: flex-start; } .hero-copy h1 { font-size: 28px; }
-    .command-trigger { width: 40px; padding: 0; justify-content: center; font-size: 0; } .command-trigger kbd { display: none; }
+    .command-trigger { width: auto; height: 36px; padding: 0 10px; justify-content: center; font-size: 10px; white-space: nowrap; } .command-trigger kbd { display: none; }
     .search-box>kbd { display: none; } .search-btn { padding: 0 10px; }
     .holiday-widget { grid-template-columns: 1fr; }
+    .timezone-grid { grid-template-columns: repeat(5,minmax(132px,1fr)); overflow-x: auto; padding-bottom: 4px; scroll-snap-type: x proximity; } .timezone-card { scroll-snap-align: start; }
     .quick-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .content-header { display: block; } .content-header p { margin-top: 4px; }
     .sites-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; } .site-card-link { padding: 12px; }
 }
