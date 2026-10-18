@@ -18,7 +18,7 @@
     <meta name="twitter:description" content="找到工具，开始创造。跨境电商、AI、设计与日常高频工具收藏。">
     <meta name="twitter:image" content="https://lifeas.work/og.jpg">
     <title>K Menu · 个人工作台</title>
-     <style>
+     <style media="not all">
     :root {
         --bg-primary: #fafafa;
         --bg-secondary: #f0f0f0;
@@ -649,24 +649,30 @@
             <nav class="nav-menu" id="navMenu">
                 <!-- 导航项将通过JavaScript动态生成 -->
             </nav>
+            <div class="sidebar-footer">
+                <span>本地记录 · 隐私优先</span>
+                <button class="theme-btn" id="themeToggle" aria-label="切换明暗主题"><i class="fas fa-moon"></i></button>
+            </div>
         </aside>
 
         <!-- 主内容区 -->
         <main class="main-content" id="mainContent">
             <!-- 搜索栏 -->
             <header class="search-header" id="top">
-                <div class="hero-copy">
-                    <div class="eyebrow"><span></span> LIFE &amp; WORK</div>
-                    <h1>找到工具，<em>开始创造。</em></h1>
-                    <p>为跨境电商、设计与 AI 工作流整理的个人网址收藏。</p>
+                <div class="topbar">
+                    <div class="hero-copy">
+                        <div class="eyebrow"><span></span> LIFE &amp; WORK</div>
+                        <h1><span id="greeting">你好</span>，今天想做什么？</h1>
+                    </div>
+                    <button class="command-trigger" id="commandTrigger"><i class="fas fa-bolt"></i> 快速启动 <kbd>⌘ K</kbd></button>
                 </div>
                 <div class="search-container">
                     <div class="search-box">
                         <i class="fas fa-magnifying-glass search-leading" aria-hidden="true"></i>
-                        <input type="search" class="search-input" placeholder="搜索收藏的网址…" id="searchInput" aria-label="搜索收藏的网址">
+                        <input type="search" class="search-input" placeholder="搜索名称、分类或网址…" id="searchInput" aria-label="搜索收藏的网址">
                         <kbd>/</kbd>
                         <button class="search-btn" onclick="performSearch()">
-                            搜网页 <i class="fas fa-arrow-up-right-from-square"></i>
+                            用 <span id="engineLabel">Google</span> 搜索 <i class="fas fa-arrow-up-right-from-square"></i>
                         </button>
                     </div>
                     <div class="search-meta">
@@ -680,9 +686,30 @@
                     </div>
                 </div>
             </header>
+            <section class="holiday-widget" id="holidayWidget" aria-label="中国节日倒计时">
+                <div class="holiday-main" id="holidayMain"></div>
+                <div class="holiday-upcoming" id="holidayUpcoming"></div>
+            </section>
+            <section class="quick-section" id="favoritesSection">
+                <div class="quick-heading"><div><span class="section-kicker">PINNED</span><h2>常用工具</h2></div><p>点击卡片右上角星标即可置顶</p></div>
+                <div class="quick-grid" id="favoritesGrid"></div>
+            </section>
+            <section class="quick-section recent-section" id="recentSection">
+                <div class="quick-heading"><div><span class="section-kicker">RECENT</span><h2>最近使用</h2></div><button class="text-btn" id="clearRecent">清除记录</button></div>
+                <div class="quick-grid" id="recentGrid"></div>
+            </section>
             <!-- 内容将通过JavaScript动态生成 -->
         </main>
     </div>
+
+<div class="command-palette" id="commandPalette" aria-hidden="true">
+    <div class="command-backdrop" data-close-command></div>
+    <div class="command-panel" role="dialog" aria-modal="true" aria-label="快速启动工具">
+        <div class="command-search"><i class="fas fa-magnifying-glass"></i><input id="commandInput" type="search" placeholder="输入工具名称快速打开…"><kbd>ESC</kbd></div>
+        <div class="command-results" id="commandResults"></div>
+        <div class="command-footer"><span><kbd>↑</kbd><kbd>↓</kbd> 选择</span><span><kbd>↵</kbd> 打开</span></div>
+    </div>
+</div>
 
 <!-- 返回顶部按钮 -->
 <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="返回顶部">
@@ -938,10 +965,44 @@
         },
     };
 
+    const STORAGE_KEYS = {
+        favorites: 'kmenu_favorites_v2',
+        recent: 'kmenu_recent_v2',
+        theme: 'kmenu_theme_v2'
+    };
+    let allSites = [];
+    let commandMatches = [];
+    let commandIndex = 0;
+
+    function buildSiteIndex() {
+        allSites = [];
+        Object.entries(sitesData).forEach(([categoryKey, category]) => {
+            if (category.sites) category.sites.forEach(site => allSites.push({ ...site, category: category.title, categoryKey }));
+            if (category.subcategories) Object.entries(category.subcategories).forEach(([sub, sites]) => {
+                sites.forEach(site => allSites.push({ ...site, category: `${category.title} · ${sub}`, categoryKey }));
+            });
+        });
+    }
+
+    function readStorage(key, fallback = []) {
+        try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
+    }
+
+    function getCategoryCount(category) {
+        if (category.sites) return category.sites.length;
+        return Object.values(category.subcategories || {}).reduce((sum, sites) => sum + sites.length, 0);
+    }
+
     // 初始化
     document.addEventListener('DOMContentLoaded', function () {
+        buildSiteIndex();
+        initializeTheme();
+        setGreeting();
         renderNavigation();
         renderContent();
+        renderHolidayCountdown();
+        renderDashboard();
+        initializeCommandPalette();
         updateResultCount();
     });
 
@@ -961,6 +1022,7 @@
                                 <i class="fas ${category.icon}"></i>
                                 ${category.title}
                             </div>
+                            <span class="nav-count">${getCategoryCount(category)}</span>
                             <i class="fas fa-chevron-down nav-item-arrow" id="arrow-${key}"></i>
                         </div>
                         <div class="submenu" id="submenu-${key}">
@@ -987,6 +1049,7 @@
                     <a href="#${key}" class="nav-item">
                         <i class="fas ${category.icon}"></i>
                         ${category.title}
+                        <span class="nav-count">${getCategoryCount(category)}</span>
                     </a>
                 `;
             }
@@ -1057,6 +1120,7 @@
 
     // 渲染网站卡片
     function renderSiteCards(sites) {
+        const favorites = readStorage(STORAGE_KEYS.favorites);
         return sites.map(site => {
             let domain = '';
             try {
@@ -1066,28 +1130,66 @@
             }
             const faviconUrl = `https://favicon.im/${domain}`;
             const searchable = `${site.name} ${domain} ${site.desc}`.toLowerCase();
+            const isFavorite = favorites.includes(site.url);
 
             return `
-                <a href="${site.url}" class="site-card" target="_blank" rel="noopener noreferrer" data-search="${searchable.replace(/"/g, '&quot;')}">
-                    <div class="site-card-header">
-                        <img src="${faviconUrl}" alt="${site.name}" class="site-icon" 
-                             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
-                        <div class="site-info">
-                            <h3>${site.name}</h3>
-                            <div class="url">${domain}</div>
+                <div class="site-card" data-search="${searchable.replace(/"/g, '&quot;')}" data-url="${site.url}">
+                    <a href="${site.url}" class="site-card-link" target="_blank" rel="noopener noreferrer" data-track-site>
+                        <div class="site-card-header">
+                            <img src="${faviconUrl}" alt="" class="site-icon"
+                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/><text fill=%22%23999%22 font-size=%2250%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>${site.name[0].toUpperCase()}</text></svg>'">
+                            <div class="site-info">
+                                <h3>${site.name}</h3>
+                                <div class="url">${domain}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="site-description">${site.desc}</div>
-                </a>
+                        <div class="site-description">${site.desc || '快速打开这个工具'}</div>
+                    </a>
+                    <button class="favorite-btn ${isFavorite ? 'is-favorite' : ''}" data-favorite-url="${site.url}" aria-label="${isFavorite ? '取消置顶' : '置顶'} ${site.name}">
+                        <i class="${isFavorite ? 'fas' : 'far'} fa-star"></i>
+                    </button>
+                </div>
             `;
         }).join('');
+    }
+
+    function renderDashboard() {
+        const favoriteUrls = readStorage(STORAGE_KEYS.favorites);
+        let favorites = favoriteUrls.map(url => allSites.find(site => site.url === url)).filter(Boolean);
+        if (!favorites.length) favorites = (sitesData.recommend?.sites || []).slice(0, 5);
+        document.getElementById('favoritesGrid').innerHTML = renderSiteCards(favorites.slice(0, 5));
+
+        const recentUrls = readStorage(STORAGE_KEYS.recent);
+        const recent = recentUrls.map(url => allSites.find(site => site.url === url)).filter(Boolean).slice(0, 5);
+        const recentSection = document.getElementById('recentSection');
+        recentSection.classList.toggle('is-empty', recent.length === 0);
+        document.getElementById('recentGrid').innerHTML = renderSiteCards(recent);
+    }
+
+    function toggleFavorite(url) {
+        let favorites = readStorage(STORAGE_KEYS.favorites);
+        favorites = favorites.includes(url) ? favorites.filter(item => item !== url) : [url, ...favorites];
+        localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify(favorites));
+        document.querySelectorAll(`[data-favorite-url="${CSS.escape(url)}"]`).forEach(button => {
+            const active = favorites.includes(url);
+            button.classList.toggle('is-favorite', active);
+            button.querySelector('i').className = `${active ? 'fas' : 'far'} fa-star`;
+        });
+        renderDashboard();
+    }
+
+    function trackRecent(url) {
+        let recent = readStorage(STORAGE_KEYS.recent).filter(item => item !== url);
+        recent.unshift(url);
+        localStorage.setItem(STORAGE_KEYS.recent, JSON.stringify(recent.slice(0, 12)));
+        renderDashboard();
     }
 
     // 在当前收藏中即时筛选
     function filterBookmarks(query) {
         const keyword = query.trim().toLowerCase();
 
-        document.querySelectorAll('.site-card').forEach(card => {
+        document.querySelectorAll('.section .site-card').forEach(card => {
             card.hidden = keyword !== '' && !card.dataset.search.includes(keyword);
         });
 
@@ -1103,10 +1205,188 @@
     }
 
     function updateResultCount(keyword = '') {
-        const total = document.querySelectorAll('.site-card').length;
-        const visible = document.querySelectorAll('.site-card:not([hidden])').length;
+        const total = document.querySelectorAll('.section .site-card').length;
+        const visible = document.querySelectorAll('.section .site-card:not([hidden])').length;
         const counter = document.getElementById('resultCount');
         counter.textContent = keyword ? `找到 ${visible} 个相关收藏` : `共 ${total} 个收藏 · 输入即可筛选`;
+    }
+
+    function getQingmingDay(year) {
+        const shortYear = year % 100;
+        return Math.floor(shortYear * 0.2422 + 4.81) - Math.floor(shortYear / 4);
+    }
+
+    function getNthWeekday(year, month, weekday, nth) {
+        const first = new Date(year, month, 1);
+        return 1 + ((7 + weekday - first.getDay()) % 7) + (nth - 1) * 7;
+    }
+
+    function getEasterDate(year) {
+        const a = year % 19;
+        const b = Math.floor(year / 100);
+        const c = year % 100;
+        const d = Math.floor(b / 4);
+        const e = b % 4;
+        const f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3);
+        const h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4);
+        const k = c % 4;
+        const l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const month = Math.floor((h + l - 7 * m + 114) / 31);
+        const day = ((h + l - 7 * m + 114) % 31) + 1;
+        return { month, day };
+    }
+
+    function getFestivalsForDate(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const year = date.getFullYear();
+        const festivals = [];
+        const solarFestivals = {
+            '1-1': '元旦',
+            '5-1': '劳动节',
+            '10-1': '国庆节'
+        };
+        if (month === 4 && day === getQingmingDay(year)) festivals.push({ name: '清明节', market: '中国节日' });
+        if (solarFestivals[`${month}-${day}`]) festivals.push({ name: solarFestivals[`${month}-${day}`], market: '中国节日' });
+
+        const lunarParts = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', { month: 'long', day: 'numeric' }).formatToParts(date);
+        const lunarMonth = lunarParts.find(part => part.type === 'month')?.value;
+        const lunarDay = Number(lunarParts.find(part => part.type === 'day')?.value);
+        const lunarFestivals = {
+            '正月-1': '春节',
+            '正月-15': '元宵节',
+            '五月-5': '端午节',
+            '七月-7': '七夕节',
+            '八月-15': '中秋节'
+        };
+        const lunarName = lunarFestivals[`${lunarMonth}-${lunarDay}`];
+        if (lunarName) festivals.push({ name: lunarName, market: '中国节日' });
+
+        const easter = getEasterDate(year);
+        const thanksgivingDay = getNthWeekday(year, 10, 4, 4);
+        const usFestivals = {
+            '2-14': '情人节',
+            '7-4': '美国独立日',
+            '10-31': '万圣节',
+            [`11-${thanksgivingDay}`]: '感恩节',
+            [`11-${thanksgivingDay + 1}`]: '黑色星期五',
+            [`11-${thanksgivingDay + 4}`]: '网络星期一',
+            '12-25': '圣诞节'
+        };
+        if (month === easter.month && day === easter.day) festivals.push({ name: '复活节', market: '海外营销' });
+        if (month === 5 && day === getNthWeekday(year, 4, 0, 2)) festivals.push({ name: '母亲节', market: '海外营销' });
+        if (month === 6 && day === getNthWeekday(year, 5, 0, 3)) festivals.push({ name: '父亲节', market: '海外营销' });
+        if (usFestivals[`${month}-${day}`]) festivals.push({ name: usFestivals[`${month}-${day}`], market: '海外营销' });
+        return festivals;
+    }
+
+    function getUpcomingFestivals(limit = 4) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const festivals = [];
+        for (let offset = 0; offset <= 500 && festivals.length < limit; offset++) {
+            const date = new Date(today);
+            date.setDate(today.getDate() + offset);
+            const matches = getFestivalsForDate(date);
+            matches.forEach(item => {
+                if (festivals.length < limit) festivals.push({ ...item, date, days: offset });
+            });
+        }
+        return festivals;
+    }
+
+    function renderHolidayCountdown() {
+        const festivals = getUpcomingFestivals(5);
+        if (!festivals.length) return;
+        const [next, ...upcoming] = festivals;
+        const dateText = `${next.date.getMonth() + 1}月${next.date.getDate()}日 · ${new Intl.DateTimeFormat('zh-CN', { weekday: 'long' }).format(next.date)}`;
+        document.getElementById('holidayMain').innerHTML = `
+            <div class="holiday-copy"><span class="holiday-label">${next.market} · 下一个营销节点</span><h2>${next.name}</h2><p>${dateText}</p></div>
+            <div class="holiday-days"><strong>${next.days}</strong><span>${next.days === 0 ? '就是今天' : '天后到来'}</span></div>`;
+        document.getElementById('holidayUpcoming').innerHTML = upcoming.map(item => `
+            <div class="holiday-mini"><span>${item.market} · ${item.date.getMonth() + 1}月${item.date.getDate()}日</span><strong>${item.name}</strong><b>${item.days}<small>天</small></b></div>`).join('');
+    }
+
+    function setGreeting() {
+        const hour = new Date().getHours();
+        document.getElementById('greeting').textContent = hour < 6 ? '夜深了' : hour < 12 ? '早上好' : hour < 18 ? '下午好' : '晚上好';
+    }
+
+    function initializeTheme() {
+        const saved = localStorage.getItem(STORAGE_KEYS.theme);
+        const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+        updateThemeIcon(theme);
+    }
+
+    function updateThemeIcon(theme) {
+        const icon = document.querySelector('#themeToggle i');
+        if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    function toggleTheme() {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem(STORAGE_KEYS.theme, next);
+        updateThemeIcon(next);
+    }
+
+    function initializeCommandPalette() {
+        document.getElementById('commandTrigger').addEventListener('click', openCommandPalette);
+        document.querySelector('[data-close-command]').addEventListener('click', closeCommandPalette);
+        document.getElementById('commandInput').addEventListener('input', event => renderCommandResults(event.target.value));
+        renderCommandResults('');
+    }
+
+    function openCommandPalette() {
+        const palette = document.getElementById('commandPalette');
+        palette.classList.add('is-open');
+        palette.setAttribute('aria-hidden', 'false');
+        const input = document.getElementById('commandInput');
+        input.value = '';
+        renderCommandResults('');
+        setTimeout(() => input.focus(), 20);
+    }
+
+    function closeCommandPalette() {
+        const palette = document.getElementById('commandPalette');
+        palette.classList.remove('is-open');
+        palette.setAttribute('aria-hidden', 'true');
+    }
+
+    function renderCommandResults(query) {
+        const keyword = query.trim().toLowerCase();
+        commandMatches = allSites.filter(site => `${site.name} ${site.desc} ${site.category} ${site.url}`.toLowerCase().includes(keyword)).slice(0, 9);
+        commandIndex = 0;
+        const results = document.getElementById('commandResults');
+        if (!commandMatches.length) {
+            results.innerHTML = '<div class="command-empty">没有找到相关工具</div>';
+            return;
+        }
+        results.innerHTML = commandMatches.map((site, index) => {
+            const domain = new URL(site.url).hostname.replace(/^www\./, '');
+            return `<button class="command-item ${index === 0 ? 'is-selected' : ''}" data-command-index="${index}">
+                <img src="https://favicon.im/${domain}" alt=""><span><strong>${site.name}</strong><small>${site.category} · ${domain}</small></span><i class="fas fa-arrow-up-right-from-square"></i>
+            </button>`;
+        }).join('');
+    }
+
+    function moveCommandSelection(step) {
+        if (!commandMatches.length) return;
+        commandIndex = (commandIndex + step + commandMatches.length) % commandMatches.length;
+        document.querySelectorAll('.command-item').forEach((item, index) => item.classList.toggle('is-selected', index === commandIndex));
+        document.querySelector('.command-item.is-selected')?.scrollIntoView({ block: 'nearest' });
+    }
+
+    function openCommandResult(index = commandIndex) {
+        const site = commandMatches[index];
+        if (!site) return;
+        trackRecent(site.url);
+        window.open(site.url, '_blank', 'noopener');
+        closeCommandPalette();
     }
 
     // 搜索引擎选择
@@ -1117,6 +1397,7 @@
             document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             currentEngine = this.dataset.engine;
+            document.getElementById('engineLabel').textContent = this.textContent;
         });
     });
 
@@ -1151,14 +1432,27 @@
         filterBookmarks(this.value);
     });
 
-    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+    document.getElementById('searchInput').addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
-            performSearch();
+            const first = document.querySelector('.section:not([hidden]) .site-card:not([hidden]) .site-card-link');
+            if (first) { e.preventDefault(); first.click(); }
         }
     });
 
     document.addEventListener('keydown', function (e) {
         const input = document.getElementById('searchInput');
+        const paletteOpen = document.getElementById('commandPalette').classList.contains('is-open');
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            paletteOpen ? closeCommandPalette() : openCommandPalette();
+            return;
+        }
+        if (paletteOpen) {
+            if (e.key === 'Escape') { closeCommandPalette(); return; }
+            if (e.key === 'ArrowDown') { e.preventDefault(); moveCommandSelection(1); return; }
+            if (e.key === 'ArrowUp') { e.preventDefault(); moveCommandSelection(-1); return; }
+            if (e.key === 'Enter') { e.preventDefault(); openCommandResult(); return; }
+        }
         if (e.key === '/' && document.activeElement !== input) {
             e.preventDefault();
             input.focus();
@@ -1168,6 +1462,26 @@
             filterBookmarks('');
             input.blur();
         }
+    });
+
+    document.addEventListener('click', function (e) {
+        const favoriteButton = e.target.closest('[data-favorite-url]');
+        if (favoriteButton) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavorite(favoriteButton.dataset.favoriteUrl);
+            return;
+        }
+        const siteLink = e.target.closest('[data-track-site]');
+        if (siteLink) trackRecent(siteLink.getAttribute('href'));
+        const commandItem = e.target.closest('[data-command-index]');
+        if (commandItem) openCommandResult(Number(commandItem.dataset.commandIndex));
+    });
+
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('clearRecent').addEventListener('click', function () {
+        localStorage.removeItem(STORAGE_KEYS.recent);
+        renderDashboard();
     });
 
     // 切换侧边栏（移动端）
