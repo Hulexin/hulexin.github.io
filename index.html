@@ -727,22 +727,6 @@
 <script>
     // 网站数据
     let sitesData = {
-        recommend: {
-            title: '个人常用',
-            desc: '方便作者日常使用的站点',
-            icon: 'fa-star',
-            sites: [
-                { name: 'Shopify', url: 'https://www.shopify.com/uk/partners', desc: 'Shopify 合作伙伴后台入口' },
-                { name: '飞书文档', url: 'https://zewuoffice.feishu.cn/', desc: '' },
-                { name: '视频号助手', url: 'https://channels.weixin.qq.com/platform', desc: '' },
-                { name: '视频号在线下载', url: 'https://sph.miuistore.com/', desc: '在线视频号视频下载工具' },
-                { name: '抖音创作者中心', url: 'https://creator.douyin.com/', desc: '' },
-                { name: 'ChatGPT', url: 'https://chatgpt.com/', desc: '' },
-                { name: 'Tinify', url: 'https://tinify.cn/', desc: '老牌图片压缩' },
-                { name: 'piliapp', url: 'https://tw.piliapp.com/', desc: '特殊字符工具' },
-                { name: 'GitHub', url: 'https://github.dev/Hulexin/hulexin.github.io/blob/main/index.html', desc: '在线更新网站标签' }
-            ]
-        },
         aitools: {
             title: 'AI工具',
             desc: '各类用过的AI工具整合',
@@ -826,6 +810,10 @@
                     { name: 'Storyset', url: 'https://storyset.com/', desc: '免费可定制的插图' },
                     { name: 'pixabay', url: 'https://pixabay.com/', desc: '免版权图片、视频、音乐等' }
                 ],
+                '图文工具': [
+                    { name: 'Tinify', url: 'https://tinify.cn/', desc: '图片压缩工具' },
+                    { name: 'piliapp', url: 'https://tw.piliapp.com/', desc: '特殊字符工具' }
+                ],
                 '图标资源': [
                     { name: '阿里图标', url: 'https://www.iconfont.cn/', desc: '阿里妈妈矢量图标管理、交流平台' },
                     { name: 'Lordicon', url: 'https://lordicon.com/', desc: '39600+ 动画图标' },
@@ -857,6 +845,14 @@
         desc: '广告投放、SEO、转化率优化工具',
         icon: 'fa-bullhorn',
         subcategories: {
+            '建站平台': [
+                { name: 'Shopify', url: 'https://www.shopify.com/uk/partners', desc: 'Shopify 合作伙伴后台入口' }
+            ],
+            '社媒运营': [
+                { name: '视频号助手', url: 'https://channels.weixin.qq.com/platform', desc: '视频号内容发布与运营后台' },
+                { name: '视频号在线下载', url: 'https://sph.miuistore.com/', desc: '在线视频号视频下载工具' },
+                { name: '抖音创作者中心', url: 'https://creator.douyin.com/', desc: '抖音内容发布与创作者运营' }
+            ],
             '广告平台': [
                 { name: 'Facebook Ads', url: 'https://www.facebook.com/business/ads', desc: '全球最大的社交平台' },
                 { name: 'Google Ads', url: 'https://ads.google.com/home', desc: '全球质量最好的流量' },
@@ -924,20 +920,22 @@
         }
     },
         clouds: {
-            title: '托管类',
-            desc: '各类云部署平台',
+            title: '托管与开发',
+            desc: '代码管理、网站维护与云部署平台',
             icon: 'fa-cloud',
             sites: [
+                { name: 'GitHub', url: 'https://github.dev/Hulexin/hulexin.github.io/blob/main/index.html', desc: '在线更新网站标签' },
                 { name: '阿里云', url: 'https://home.console.aliyun.com/', desc: '' },
                 { name: 'Netlify', url: 'https://app.netlify.com/', desc: '静态网站和 JAMstack 前端部署' },
                 { name: 'Repocloud', url: 'https://repocloud.io/dashboard', desc: '一键部署容器实例' }
             ]
         },
         mac: {
-            title: 'Mac小应用',
-            desc: 'mac好用的小软件工具',
+            title: '效率工具',
+            desc: '办公协作与 Mac 实用工具',
             icon: 'fa-tools',
             sites: [
+                { name: '飞书文档', url: 'https://zewuoffice.feishu.cn/', desc: '文档与办公协作' },
                 { name: 'MenubarX', url: 'https://menubarx.app/', desc: '菜单栏浏览器' },
                 { name: 'Bob', url: 'https://bobtranslate.com/', desc: '很好用的AI翻译软件（付费）' },
                 { name: 'Joplin', url: 'https://joplinapp.org/', desc: '免费开源笔记软件' },
@@ -1168,7 +1166,7 @@
     function renderDashboard() {
         const favoriteUrls = readStorage(STORAGE_KEYS.favorites);
         let favorites = favoriteUrls.map(url => allSites.find(site => site.url === url)).filter(Boolean);
-        if (!favorites.length) favorites = (sitesData.recommend?.sites || []).slice(0, 5);
+
         document.getElementById('favoritesGrid').innerHTML = renderSiteCards(favorites.slice(0, 5));
 
         const recentUrls = readStorage(STORAGE_KEYS.recent);
