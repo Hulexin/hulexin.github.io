@@ -118,6 +118,9 @@ async function exportJPG(){const button=document.querySelector('#exportJpg');if(
     ctx.font=`${st.fontStyle} ${st.fontWeight} ${st.fontSize} ${st.fontFamily}`;
     ctx.fillStyle=st.color;
     ctx.textBaseline='alphabetic';ctx.textAlign='left';
+    const lineMetrics=ctx.measureText('国Ag，。');
+    const lineAscent=lineMetrics.fontBoundingBoxAscent??lineMetrics.actualBoundingBoxAscent??fs*.88;
+    const lineDescent=lineMetrics.fontBoundingBoxDescent??lineMetrics.actualBoundingBoxDescent??fs*.12;
     const r=document.createRange();
     // Grapheme segmentation prevents splitting emoji/surrogate pairs.
     let segs=typeof Intl.Segmenter==='function'
@@ -127,10 +130,7 @@ async function exportJPG(){const button=document.querySelector('#exportJpg');if(
       const [ch,j]=segs[i];if(!ch||/^\s+$/.test(ch))continue;
       r.setStart(t,j);r.setEnd(t,j+ch.length);
       const rr=r.getBoundingClientRect();if(rr.width===0||rr.height===0)continue;
-      let metrics=ctx.measureText(ch);
-      let ascent=metrics.actualBoundingBoxAscent||fs*.78;
-      let descent=metrics.actualBoundingBoxDescent||fs*.18;
-      let dy=(rr.height-(ascent+descent))/2+ascent;
+      const dy=(rr.height-(lineAscent+lineDescent))/2+lineAscent;
       ctx.fillText(ch,rr.left-base.left,rr.top-base.top+dy);
     }
     r.detach?.();
