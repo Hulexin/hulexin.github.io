@@ -5,7 +5,7 @@
 .preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 22px}.preset-tile{min-width:0;border:1px solid #e4ddd5;border-radius:8px;padding:7px;background:#fff;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}.preset-tile:hover{border-color:#ad1832;box-shadow:0 3px 10px #0001}.preset-tile .preset-label{font-size:10px;line-height:1.6;display:block;margin:7px 0 4px;color:#6b6058;min-height:32px}.preset-tile .preset-add{display:block;text-align:center;color:#ad1832;font-size:11px;border-top:1px solid #eee7df;padding-top:6px}.preset-sheet{width:100%;aspect-ratio:3/4;position:relative;overflow:hidden;background:#f8f1e9;border:1px solid #eee7df;pointer-events:none}.preset-sheet .poster{position:absolute;left:0;top:0;transform:scale(.098);transform-origin:0 0;pointer-events:none}.preset-sheet [contenteditable]{pointer-events:none}.preset-sheet .block{outline:0}.preset-sheet .image.empty{background:linear-gradient(145deg,#e3dad0,#f5ede3);color:#93877c;font-size:25px}.preset-tile:focus-visible{outline:2px solid #ad1832;outline-offset:2px}
 .poster .kicker{color:var(--accent)}.poster .highlight mark{background:var(--accent)}.poster .note{border-color:var(--accent);background:var(--card)}.poster .mini-strip span{background:var(--card);border-color:var(--accent)}.poster.t2 .card,.poster.warm.editorial .card{background:var(--card)}.poster .image.empty{background:var(--card)}.poster .darkcta{background:var(--accent);color:#fff}.preset-sheet{background:var(--paper,#f8f1e9)}
 .poster .brand,.poster.t2 .brand{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:85px;border-top:2px solid var(--accent);padding-top:22px;flex-shrink:0}.brand-left{display:flex;align-items:center;gap:14px;min-width:0}.poster .brand img{width:var(--logo-width,250px);max-width:650px;max-height:none;height:auto;object-fit:contain}.header-index{margin-left:auto;display:flex;align-items:baseline;gap:14px;white-space:nowrap;font-size:20px;font-weight:500;letter-spacing:1px}.header-index b{color:var(--accent);font-size:30px;font-weight:850}.poster .footer,.poster.warm .footer,.poster.t2 .footer{display:flex;justify-content:space-between;align-items:center;gap:24px;border-top:1px solid #b8ada3;font-size:20px;padding-top:24px;flex-shrink:0}.poster .footer:after{content:none!important;display:none!important}.poster .footer>span:first-child{font-weight:800}.poster .footer>span:last-child{display:block!important;font-weight:500;white-space:nowrap}.poster .brand:empty{display:none}
-</style><header><strong>白泽 <span style="color:#ad1832">/</span> 海报工作室</strong><small>POSTER STUDIO · 模块化编辑</small><span id="status">本地自动保存</span><button onclick="undo()">撤销</button><button onclick="redo()">重做</button><button onclick="backup()">保存项目</button><button onclick="document.querySelector('#import').click()">打开项目</button><button class="primary" onclick="exportSVG()">导出 SVG</button></header><div class="app"><aside><h4>页面 / PAGES</h4><div id="pages"></div><button style="width:100%" onclick="addPage()">＋ 添加页面</button><div class="actions"><button onclick="copyPage()">复制页面</button><button class="danger" onclick="deletePage()">删除页面</button></div><div class="hint">拖动缩略图调整页序。<br>点击页面名称可重命名。</div></aside><main class="stage"><div class="stagebar"><b id="pageTitle"></b><span id="overflow">点击模块选择 · 双击文字编辑</span><button onclick="zoom(-.05)">−</button><button id="zoom" onclick="scale=null;renderCanvas()">适配</button><button onclick="zoom(.05)">＋</button></div><div class="wrap" id="wrap"><article class="poster" id="poster"></article></div></main><aside class="right"><div class="tabs"><button onclick="tab='library';panel()" id="tlibrary">添加模块</button><button onclick="tab='element';panel()" id="telement">元素设置</button><button onclick="tab='global';panel()" id="tglobal">全局设置</button></div><div id="panel"></div></aside></div><input type="file" id="upload" accept="image/*" hidden><input type="file" id="import" accept=".json" hidden><script>
+</style><header><strong>白泽 <span style="color:#ad1832">/</span> 海报工作室</strong><small>POSTER STUDIO · 模块化编辑</small><span id="status">本地自动保存</span><button onclick="undo()">撤销</button><button onclick="redo()">重做</button><button onclick="backup()">保存项目</button><button onclick="document.querySelector('#import').click()">打开项目</button><button onclick="exportSVG()">导出 SVG</button><button class="primary" id="exportJpg" onclick="exportJPG()">导出 JPG</button></header><div class="app"><aside><h4>页面 / PAGES</h4><div id="pages"></div><button style="width:100%" onclick="addPage()">＋ 添加页面</button><div class="actions"><button onclick="copyPage()">复制页面</button><button class="danger" onclick="deletePage()">删除页面</button></div><div class="hint">拖动缩略图调整页序。<br>点击页面名称可重命名。</div></aside><main class="stage"><div class="stagebar"><b id="pageTitle"></b><span id="overflow">点击模块选择 · 双击文字编辑</span><button onclick="zoom(-.05)">−</button><button id="zoom" onclick="scale=null;renderCanvas()">适配</button><button onclick="zoom(.05)">＋</button></div><div class="wrap" id="wrap"><article class="poster" id="poster"></article></div></main><aside class="right"><div class="tabs"><button onclick="tab='library';panel()" id="tlibrary">添加模块</button><button onclick="tab='element';panel()" id="telement">元素设置</button><button onclick="tab='global';panel()" id="tglobal">全局设置</button></div><div id="panel"></div></aside></div><input type="file" id="upload" accept="image/*" hidden><input type="file" id="import" accept=".json" hidden><script>
 const original={
   selected:0,
   global:{brandCN:'白泽传媒',brandEN:'BAIZE MEDIA',badge:'很高兴遇见你',paper:'#f8f1e9',accent:'#bc0a27',card:'#f5ddc7'},
@@ -83,6 +83,60 @@ function headerMarkup(p,index){const g=state.global;const left=g.logoVisible===f
 function footerMarkup(p,index){return `<div class="footer"><span>${esc(p.footerText??state.global.badge)}</span><span>${String(index+1).padStart(2,'0')} / ${String(state.pages.length).padStart(2,'0')}</span></div>`}
 const panelBeforePageChrome=panel;panel=function(){panelBeforePageChrome();if(tab!=='global')return;const container=document.querySelector('#panel'),g=state.global,p=page();container.insertAdjacentHTML('beforeend',`<h4 style="margin-top:28px">页眉与页脚</h4><label><input type="checkbox" id="logoVisible" ${g.logoVisible!==false?'checked':''} style="width:auto"> 显示 Logo / 品牌名称</label><label>Logo 宽度（40–650 像素）</label><input type="range" min="40" max="650" value="${g.logoWidth||250}" id="logoWidth"><small id="logoWidthLabel">${g.logoWidth||250} px</small><label><input type="checkbox" id="headerIndexVisible" ${g.headerIndexVisible!==false?'checked':''} style="width:auto"> 显示页眉页码与栏目</label><label>当前页栏目文字</label><input id="pageHeaderLabel" value="${esc(p.headerLabel||'ABOUT')}" placeholder="ABOUT / SERVICES / CONTACT"><label>当前页页脚短句（留空可隐藏短句）</label><input id="pageFooterText" value="${esc(p.footerText??g.badge)}"><div class="hint">Logo 尺寸和显示开关应用到全部页面。栏目与页脚短句只修改当前页；未单独设置的页脚沿用上方全局页脚文字。</div>`);for(const key of ['logoVisible','headerIndexVisible'])document.querySelector('#'+key).onchange=e=>change(()=>state.global[key]=e.target.checked);const range=document.querySelector('#logoWidth');range.onpointerdown=()=>checkpoint();range.oninput=e=>{state.global.logoWidth=Number(e.target.value);document.querySelector('#logoWidthLabel').textContent=e.target.value+' px';save();renderCanvas()};range.onchange=()=>save();for(const [id,key] of [['pageHeaderLabel','headerLabel'],['pageFooterText','footerText']])document.querySelector('#'+id).onchange=e=>change(()=>page()[key]=e.target.value)};
 const panelBeforeThumbnails=panel;panel=function(){panelBeforeThumbnails();fitPresetThumbnails()};
+
+
+async function exportJPG(){const button=document.querySelector('#exportJpg');if(button.disabled)return;button.disabled=true;button.textContent='正在导出…';let off;try{await document.fonts.ready;const clone=document.querySelector('#poster').cloneNode(true);clone.style.transform='none';clone.style.position='relative';clone.querySelectorAll('.handle').forEach(x=>x.remove());clone.querySelectorAll('[contenteditable]').forEach(x=>x.removeAttribute('contenteditable'));clone.querySelectorAll('.selected').forEach(x=>x.classList.remove('selected'));off=document.createElement('div');off.style.cssText='position:fixed;left:-10000px;top:0;width:1080px;pointer-events:none';off.appendChild(clone);document.body.appendChild(off);await Promise.all([...clone.querySelectorAll('img')].map(img=>img.decode()));const root=clone,base=root.getBoundingClientRect(),canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1440;const ctx=canvas.getContext('2d',{alpha:false});ctx.fillStyle=state.global.paper;ctx.fillRect(0,0,1080,1440);
+  function box(r){return [r.left-base.left,r.top-base.top,r.width,r.height]}
+  function paintBackground(el,style,rect){
+    let bg=style.backgroundColor;
+    if(!bg||bg==='transparent'||bg==='rgba(0, 0, 0, 0)')return;
+    const [x,y,w,h]=box(rect);if(w<=0||h<=0)return;
+    ctx.fillStyle=bg;
+    if(el.classList.contains('hi-txt')){
+      ctx.beginPath();ctx.moveTo(x+15,y);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.lineTo(x+15,y+h);ctx.lineTo(x,y+h/2);ctx.closePath();ctx.fill();return;
+    }
+    const radius=Math.min(parseFloat(style.borderTopLeftRadius)||0,w/2,h/2);
+    ctx.beginPath();
+    if(radius)ctx.roundRect(x,y,w,h,radius);
+    else ctx.rect(x,y,w,h);
+    ctx.fill();
+  }
+  function paintBorder(style,rect){
+    const [x,y,w,h]=box(rect);
+    const kinds=[['borderTopWidth','borderTopColor',x,y,w,0],['borderBottomWidth','borderBottomColor',x,y+h,w,0],['borderLeftWidth','borderLeftColor',x,y,0,h],['borderRightWidth','borderRightColor',x+w,y,0,h]];
+    kinds.forEach(([wk,ck,x1,y1,dx,dy])=>{
+      const n=parseFloat(style[wk]); if(!n||n<.25)return;
+      let c=style[ck];if(c==='transparent'||c==='rgba(0, 0, 0, 0)')return;
+      ctx.beginPath();ctx.lineWidth=n;ctx.strokeStyle=c;ctx.moveTo(x1,y1);ctx.lineTo(x1+dx,y1+dy);ctx.stroke();
+    });
+  }
+  function paintText(t,parent){
+    const str=t.textContent||'';if(!str.trim())return;
+    let st=getComputedStyle(parent);const fs=parseFloat(st.fontSize);
+    if(!fs||st.color==='rgba(0, 0, 0, 0)')return;
+    ctx.font=`${st.fontStyle} ${st.fontWeight} ${st.fontSize} ${st.fontFamily}`;
+    ctx.fillStyle=st.color;
+    ctx.textBaseline='alphabetic';ctx.textAlign='left';
+    const r=document.createRange();
+    // Grapheme segmentation prevents splitting emoji/surrogate pairs.
+    let segs=typeof Intl.Segmenter==='function'
+      ? [...new Intl.Segmenter('zh',{granularity:'grapheme'}).segment(str)].map(v=>[v.segment,v.index])
+      : Array.from(str).map((v,i)=>[v,i]);
+    for(let i=0;i<segs.length;i++){
+      const [ch,j]=segs[i];if(!ch||/^\s+$/.test(ch))continue;
+      r.setStart(t,j);r.setEnd(t,j+ch.length);
+      const rr=r.getBoundingClientRect();if(rr.width===0||rr.height===0)continue;
+      let metrics=ctx.measureText(ch);
+      let ascent=metrics.actualBoundingBoxAscent||fs*.78;
+      let descent=metrics.actualBoundingBoxDescent||fs*.18;
+      let dy=(rr.height-(ascent+descent))/2+ascent;
+      ctx.fillText(ch,rr.left-base.left,rr.top-base.top+dy);
+    }
+    r.detach?.();
+  }
+
+async function paintNode(el){if(el.nodeType!==1)return;let st=getComputedStyle(el);if(st.display==='none'||st.visibility==='hidden')return;ctx.save();ctx.globalAlpha*=Number(st.opacity)||1;const rect=el.getBoundingClientRect();const [x,y,w,h]=box(rect);const radius=Math.min(parseFloat(st.borderTopLeftRadius)||0,w/2,h/2);if(st.boxShadow!=='none'&&el.classList.contains('image')){ctx.fillStyle=state.global.accent;ctx.fillRect(x-14,y+14,w,h)}paintBackground(el,st,rect);paintBorder(st,rect);if(st.overflow==='hidden'){ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip()}if(el.tagName==='IMG'){const nw=el.naturalWidth,nh=el.naturalHeight;let dx=x,dy=y,dw=w,dh=h;ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,radius);ctx.clip();if(st.objectFit==='contain'||st.objectFit==='cover'){const ratio=st.objectFit==='contain'?Math.min(w/nw,h/nh):Math.max(w/nw,h/nh);dw=nw*ratio;dh=nh*ratio;dx=x+(w-dw)/2;dy=y+(h-dh)/2}ctx.drawImage(el,dx,dy,dw,dh);ctx.restore()}else for(const child of el.childNodes){if(child.nodeType===3)paintText(child,el);else if(child.nodeType===1)await paintNode(child)}ctx.restore()}
+await paintNode(root);const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('无法生成图片')),'image/jpeg',.95));download(blob,page().name.replace(/[\\/:*?"<>|]/g,'_')+'.jpg');document.querySelector('#status').textContent='✓ JPG 已导出 · 1080 × 1440';}catch(err){alert('导出失败：'+err.message)}finally{off?.remove();button.disabled=false;button.textContent='导出 JPG'}}
 
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'&&!e.target.matches('input,textarea,[contenteditable]')){e.preventDefault();e.shiftKey?redo():undo()}});window.onresize=()=>{renderCanvas();fitPresetThumbnails()};render();
 </script></html>
